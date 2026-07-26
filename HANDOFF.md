@@ -27,6 +27,7 @@ src/data1.js    → TESTS_1 : Big Five (Mini-IPIP), Rosenberg, GAD-7, PHQ-9
 src/data2.js    → TESTS_2 : PSS-10, WHO-5, ECR-12, SD3 (triade sombre)
 src/data3.js    → TESTS_3 : ERQ, CBI, UCLA-3, Langages de l'amour (+ contenus transverses : URGENCES, METHODE) ; construit TESTS = concat(1,2,3)
 src/data4.js    → TESTS_4 : PPRS (réactivité perçue), CSI-4 (satisfaction couple), Conflits (IAI + exigence-retrait), GMSEX (satisfaction intime) ; réassigne TESTS = concat(1,2,3,4)
+src/data5.js    → TESTS_5 : versions longues en complément des courtes (Big Five IPIP-50, ECR-R 36 items, CSI-32, UCLA-20) + nouveaux thèmes (sommeil, auto-compassion, résilience, image corporelle) ; réassigne TESTS = TESTS.concat(TESTS_5)
 src/core.js     → moteur : Store (localStorage), scoring, gaugeSVG, lineChartSVG, sparkSVG, ecrMapSVG, deltaHTML
 src/views.js    → toutes les vues (accueil, intro test, passation, résultats, historique, tableau de bord, méthode), routeur, handlers
 src/tail.html   → fermeture </script></body></html>
@@ -35,12 +36,14 @@ src/tail.html   → fermeture </script></body></html>
 **Commande de build** (aucun outil requis, juste `cat`) :
 
 ```bash
-cd src && cat head.html data1.js data2.js data3.js data4.js core.js views.js tail.html > ../reperes.html
+cd src && cat head.html data1.js data2.js data3.js data4.js data5.js core.js views.js tail.html > ../index.html
 ```
+
+(ou directement `bash build.sh` depuis la racine du dépôt, qui fait exactement ça.)
 
 Toujours vérifier la syntaxe JS avant de reconstruire :
 ```bash
-cat data1.js data2.js data3.js data4.js core.js views.js > /tmp/all.js && node --check /tmp/all.js
+cat data1.js data2.js data3.js data4.js data5.js core.js views.js > /tmp/all.js && node --check /tmp/all.js
 ```
 
 ## Modèle de données d'un test
