@@ -140,7 +140,7 @@ Lancer (nécessite `npm install playwright` au préalable, jamais commité — v
 mkdir -p shots
 node test.js
 ```
-43 vérifications passent actuellement (`PASS`/`FAIL` dans stdout + `shots/*.png` pour inspection visuelle).
+48 vérifications passent actuellement (dont la confirmation avant de quitter une passation en cours) (`PASS`/`FAIL` dans stdout + `shots/*.png` pour inspection visuelle).
 
 **⚠️ WebKit non testé** faute de binaire WebKit dans les environnements utilisés jusqu'ici — à ajouter en complément de Chromium si disponible un jour, pour confirmer le rendu iOS.
 
@@ -150,7 +150,8 @@ node test.js
 - App renommée **Iris** (ex-Repères) — titre, en-tête, clé `localStorage` (`iris.v1`) et nom du fichier de sauvegarde exportée reflètent ce nom ; le mot commun « repères » reste utilisé tel quel dans les textes de scoring, ça n'a rien à voir avec le nom de l'app.
 - **Domaine personnalisé actif : `https://iris.rosely.fr/`** — GitHub Pages avec domaine personnalisé configuré (`CNAME` committé automatiquement par GitHub), DNS chez Cloudflare (zone `rosely.fr`, enregistrement `iris` en CNAME vers `pirosmusic.github.io`, **DNS only**, sans conflit avec les enregistrements mail existants du domaine). **Enforce HTTPS activé.**
 - `git push` fonctionne de façon autonome depuis ce dépôt local (`D:\Claude\Projects\Reperes_clone`) via `gh auth login` déjà configuré sur la machine de Fabien — pas de token à ressaisir.
-- L'ancienne URL `https://pirosmusic.github.io/reperes/` reste techniquement valide mais n'est plus l'adresse à communiquer.
+- L'ancienne URL `https://pirosmusic.github.io/reperes/` reste techniquement valide mais n'est plus l'adresse à communiquer (`<link rel="canonical">` pointe vers le domaine officiel).
+- **Fichiers statiques à la racine** (en plus de `index.html`) : `og-image.png` (aperçu de partage WhatsApp/réseaux, référencé par les balises `og:*`), `apple-touch-icon.png` (icône « ajouter à l'écran d'accueil » iOS), `manifest.webmanifest` (PWA). Ils ne violent pas la règle « zéro appel réseau » : ce sont des fichiers same-origin chargés uniquement par les crawlers de partage ou à l'installation, jamais par l'app en fonctionnement. Le favicon, lui, est un SVG inline en data-URI dans `head.html`.
 
 ## Prochaines pistes possibles (non demandées explicitement, à confirmer avec Fabien avant de coder)
 

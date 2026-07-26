@@ -38,15 +38,16 @@ var TESTS_3 = [
         { max: 7, label: "Usage fréquent", niveau: "ok", texte: "La réévaluation est un réflexe chez vous — un des meilleurs prédicteurs de stabilité émotionnelle. Vigilance : recadrer ne doit pas devenir nier (certaines situations méritent colère ou tristesse, et une action)." }
       ],
       amelioration: {
+        intro: "La réévaluation est une compétence qui s'entraîne comme un muscle : les exercices ci-dessous en sont les gammes.",
         axes: [
           { titre: "La question des trois lectures", texte: "Face à une contrariété, s'imposer d'écrire 3 interprétations différentes de la situation, dont une neutre et une charitable. Puis choisir la plus PLAUSIBLE (pas la plus rose). C'est l'exercice de base de la restructuration cognitive." },
           { titre: "Recadrage temporel", texte: "« Qu'est-ce que j'en penserai dans une semaine ? dans un an ? » — le zoom arrière temporel est une des formes de réévaluation les plus efficaces et les plus simples." },
-          { titre: "Distanciation linguistique", texte: "Se parler à la 2e ou 3e personne (« Fabien, qu'est-ce qui se joue là ? ») crée une distance psychologique mesurable (travaux d'Ethan Kross) et facilite le recadrage." }
+          { titre: "Distanciation linguistique", texte: "Se parler à la 2e ou 3e personne en vous appelant par votre prénom (« [Prénom], qu'est-ce qui se joue là ? ») crée une distance psychologique mesurable (travaux d'Ethan Kross) et facilite le recadrage." }
         ],
         objectif: "3 semaines d'exercice « trois lectures » sur chaque contrariété notable (1-2 par jour max), puis en réflexe mental sans écrire. Re-test à 6 semaines : viser un gain de 0,5 à 1 point.",
         ressources: [
           "Gross, J. J., & John, O. P. (2003). Individual differences in two emotion regulation processes. Journal of Personality and Social Psychology, 85(2), 348-362.",
-          "Kross, E. « Le monologue intérieur » (JC Lattès) — sur la distanciation.",
+          "Kross, E. « À l'écoute de ma voix » (trad. fr. de Chatter, Le Livre de Poche, 2022) — sur la distanciation.",
           "Christophe, V. et al. (2009). Adaptation française de l'ERQ. Revue Européenne de Psychologie Appliquée, 59(1)."
         ]
       }
@@ -60,6 +61,7 @@ var TESTS_3 = [
         { max: 7, label: "Élevée", niveau: "attention", texte: "Vous masquez systématiquement ce que vous ressentez. Coût documenté : les autres se sentent tenus à distance, le lien s'appauvrit, et l'émotion non exprimée continue de tourner à l'intérieur (la suppression ne DIMINUE pas l'émotion ressentie, elle en cache juste la surface)." }
       ],
       amelioration: {
+        intro: "L'objectif n'est pas de tout exprimer partout, mais de retrouver le choix : pouvoir montrer ce que vous ressentez quand le contexte s'y prête.",
         axes: [
           { titre: "Étiqueter avant tout", texte: "Mettre des mots précis sur l'émotion (« je suis déçu et un peu vexé », pas juste « ça va ») réduit son intensité (affect labeling, travaux de Lieberman). C'est l'étape zéro, faisable même sans rien montrer aux autres." },
           { titre: "Zones d'expression choisies", texte: "Inutile de tout dire à tout le monde : choisissez 1-2 personnes « sûres » avec qui pratiquer l'expression honnête (« la journée a été rude, je suis à cran »). L'objectif est la flexibilité : pouvoir choisir d'exprimer ou non." },
@@ -69,7 +71,7 @@ var TESTS_3 = [
         ressources: [
           "Gross, J. J. (2015). Emotion regulation: current status and future prospects. Psychological Inquiry, 26(1).",
           "Lieberman, M. D. et al. (2007). Putting feelings into words. Psychological Science, 18(5).",
-          "David, S. « L'agilité émotionnelle » (HarperCollins France) — vulgarisation sérieuse (Harvard) sur la flexibilité émotionnelle."
+          "David, S. « L'agilité émotionnelle » (J'ai Lu, 2018) — vulgarisation sérieuse (Harvard) sur la flexibilité émotionnelle."
         ]
       }
     }
@@ -102,7 +104,7 @@ var TESTS_3 = [
     { t: "Vous sentez-vous vidé(e) ?", d: "F" },
     { t: "Vous sentez-vous affaibli(e) et vulnérable aux maladies ?", d: "F" }
   ],
-  scoringNote: "Moyenne des 6 items sur une échelle 0-100. Convention CBI : ≥ 50 = épuisement notable ; ≥ 75 = épuisement sévère.",
+  scoringNote: "Moyenne des 6 items sur une échelle 0-100. Convention d'usage (l'article d'origine ne fixe pas de seuils officiels) : ≥ 50 = épuisement notable ; ≥ 75 = élevé à sévère.",
   dims: {
     F: {
       nom: "Épuisement personnel", format: "moyenne", min: 0, max: 100, valence: false,
@@ -111,7 +113,7 @@ var TESTS_3 = [
         { max: 24, label: "Énergie préservée", niveau: "ok", texte: "Fatigue faible. Continuez à protéger ce qui vous régénère : sommeil, coupures réelles, activité physique." },
         { max: 49, label: "Fatigue notable", niveau: "attention", texte: "Fatigue régulière mais pas encore installée. C'est LE bon moment pour agir : à ce stade, récupération et réglages de charge suffisent souvent. Re-testez toutes les 2-3 semaines pour surveiller la pente." },
         { max: 74, label: "Épuisement élevé", niveau: "alerte", texte: "Épuisement au-dessus du seuil notable (≥ 50). Prenez-le au sérieux : identifiez la source principale (travail ? charge familiale ? santé ? sommeil ?) et si c'est professionnel, sachez que le médecin du travail peut être saisi à votre initiative, confidentiellement. Faites aussi le PHQ-9 : épuisement et dépression se recouvrent en partie." },
-        { max: 100, label: "Épuisement sévère", niveau: "alerte", texte: "Niveau d'épuisement majeur. Consultez votre médecin traitant rapidement — pour objectiver (bilan), protéger (arrêt si nécessaire) et traiter. Le burnout sévère ne se « volonté » pas : il se soigne avec du repos réel, un accompagnement, et un changement des conditions qui l'ont produit." }
+        { max: 100, label: "Épuisement très élevé", niveau: "alerte", texte: "Niveau d'épuisement majeur. Consultez votre médecin traitant rapidement — pour objectiver (bilan), protéger (arrêt si nécessaire) et traiter. Le burnout sévère ne se règle pas à la volonté : il se soigne avec du repos réel, un accompagnement, et un changement des conditions qui l'ont produit." }
       ],
       amelioration: {
         intro: "La récupération d'un épuisement suit toujours le même ordre : d'abord restaurer (sommeil, coupure), ensuite comprendre (qu'est-ce qui épuise ?), enfin renégocier (charge, limites, sens).",
@@ -126,7 +128,7 @@ var TESTS_3 = [
           "Kristensen, T. S., Borritz, M., Villadsen, E., & Christensen, K. B. (2005). The Copenhagen Burnout Inventory. Work & Stress, 19(3), 192-207.",
           "HAS (2017). Repérage et prise en charge cliniques du syndrome d'épuisement professionnel (has-sante.fr).",
           "INRS — dossier « Épuisement professionnel » (inrs.fr).",
-          "Sonnentag, S., & Fritz, C. (2015). Recovery from job stress. Journal of Organizational Behavior, 36."
+          "Sonnentag, S., & Fritz, C. (2015). Recovery from job stress: The stressor-detachment model as an integrative framework. Journal of Organizational Behavior, 36(S1), S72-S103."
         ],
         consulter: "Score ≥ 50 durable, ou ≥ 75, ou signes associés (troubles du sommeil, cynisme envers le travail, erreurs inhabituelles, idées noires) : médecin traitant et/ou médecin du travail."
       }
@@ -148,7 +150,7 @@ var TESTS_3 = [
   sigle: "UCLA-3 · 3 items",
   cat: "Relations",
   duree: "30 s",
-  intro: "La version à 3 items de l'échelle de solitude UCLA (Hughes et al., 2004) est l'outil standard des grandes enquêtes internationales. La solitude RESSENTIE (être mal accompagné, même entouré) est distincte de l'isolement objectif — et c'est elle qui pèse sur la santé.",
+  intro: "La version à 3 items de l'échelle de solitude UCLA (Hughes et al., 2004) est l'outil standard des grandes enquêtes internationales. La solitude RESSENTIE (être mal accompagné, même entouré) est distincte de l'isolement objectif — et c'est elle qui pèse sur la santé. Une version complète (UCLA-20) est disponible plus bas dans la liste pour une mesure plus fine.",
   consigne: "En général, à quelle fréquence…",
   echelle: { labels: ["Presque jamais", "Parfois", "Souvent"], valeurs: [1, 2, 3] },
   items: [
@@ -163,14 +165,15 @@ var TESTS_3 = [
       descriptif: "Écart ressenti entre les relations que vous avez et celles dont vous auriez besoin. La solitude chronique est un facteur de risque sanitaire sérieux et documenté — et elle se combat efficacement.",
       bandes: [
         { max: 5, label: "Solitude faible", niveau: "ok", texte: "Votre vie relationnelle couvre l'essentiel de vos besoins. Les moments de solitude ponctuels sont normaux — et la solitude choisie peut être précieuse." },
-        { max: 9, label: "Solitude marquée", niveau: "alerte", texte: "Le sentiment d'être seul(e) ou à l'écart pèse sur votre quotidien. Deux choses à savoir : c'est très répandu (ce n'est pas une anomalie honteuse), et ça se traite — pas en « rencontrant plus de monde » au hasard, mais en construisant de la régularité et de la profondeur (axes ci-dessous)." }
+        { max: 7, label: "Solitude marquée", niveau: "attention", texte: "Le sentiment d'être seul(e) ou à l'écart se fait sentir régulièrement. Deux choses à savoir : c'est très répandu (ce n'est pas une anomalie honteuse), et c'est le bon moment pour agir — pas en « rencontrant plus de monde » au hasard, mais en construisant de la régularité et de la profondeur (axes ci-dessous)." },
+        { max: 9, label: "Solitude importante", niveau: "alerte", texte: "Le sentiment d'être seul(e) ou à l'écart pèse fortement sur votre quotidien. Prenez-le au sérieux : la solitude chronique à ce niveau est un facteur de risque documenté pour la santé physique et mentale — et elle se traite, pas en « rencontrant plus de monde » au hasard, mais en construisant de la régularité et de la profondeur (axes ci-dessous)." }
       ],
       amelioration: {
         intro: "La recherche (méta-analyses sur les interventions contre la solitude) montre que le levier le plus efficace n'est pas de multiplier les contacts, mais de changer ce qu'on attend et perçoit des autres, et d'installer des liens RÉGULIERS.",
         axes: [
           { titre: "Régularité avant quantité", texte: "Les liens se créent par exposition répétée dans la durée : activité HEBDOMADAIRE fixe avec les mêmes personnes (club sportif, chorale, association, cours). Un an de mardis soirs bat cent soirées ponctuelles." },
           { titre: "Raviver les liens dormants", texte: "Recontacter d'anciens amis est étonnamment efficace et bien accueilli (la recherche montre qu'on sous-estime systématiquement le plaisir que notre message fera). Un message concret : « j'ai repensé à toi, on se fait un café ? »" },
-          { titre: "Corriger la lecture anxieuse", texte: "La solitude chronique biaise la perception (« je vais déranger », « ils ne m'apprécient pas vraiment ») et pousse au retrait qui aggrave la solitude. C'est le cercle que les TCC ciblent en priorité — et la partie la plus efficace des interventions." },
+          { titre: "Corriger la lecture anxieuse", texte: "La solitude chronique biaise la perception (« je vais déranger », « ils ne m'apprécient pas vraiment ») et pousse au retrait qui aggrave la solitude. C'est le cercle que les TCC ciblent en priorité." },
           { titre: "Donner pour se relier", texte: "Le bénévolat régulier crée du lien avec un prétexte intégré (on fait ensemble, pas face à face) : francebenevolat.org ou jeveuxaider.gouv.fr pour trouver une mission près de chez vous." }
         ],
         objectif: "8 semaines : une activité collective régulière + un lien dormant ravivé + un contact réel par jour. Re-testez ensuite ; visez le passage sous 6, puis vers 3-4. Si l'anxiété sociale bloque le premier pas, c'est elle qu'il faut traiter d'abord (TCC — très efficace).",
@@ -179,7 +182,8 @@ var TESTS_3 = [
           "Masi, C. M. et al. (2011). A meta-analysis of interventions to reduce loneliness. Personality and Social Psychology Review, 15(3).",
           "Fondation de France — baromètre des solitudes (données françaises).",
           "jeveuxaider.gouv.fr — plateforme publique du bénévolat."
-        ]
+        ],
+        consulter: "Si le retrait s'accompagne d'une humeur durablement basse (faites le test d'humeur PHQ-9) ou dure depuis des mois, parlez-en à votre médecin traitant."
       }
     }
   },
@@ -261,7 +265,7 @@ var TESTS_3 = [
       amelioration: {
         axes: [
           { titre: "Ritualiser plutôt qu'espérer", texte: "Un créneau récurrent protégé (marche du dimanche, dîner sans téléphone) vaut mieux que d'attendre du temps « spontané » qui ne vient jamais dans des vies chargées." },
-          { titre: "Qualité = attention, pas durée", texte: "15 minutes de conversation avec attention complète comptent plus qu'une soirée côte à côte sur deux écrans. Le mécanisme sérieux derrière : la réactivité perçue — l'autre remarque, comprend et répond à ce que je vis." },
+          { titre: "Qualité = attention, pas durée", texte: "15 minutes de conversation avec attention complète comptent plus qu'une soirée côte à côte sur deux écrans. Le mécanisme réellement documenté derrière ce canal : la réactivité perçue — l'autre remarque, comprend et répond à ce que je vis." },
           { titre: "Distinguer présence et coprésence", texte: "Être physiquement dans la même pièce sans attention réelle (chacun sur son écran) ne nourrit pas ce canal — c'est l'attention portée à l'autre, pas la simple coprésence, qui compte pour vous." }
         ],
         objectif: "Un rituel hebdomadaire protégé pendant un mois, téléphones ailleurs. Puis demandez-vous à deux : qu'est-ce que ça a changé ?",
@@ -308,7 +312,8 @@ var TESTS_3 = [
         ],
         objectif: "Même protocole que les autres canaux : hiérarchies échangées, une attention par semaine dans le canal de l'autre pendant un mois, bilan à deux.",
         ressources: [
-          "Impett, E. A., Park, H. G., & Muise, A. (2024). Current Directions in Psychological Science, 33(2)."
+          "Impett, E. A., Park, H. G., & Muise, A. (2024). Current Directions in Psychological Science, 33(2).",
+          "Galak, J., Givi, J., & Williams, E. F. (2016). Why certain gifts are great to give but not to get. Current Directions in Psychological Science, 25(6), 380-385."
         ]
       }
     },
@@ -340,7 +345,7 @@ var TESTS_3 = [
     refs: [
       "Chapman, G. (1992). The Five Love Languages. Northfield Publishing (trad. fr. « Les langages de l'amour », Farel/Leduc).",
       "Impett, E. A., Park, H. G., & Muise, A. (2024). Popular psychology through a scientific lens: Evaluating love languages and the case for perceived partner responsiveness. Current Directions in Psychological Science, 33(2), 87-92.",
-      "Bunt, S., & Hazelwood, Z. J. (2017). Walking the walk, talking the talk: Love languages, self-regulation, and relationship satisfaction."
+      "Bunt, S., & Hazelwood, Z. J. (2017). Walking the walk, talking the talk: Love languages, self-regulation, and relationship satisfaction. Journal of Social and Personal Relationships, 34(2), 280-297."
     ]
   }
 }
@@ -357,18 +362,21 @@ var URGENCES = {
     { nom: "3114", detail: "Numéro national de prévention du suicide — gratuit, 24h/24, 7j/7 (3114.fr)" },
     { nom: "15", detail: "SAMU, en cas d'urgence vitale" },
     { nom: "SOS Amitié", detail: "09 72 39 40 50 — écoute 24h/24" },
-    { nom: "Votre médecin traitant", detail: "Première ligne pour toute souffrance psychique ; « Mon soutien psy » permet des séances de psychologue remboursées" }
+    { nom: "3919", detail: "Violences Femmes Info — violences conjugales et familiales, gratuit, anonyme, 24h/24 (n'apparaît pas sur les factures ; ouvert aussi aux hommes victimes et aux proches)" },
+    { nom: "116 006", detail: "France Victimes — aide aux victimes, 7j/7" },
+    { nom: "Votre médecin traitant", detail: "Première ligne pour toute souffrance psychique" },
+    { nom: "« Mon soutien psy »", detail: "Jusqu'à 12 séances de psychologue par an prises en charge, accès direct sans ordonnance (monsoutienpsy.ameli.fr)" }
   ]
 };
 
 var METHODE = {
-  intro: "Cette application a été construite en réaction aux « tests psychologiques » qui pullulent sur les réseaux sociaux. Elle n'utilise QUE des instruments publiés dans des revues scientifiques à comité de lecture, libres de droits, avec leurs règles de calcul et leurs seuils d'origine.",
+  intro: "Cette application a été construite en réaction aux « tests psychologiques » qui pullulent sur les réseaux sociaux. Elle n'utilise que des instruments issus de la recherche publiée, avec leurs règles de calcul et leurs seuils d'origine — à deux exceptions près, explicitement étiquetées dans l'app : le profil « Langages de l'amour » (concept populaire non validé scientifiquement, inclus comme support de dialogue) et l'ISI (instrument protégé par le droit d'auteur, utilisé ici dans un cadre strictement personnel et non commercial).",
   sections: [
     {
-      t: "Pourquoi les quizz des réseaux sociaux sont du vent",
+      t: "Pourquoi les quiz des réseaux sociaux sont du vent",
       p: [
-        "Aucune validation : un test sérieux doit démontrer sa fidélité (mesure stable) et sa validité (mesure bien ce qu'il prétend), sur des échantillons documentés, dans des publications vérifiables. Les quizz publicitaires (« Narcissism Test », « quel est votre trauma pattern ») n'ont rien de tout cela — ce sont des tunnels marketing conçus pour vendre un abonnement.",
-        "L'effet Barnum : depuis l'expérience de Forer (1949), on sait que des descriptions vagues et flatteuses (« vous avez un grand potentiel inexploité… ») sont perçues comme étonnamment justes par presque tout le monde. C'est le moteur des horoscopes comme de ces quizz.",
+        "Aucune validation : un test sérieux doit démontrer sa fidélité (mesure stable) et sa validité (mesure bien ce qu'il prétend), sur des échantillons documentés, dans des publications vérifiables. Les quiz publicitaires (« Narcissism Test », « quel est votre trauma pattern ») n'ont rien de tout cela — ce sont des tunnels marketing conçus pour vendre un abonnement.",
+        "L'effet Barnum : depuis l'expérience de Forer (1949), on sait que des descriptions vagues et flatteuses (« vous avez un grand potentiel inexploité… ») sont perçues comme étonnamment justes par presque tout le monde. C'est le moteur des horoscopes comme de ces quiz.",
         "Des concepts déformés : « fight/flight/freeze/fawn » comme typologie de personnalité, « 98 % narcissique toxique »… Ces contenus recyclent du vocabulaire clinique hors de tout cadre scientifique. Le concept de « fawn response », par exemple, vient d'un livre grand public et n'est pas un construit validé de la littérature — contrairement à l'attachement adulte, mesuré ici avec l'ECR.",
         "Le danger réel : s'auto-étiqueter (« je suis un empath victime d'un narcissique ») fige des situations complexes, culpabilise, et retarde parfois une vraie prise en charge."
       ]
@@ -391,7 +399,9 @@ var METHODE = {
     {
       t: "Vie privée",
       p: [
-        "Vos réponses ne quittent jamais votre appareil : aucune connexion, aucun compte, aucune donnée transmise. Pensez à exporter régulièrement une sauvegarde (menu Historique) si vous tenez à vos données."
+        "Vos réponses ne quittent jamais votre appareil : aucune connexion, aucun compte, aucune donnée transmise à qui que ce soit, aucun cookie tiers, aucun outil de mesure d'audience. Tout est stocké localement, dans votre navigateur, et n'est lisible que depuis celui-ci.",
+        "La contrepartie pratique de ce choix : vos données sont propres à chaque appareil (le téléphone et l'ordinateur ne partagent rien), et elles disparaissent si vous effacez les données de navigation ou si vous utilisez la navigation privée. Pensez donc à exporter régulièrement une sauvegarde (menu Historique) si vous tenez à votre historique — c'est le seul filet de sécurité.",
+        "Ce n'est pas une promesse à croire sur parole : cette page est un fichier statique qui n'effectue aucun appel réseau après son chargement. Vous pouvez le vérifier vous-même dans les outils de développement de votre navigateur (onglet « Réseau »)."
       ]
     }
   ],

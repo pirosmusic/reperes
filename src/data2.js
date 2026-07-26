@@ -3,7 +3,7 @@
    Attachement (ECR-12), Triade sombre (SD3)
    ============================================================ */
 
-var ECH_ACCORD7 = { labels: ["Fortement en désaccord", "En désaccord", "Plutôt en désaccord", "Neutre / partagé(e)", "Plutôt en accord", "En accord", "Fortement en accord"], valeurs: [1, 2, 3, 4, 5, 6, 7] };
+var ECH_ACCORD7 = { labels: ["Pas du tout d'accord", "Pas d'accord", "Plutôt pas d'accord", "Ni d'accord ni en désaccord", "Plutôt d'accord", "D'accord", "Tout à fait d'accord"], valeurs: [1, 2, 3, 4, 5, 6, 7] };
 
 var TESTS_2 = [
 
@@ -64,6 +64,7 @@ var TESTS_2 = [
     statut: "Utilisation libre pour usage non commercial (S. Cohen). Version française validée.",
     refs: [
       "Cohen, S., Kamarck, T., & Mermelstein, R. (1983). A global measure of perceived stress. Journal of Health and Social Behavior, 24, 385-396.",
+      "Bellinghausen, L., et al. (2009). Validation factorielle de l'échelle française de stress perçu en milieu professionnel. Santé Publique, 21(4), 365-373.",
       "Lesage, F.-X., Berjot, S., & Deschamps, F. (2012). Psychometric properties of the French versions of the Perceived Stress Scale. International Journal of Occupational Medicine and Environmental Health, 25(2)."
     ]
   }
@@ -76,24 +77,24 @@ var TESTS_2 = [
   sigle: "WHO-5 (OMS) · 5 items",
   cat: "Stress & énergie",
   duree: "1 min",
-  intro: "L'indice de bien-être de l'Organisation Mondiale de la Santé (WHO-5, 1998) : 5 questions, un score sur 100. C'est l'un des questionnaires les plus utilisés au monde (plus de 5000 études, revue : Topp et al., 2015), libre d'utilisation. Idéal pour un suivi régulier, comme un « thermomètre » du moral.",
+  intro: "L'indice de bien-être de l'Organisation Mondiale de la Santé (WHO-5, 1998) : 5 questions, un score sur 100. C'est l'un des questionnaires de bien-être les plus utilisés au monde (revue systématique : Topp et al., 2015), libre d'utilisation. Idéal pour un suivi régulier, comme un « thermomètre » du moral.",
   consigne: "Au cours des DEUX DERNIÈRES SEMAINES…",
   echelle: { labels: ["Jamais", "De temps en temps", "Moins de la moitié du temps", "Plus de la moitié du temps", "La plupart du temps", "Tout le temps"], valeurs: [0, 1, 2, 3, 4, 5] },
   items: [
     { t: "…je me suis senti(e) bien et de bonne humeur", d: "B" },
     { t: "…je me suis senti(e) calme et tranquille", d: "B" },
     { t: "…je me suis senti(e) plein(e) d'énergie et vigoureux(se)", d: "B" },
-    { t: "…je me suis réveillé(e) en me sentant frais(fraîche) et dispos(e)", d: "B" },
+    { t: "…je me suis réveillé(e) en me sentant frais (fraîche) et dispos(e)", d: "B" },
     { t: "…ma vie quotidienne a été remplie de choses intéressantes", d: "B" }
   ],
-  scoringNote: "Somme des 5 items (0-25) multipliée par 4 → score de 0 à 100. Repère OMS : un score ≤ 50 signale un bien-être dégradé ; ≤ 28, un risque dépressif justifiant un repérage (Topp et al., 2015).",
+  scoringNote: "Somme des 5 items (0-25) multipliée par 4 → score de 0 à 100. Repère OMS : un score ≤ 50 justifie un repérage de la dépression (passez le PHQ-9) ; ≤ 28 évoque une dépression probable (Topp et al., 2015).",
   dims: {
     B: {
       nom: "Bien-être subjectif (2 dernières semaines)", format: "pct25", min: 0, max: 100, valence: true,
       descriptif: "Le WHO-5 mesure le versant POSITIF du moral : humeur, calme, énergie, récupération, intérêt. Sa force : détecter tôt une dégradation, avant les symptômes.",
       bandes: [
-        { max: 28, label: "Bien-être très dégradé", niveau: "alerte", texte: "Score dans la zone où l'OMS recommande un repérage de la dépression. Faites le test PHQ-9 de cette app et parlez-en à votre médecin traitant. Ce niveau d'épuisement du moral n'est pas un état à endurer : il se prend en charge." },
-        { max: 50, label: "Bien-être dégradé", niveau: "attention", texte: "Moral, énergie ou intérêt en berne sur la quinzaine. Signal à prendre au sérieux sans dramatiser : regardez ce qui s'est dégradé (sommeil ? charge ? isolement ?) et appliquez les axes ci-dessous. Re-testez dans 2 semaines." },
+        { max: 28, label: "Bien-être très dégradé", niveau: "alerte", texte: "Score dans la zone évoquant une dépression probable (Topp et al., 2015). Faites le test PHQ-9 de cette app et parlez-en à votre médecin traitant. Ce niveau d'épuisement du moral n'est pas un état à endurer : il se prend en charge." },
+        { max: 50, label: "Bien-être dégradé", niveau: "attention", texte: "Moral, énergie ou intérêt en berne sur la quinzaine. C'est le seuil de repérage de la dépression retenu par la littérature : passez le PHQ-9 de cette app pour préciser. Regardez aussi ce qui s'est dégradé (sommeil ? charge ? isolement ?) et appliquez les axes ci-dessous. Re-testez dans 2 semaines." },
         { max: 75, label: "Bien-être correct", niveau: "ok", texte: "Niveau de bien-être dans la moyenne. Les axes ci-dessous restent utiles pour consolider — le bien-être s'entretient comme une condition physique." },
         { max: 100, label: "Bien-être élevé", niveau: "ok", texte: "Excellent niveau d'humeur, d'énergie et d'intérêt. Notez ce qui le nourrit en ce moment : c'est votre meilleure assurance pour les périodes plus rudes." }
       ],
@@ -112,7 +113,8 @@ var TESTS_2 = [
           "Waldinger, R. & Schulz, M. « Une vie heureuse » (Les Arènes) — par les directeurs de l'étude de Harvard.",
           "INSERM (2019). Activité physique : prévention et traitement des maladies chroniques.",
           "Psycom.org — rubrique « prendre soin de sa santé mentale »."
-        ]
+        ],
+        consulter: "Bien-être ≤ 28, ou ≤ 50 persistant sur plusieurs mesures : parlez-en à votre médecin traitant ; passez aussi le test d'humeur (PHQ-9)."
       }
     }
   },
@@ -135,7 +137,7 @@ var TESTS_2 = [
   duree: "3 min",
   radar: false,
   special: "ecr",
-  intro: "Voici la version SÉRIEUSE des quizz « trauma patterns » : la théorie de l'attachement adulte, un des domaines les plus solides de la psychologie relationnelle (Bowlby, Ainsworth, puis Brennan et al., 1998). Deux dimensions continues — anxiété d'abandon et évitement de l'intimité — décrivent votre manière d'être en couple. Si vous n'êtes pas en couple, répondez d'après vos relations importantes passées.",
+  intro: "Voici la version SÉRIEUSE des quiz « trauma patterns » : la théorie de l'attachement adulte, un des domaines les plus solides de la psychologie relationnelle (Bowlby, Ainsworth, puis Brennan et al., 1998). Deux dimensions continues — anxiété d'abandon et évitement de l'intimité — décrivent votre manière d'être en couple. Si vous n'êtes pas en couple, répondez d'après vos relations importantes passées.",
   consigne: "Indiquez votre degré d'accord avec chaque affirmation concernant ce que vous vivez généralement dans vos relations de couple.",
   echelle: ECH_ACCORD7,
   items: [
@@ -152,7 +154,7 @@ var TESTS_2 = [
     { t: "Cela m'aide de me tourner vers mon/ma partenaire dans les moments difficiles", d: "EVIT", r: true },
     { t: "Je me tourne vers mon/ma partenaire pour beaucoup de choses, notamment pour être réconforté(e) et rassuré(e)", d: "EVIT", r: true }
   ],
-  scoringNote: "Moyenne de 1 à 7 sur chaque dimension (items inversés recodés). Il n'y a pas de « cases » : les styles (sécure, préoccupé, détaché, craintif) sont des repères de lecture aux croisements des deux dimensions, la réalité est continue. Repère indicatif : au-dessus de 4 = dimension marquée.",
+  scoringNote: "Moyenne de 1 à 7 sur chaque dimension (items inversés recodés). Il n'y a pas de « cases » : les styles (sécure, préoccupé, détaché, craintif) sont des repères de lecture aux croisements des deux dimensions, la réalité est continue. Repère indicatif : au-dessus de 4 = dimension marquée. Dans les échantillons publiés, les moyennes tournent autour de 3-3,5 en anxiété et 2,5-3 en évitement ; le repère 4 est un point milieu pragmatique, pas un seuil clinique.",
   dims: {
     ANX: {
       nom: "Anxiété d'abandon", format: "moyenne", min: 1, max: 7, valence: false,
@@ -174,8 +176,10 @@ var TESTS_2 = [
           "Mikulincer, M., & Shaver, P. R. (2016). Attachment in Adulthood (2e éd.) — la somme scientifique de référence.",
           "Johnson, S. « Serre-moi fort » (édition française) — application de la théorie de l'attachement au couple (EFT).",
           "Guédeney, N. & A. « L'attachement : approche théorique et clinique » (Elsevier Masson) — référence francophone.",
-          "Brennan, K. A., Clark, C. L., & Shaver, P. R. (1998). Self-report measurement of adult attachment: An integrative overview. In J. A. Simpson & W. S. Rholes (Eds.), Attachment Theory and Close Relationships (pp. 46-76). Guilford Press."
-        ]
+          "Brennan, K. A., Clark, C. L., & Shaver, P. R. (1998). Self-report measurement of adult attachment: An integrative overview. In J. A. Simpson & W. S. Rholes (Eds.), Attachment Theory and Close Relationships (pp. 46-76). Guilford Press.",
+          "Fraley, R. C. — yourpersonality.net : ressources scientifiques sur l'attachement adulte."
+        ],
+        consulter: "Si les relations restent une source majeure de souffrance ou de schémas répétitifs : une thérapie individuelle ou de couple (EFT, TCC) est le cadre le plus efficace pour travailler l'attachement."
       }
     },
     EVIT: {
@@ -186,6 +190,7 @@ var TESTS_2 = [
         { max: 7, label: "Marqué", niveau: "attention", texte: "Se confier, dépendre de quelqu'un ou laisser l'autre s'approcher vous coûte. Souvent une stratégie apprise là où la vulnérabilité était risquée ou inutile. Modifiable — à condition d'y aller progressivement, comme une exposition." }
       ],
       amelioration: {
+        intro: "L'évitement se travaille comme une exposition : par petits pas répétés, pas en forçant l'intimité d'un coup.",
         axes: [
           { titre: "Auto-dévoilement gradué", texte: "L'intimité se construit par paliers de dévoilement réciproque (mécanisme le mieux documenté de la formation des liens). Commencez petit : partager UNE difficulté réelle par semaine avec une personne de confiance, sans minimiser." },
           { titre: "Repérer la désactivation", texte: "L'évitement opère par « désactivation » : focalisation sur les défauts de l'autre, nostalgie d'ex idéalisés, fuite dans le travail quand la relation s'approfondit. Nommer ces manœuvres au moment où elles surviennent leur enlève une grande partie de leur pouvoir." },
@@ -197,7 +202,8 @@ var TESTS_2 = [
           "Mikulincer, M., & Shaver, P. R. (2016). Attachment in Adulthood (2e éd.).",
           "Johnson, S. « Serre-moi fort » — exercices de conversation à deux, utilisables sans thérapeute.",
           "Lafontaine, M.-F. et al. (2016). Selecting the best items for a short-form ECR. European Journal of Psychological Assessment, 32(2)."
-        ]
+        ],
+        consulter: "Si les relations restent une source majeure de souffrance ou de schémas répétitifs : une thérapie individuelle ou de couple (EFT, TCC) est le cadre le plus efficace pour travailler l'attachement."
       }
     }
   },
@@ -207,7 +213,7 @@ var TESTS_2 = [
     refs: [
       "Brennan, K. A., Clark, C. L., & Shaver, P. R. (1998). Self-report measurement of adult attachment: An integrative overview. In J. A. Simpson & W. S. Rholes (Eds.), Attachment Theory and Close Relationships (pp. 46-76). Guilford Press.",
       "Lafontaine, M.-F., Brassard, A., Lussier, Y., Valois, P., Shaver, P. R., & Johnson, S. M. (2016). Selecting the best items for a short-form ECR. European Journal of Psychological Assessment, 32(2), 140-154.",
-      "Fraley, R. C. — yourpersonality.net : ressources scientifiques sur l'attachement adulte."
+      "Fraley, R. C., Waller, N. G., & Brennan, K. A. (2000). An item response theory analysis of self-report measures of adult attachment. Journal of Personality and Social Psychology, 78(2), 350-365."
     ]
   }
 },
@@ -221,7 +227,7 @@ var TESTS_2 = [
   duree: "5 min",
   radar: true,
   avertissement: "Contrairement aux « tests de narcissisme » des réseaux sociaux, cet instrument mesure des TRAITS présents chez tout le monde à des degrés divers. Un score élevé ne signifie en aucun cas un trouble de la personnalité — seul un clinicien peut évaluer cela, en entretien.",
-  intro: "Le Short Dark Triad (Jones & Paulhus, 2014) mesure trois traits de personnalité dits « sombres » : machiavélisme (stratégie, cynisme), narcissisme (grandiosité, besoin d'admiration) et psychopathie subclinique (impulsivité, insensibilité). C'est l'instrument court de référence de la recherche — la réponse sérieuse aux quizz « êtes-vous un narcissique toxique à 98 % ».",
+  intro: "Le Short Dark Triad (Jones & Paulhus, 2014) mesure trois traits de personnalité dits « sombres » : machiavélisme (stratégie, cynisme), narcissisme (grandiosité, besoin d'admiration) et psychopathie subclinique (impulsivité, insensibilité). C'est l'instrument court de référence de la recherche — la réponse sérieuse aux quiz « êtes-vous un narcissique toxique à 98 % ».",
   consigne: "Indiquez votre degré d'accord avec chaque affirmation. Répondez spontanément et honnêtement — personne d'autre que vous ne voit ces réponses.",
   echelle: ECH_ACCORD5,
   items: [
@@ -250,7 +256,7 @@ var TESTS_2 = [
     { t: "C'est vrai que je peux être dur(e) et méchant(e) avec les autres", d: "PS" },
     { t: "Ceux qui s'en prennent à moi le regrettent toujours", d: "PS" },
     { t: "Je n'ai jamais eu d'ennuis avec la justice", d: "PS", r: true },
-    { t: "J'aime les aventures intimes sans lendemain avec des personnes que je connais à peine", d: "PS" },
+    { t: "J'aime avoir des relations sexuelles avec des personnes que je connais à peine", d: "PS" },
     { t: "Je suis prêt(e) à dire n'importe quoi pour obtenir ce que je veux", d: "PS" }
   ],
   scoringNote: "Moyenne de 1 à 5 par sous-échelle (9 items chacune, items inversés recodés). Repères issus des échantillons de recherche (Jones & Paulhus, 2014, moyennes approximatives) : machiavélisme ≈ 3,1 · narcissisme ≈ 2,8 · psychopathie ≈ 2,1. Ce sont des repères de comparaison, pas des seuils cliniques.",
@@ -272,8 +278,9 @@ var TESTS_2 = [
         ],
         objectif: "Pas de score cible : l'objectif est un choix éclairé. Si le fonctionnement stratégique nuit à vos relations ou vous isole, un travail psychothérapeutique sur la confiance est la voie efficace.",
         ressources: [
-          "Jones, D. N., & Paulhus, D. L. (2014). Introducing the Short Dark Triad (SD3). Assessment, 21(1), 28-41.",
-          "Axelrod, R. « Donnant donnant : théorie du comportement coopératif » (Odile Jacob) — pourquoi la coopération gagne."
+          "Jones, D. N., & Paulhus, D. L. (2014). Introducing the Short Dark Triad (SD3): A brief measure of dark personality traits. Assessment, 21(1), 28-41.",
+          "Axelrod, R. « Donnant donnant : théorie du comportement coopératif » (Odile Jacob) — pourquoi la coopération gagne.",
+          "Paulhus, D. L., & Williams, K. M. (2002). The Dark Triad of personality. Journal of Research in Personality, 36(6), 556-563."
         ]
       }
     },
@@ -295,7 +302,7 @@ var TESTS_2 = [
         ],
         objectif: "Sur 6 semaines : 1 demande de feedback critique par semaine + pratique d'empathie quotidienne. L'indicateur de réussite n'est pas le score, mais ce que disent vos proches de la relation.",
         ressources: [
-          "Jones, D. N., & Paulhus, D. L. (2014). Assessment, 21(1), 28-41.",
+          "Jones, D. N., & Paulhus, D. L. (2014). Introducing the Short Dark Triad (SD3): A brief measure of dark personality traits. Assessment, 21(1), 28-41.",
           "Campbell, W. K., & Miller, J. D. (2011). The Handbook of Narcissism and Narcissistic Personality Disorder — l'état de la science.",
           "Sur le vrai trouble narcissique : seul un entretien clinique est valide — psychiatre ou psychologue clinicien."
         ]
@@ -310,6 +317,7 @@ var TESTS_2 = [
         { max: 5, label: "Élevé", niveau: "attention", texte: "Impulsivité et dureté relationnelles marquées. Les coûts documentés : conflits à répétition, décisions regrettées, prises de risque. Si vos colères ou impulsions vous ont déjà causé de vrais ennuis (travail, couple, justice), c'est un motif de consultation utile — la gestion de l'impulsivité se travaille (TCC, entraînement à la gestion de la colère)." }
       ],
       amelioration: {
+        intro: "L'enjeu n'est pas de changer de tempérament, mais de reprendre la main sur le délai entre impulsion et action.",
         axes: [
           { titre: "Allonger le délai entre impulsion et action", texte: "Règle des 24 h pour tout message ou décision sous colère ; sortir physiquement de la situation quand la tension monte. L'impulsivité se joue dans les secondes — gagnez-en." },
           { titre: "Gestion de la colère structurée", texte: "Les protocoles TCC de gestion de la colère (repérage des déclencheurs, restructuration, techniques d'apaisement corporel) ont un bon niveau de preuve. En groupe ou en individuel." },
@@ -317,9 +325,11 @@ var TESTS_2 = [
         ],
         objectif: "Indicateur concret : zéro décision importante prise à chaud pendant 8 semaines. Si l'impulsivité ou la froideur émotionnelle pèsent sur votre vie, consultez — ces dimensions répondent au travail thérapeutique, contrairement au cliché.",
         ressources: [
-          "Jones, D. N., & Paulhus, D. L. (2014). Assessment, 21(1), 28-41.",
-          "AFTCC (aftcc.org) — thérapeutes formés à la gestion de la colère et de l'impulsivité."
-        ]
+          "Jones, D. N., & Paulhus, D. L. (2014). Introducing the Short Dark Triad (SD3): A brief measure of dark personality traits. Assessment, 21(1), 28-41.",
+          "AFTCC (aftcc.org) — thérapeutes formés à la gestion de la colère et de l'impulsivité.",
+          "Psycom.org — rubrique « prendre soin de sa santé mentale » : information indépendante et fiable."
+        ],
+        consulter: "Si l'impulsivité ou les colères ont déjà causé des ennuis concrets (travail, relations, argent, justice) : une TCC ciblée sur la gestion de l'impulsivité est indiquée — annuaire AFTCC."
       }
     }
   },
@@ -329,7 +339,7 @@ var TESTS_2 = [
     refs: [
       "Jones, D. N., & Paulhus, D. L. (2014). Introducing the Short Dark Triad (SD3): a brief measure of dark personality traits. Assessment, 21(1), 28-41.",
       "Paulhus, D. L., & Williams, K. M. (2002). The Dark Triad of personality. Journal of Research in Personality, 36(6), 556-563.",
-      "Savard, C. et al. — validation canadienne-française du SD3."
+      "Gamache, D., Savard, C., & Maheux-Caron, V. (2018). French adaptation of the short Dark Triad. Personality and Individual Differences, 122, 164-170."
     ]
   }
 }

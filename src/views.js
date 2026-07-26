@@ -15,9 +15,12 @@ function cardKey(ev){
 function setNav(which){
   ["home","bord","meth"].forEach(function(k){
     var b = document.getElementById("nav-" + k);
-    if (b) b.className = (k === which) ? "on" : "";
+    if (!b) return;
+    b.className = (k === which) ? "on" : "";
+    if (k === which) b.setAttribute("aria-current", "page"); else b.removeAttribute("aria-current");
   });
 }
+function showNav(){ var nv = document.querySelector("nav"); if (nv) nv.style.display = ""; }
 function persistBanner(){
   if (Store.isPersistent()) return "";
   return '<div class="notice">Le stockage local n\'est pas disponible ici : vos résultats ne survivront pas à la fermeture de la page. Pensez à exporter (menu Méthode → Vos données).</div>';
@@ -41,8 +44,8 @@ function vHome(){
   var nSerieux = TESTS.filter(function(t){ return t.id !== "amour"; }).length;
   var html = persistBanner() +
     '<div class="hdr"><div class="brand">Iris <small>· auto-évaluations sérieuses</small></div></div>' +
-    "<h1>Des questionnaires validés par la recherche, pas des quizz de réseaux sociaux.</h1>" +
-    '<p class="small ink2">' + nSerieux + ' instruments issus de la recherche publiée + 1 classique de la pop-psychologie clairement étiqueté comme tel, avec les vrais barèmes, des axes d\'amélioration fondés sur des preuves, et un suivi dans le temps. Vos réponses restent sur votre appareil. <a href="#/methode">Pourquoi cette app →</a></p>';
+    "<h1>Des questionnaires validés par la recherche, pas des quiz de réseaux sociaux.</h1>" +
+    '<p class="small ink2">' + nSerieux + ' instruments issus de la recherche publiée + 1 classique de la pop-psychologie clairement étiqueté comme tel, avec les vrais barèmes, des axes d\'amélioration fondés sur des preuves, et un suivi dans le temps. Vos réponses restent sur votre appareil. <a href="#/methode">Pourquoi cette application →</a></p>';
   var nDone = TESTS.filter(function(t){ return Store.latest(t.id); }).length;
   if (nDone) html += '<button class="btn" onclick="go(\'#/bord\')">Voir mon tableau de bord (' + nDone + " test" + (nDone>1?"s":"") + " fait" + (nDone>1?"s":"") + ")</button>";
   ORDRE_CATS.forEach(function(cat){
@@ -50,7 +53,7 @@ function vHome(){
     html += '<div class="catlabel">' + esc(cat) + "</div>";
     cats[cat].forEach(function(t){
       var last = Store.latest(t.id);
-      var status = last ? '<span class="done">Fait le ' + esc(fmtDate(last.date)) + "</span>" : '<span class="muted small">Jamais fait</span>';
+      var status = last ? '<span class="done">Fait le ' + esc(fmtDate(last.date)) + "</span>" : '<span class="muted small">Pas encore fait</span>';
       html += '<div class="card tap" onclick="go(\'#/test/' + t.id + '\')" onkeydown="cardKey(event)" role="button" tabindex="0">' +
         "<b>" + esc(t.nom) + "</b>" +
         '<div class="testmeta">' + esc(t.sigle) + " · " + esc(t.duree) + "</div>" +
@@ -70,7 +73,7 @@ function vTestIntro(id){
   var html = '<p class="small"><a href="#/">← Tous les tests</a></p>' +
     '<span class="pill">' + esc(t.cat) + "</span>" +
     "<h1>" + esc(t.nom) + "</h1>" +
-    '<p class="small muted">' + esc(t.sigle) + " · " + esc(t.duree) + " · " + t.items.length + " questions</p>" +
+    '<p class="small muted">' + esc(t.sigle) + " · " + esc(t.duree) + "</p>" +
     "<p>" + esc(t.intro) + "</p>";
   if (t.avertissement) html += '<div class="avert"><b>À savoir avant de commencer.</b> ' + esc(t.avertissement) + "</div>";
   html += '<div class="card"><b>Consigne.</b> <span class="ink2">' + esc(t.consigne) + "</span></div>" +
@@ -90,30 +93,35 @@ function sourceDetails(t){
 
 /* ---------------- PASSATION ---------------- */
 function startTest(id){
-  var t = byId(id);
-  RUN = { test: t, answers: new Array(t.items.length), i: 0 };
+  var t = byId(id); if (!t) return;
+  RUN = { test: t, answers: new Array(t.items.length), i: 0, backHash: location.hash, locked: false };
   renderRun();
 }
 function renderRun(){
   var nv = document.querySelector("nav"); if (nv) nv.style.display = "none";
+  RUN.locked = false;
   var t = RUN.test, i = RUN.i, n = t.items.length;
   var it = t.items[i];
   var ech = itemScale(t, it);
   var opts = ech.labels.map(function(lab, k){
     var v = ech.valeurs[k];
-    var sel = RUN.answers[i] === v ? " sel" : "";
-    return '<button class="opt' + sel + '" onclick="answer(' + v + ')">' + esc(lab) + "</button>";
+    var sel = RUN.answers[i] === v;
+    return '<button class="opt' + (sel ? " sel" : "") + '" aria-pressed="' + (sel ? "true" : "false") + '" onclick="answer(' + v + ')">' + esc(lab) + "</button>";
   }).join("");
   $app.innerHTML =
     '<div class="hdr"><b>' + esc(t.nom) + '</b><button class="linkbtn" onclick="quitRun()">Abandonner</button></div>' +
-    '<div class="progress"><i style="width:' + Math.round(i/n*100) + '%"></i></div>' +
-    '<div class="qcount">Question ' + (i+1) + " sur " + n + "</div>" +
+    '<div class="progress" aria-hidden="true"><i style="width:' + Math.round(i/n*100) + '%"></i></div>' +
+    '<div class="qcount" aria-live="polite">Question ' + (i+1) + " sur " + n + "</div>" +
     '<div class="consigne">' + esc(t.consigne) + "</div>" +
-    '<div class="qtext">' + esc(it.t) + "</div>" + opts +
+    '<div class="qtext" tabindex="-1">' + esc(it.t) + "</div>" + opts +
     '<div class="runnav">' + (i > 0 ? '<button class="linkbtn" onclick="prevQ()">← Question précédente</button>' : "<span></span>") + "</div>";
   window.scrollTo(0, 0);
+  var q = $app.querySelector(".qtext");
+  if (q && q.focus) try { q.focus({ preventScroll: true }); } catch(e){ q.focus(); }
 }
 function answer(v){
+  if (!RUN || RUN.locked) return;
+  RUN.locked = true;
   RUN.answers[RUN.i] = v;
   if (RUN.i < RUN.test.items.length - 1){
     RUN.i++;
@@ -126,6 +134,7 @@ function prevQ(){ if (RUN && RUN.i > 0){ RUN.i--; renderRun(); } }
 function quitRun(){
   if (confirm("Abandonner ce test ? Vos réponses en cours seront perdues.")){
     RUN = null;
+    showNav();
     if (location.hash === "#/") vHome(); else go("#/");
   }
 }
@@ -134,6 +143,7 @@ function finalizeRun(){
   var res = computeScores(t, RUN.answers);
   Store.add(t.id, { date: new Date().toISOString(), scores: res.scores, flags: res.flags });
   RUN = null;
+  showNav();
   if (location.hash === "#/res/" + t.id) vRes(t.id); else go("#/res/" + t.id);
 }
 
@@ -226,7 +236,7 @@ function vHist(id){
     html += '<div class="card"><h3 style="margin-top:0">' + esc(dim.nom) + "</h3>" + lineChartSVG(dim, entries) + "</div>";
   });
   var keys = Object.keys(t.dims);
-  var headCells = keys.map(function(k){ return "<th>" + esc(keys.length > 1 ? (t.dims[k].nom.length > 14 ? k : t.dims[k].nom) : "Score") + "</th>"; }).join("");
+  var headCells = keys.map(function(k){ return '<th scope="col">' + esc(keys.length > 1 ? t.dims[k].nom : "Score") + "</th>"; }).join("");
   var rows = hist.slice().reverse().map(function(r){
     var cells = keys.map(function(k){
       var dim = t.dims[k], v = r.scores[k], band = bandOf(dim, v);
@@ -234,7 +244,7 @@ function vHist(id){
     }).join("");
     return "<tr><td>" + esc(fmtDate(r.date)) + "</td>" + cells + "</tr>";
   }).join("");
-  html += '<div class="card"><h3 style="margin-top:0">Toutes les mesures</h3><div style="overflow-x:auto"><table><tr><th>Date</th>' + headCells + "</tr>" + rows + "</table></div></div>";
+  html += '<div class="card"><h3 style="margin-top:0">Toutes les mesures</h3><div style="overflow-x:auto"><table><thead><tr><th scope="col">Date</th>' + headCells + "</tr></thead><tbody>" + rows + "</tbody></table></div></div>";
   html += '<button class="btn ghost" onclick="startTest(\'' + t.id + '\')">Refaire le test</button>' + footHTML();
   $app.innerHTML = html;
   window.scrollTo(0, 0);
@@ -275,7 +285,10 @@ function vBord(){
         (axe1 ? '<div class="small ink2">Première action : ' + esc(axe1) + "</div>" : "") +
         '<div class="small"><a href="#/res/' + p.t.id + '">Voir les axes détaillés →</a></div></div></div>';
     });
-    if (prios.length > 6) html += '<p class="small muted">+ ' + (prios.length - 6) + " autre(s) point(s) d'attention — voir les résultats détaillés.</p>";
+    if (prios.length > 6){
+      var reste6 = prios.length - 6;
+      html += '<p class="small muted">+ ' + reste6 + (reste6 > 1 ? " autres points" : " autre point") + " d'attention — voir les résultats détaillés.</p>";
+    }
   }
   html += "</div>";
   /* plan de suivi */
@@ -345,9 +358,13 @@ function exportData(){
     if (msg) msg.textContent = "Sauvegarde téléchargée.";
   } catch(e){
     if (msg) msg.textContent = "Téléchargement impossible ici — copiez le contenu ci-dessous :";
-    var ta = document.createElement("textarea");
-    ta.value = txt; ta.style.width = "100%"; ta.style.height = "120px";
-    msg.parentNode.appendChild(ta); ta.select();
+    var ta = document.getElementById("expTa");
+    if (!ta){
+      ta = document.createElement("textarea");
+      ta.id = "expTa"; ta.style.width = "100%"; ta.style.height = "120px";
+      msg.parentNode.appendChild(ta);
+    }
+    ta.value = txt; ta.select();
   }
 }
 function importData(input){
@@ -357,8 +374,8 @@ function importData(input){
     var msg = document.getElementById("dataMsg");
     try {
       var n = Store.importJSON(String(reader.result));
-      if (msg) msg.textContent = n + " mesure(s) importée(s).";
-    } catch(e){ if (msg) msg.textContent = "Fichier non reconnu."; }
+      if (msg) msg.textContent = n ? (n + (n > 1 ? " nouvelles mesures importées." : " nouvelle mesure importée.")) : "Sauvegarde déjà à jour : aucune nouvelle mesure à importer.";
+    } catch(e){ if (msg) msg.textContent = "Fichier non reconnu — choisissez une sauvegarde exportée d'ici (iris-sauvegarde-….json)."; }
   };
   reader.readAsText(f);
   input.value = "";
@@ -372,9 +389,22 @@ function resetData(){
 }
 
 /* ---------------- ROUTEUR ---------------- */
+var RESTORE_HASH = false;
 function render(){
-  RUN = null;
-  var nv = document.querySelector("nav"); if (nv) nv.style.display = "";
+  if (RESTORE_HASH){ RESTORE_HASH = false; return; }
+  if (RUN){
+    /* retour navigateur pendant une passation : ne pas jeter les réponses sans confirmation */
+    if (!confirm("Un test est en cours. Quitter et perdre vos réponses ?")){
+      if (location.hash !== RUN.backHash){
+        RESTORE_HASH = true;
+        location.hash = RUN.backHash;
+      }
+      renderRun();
+      return;
+    }
+    RUN = null;
+  }
+  showNav();
   var h = location.hash || "#/";
   var m;
   if (h === "#/" || h === "") return vHome();

@@ -15,7 +15,7 @@ var TESTS_5 = [
   cat: "Personnalité",
   duree: "10-12 min",
   intro: "Version approfondie du test Big Five rapide (Mini-IPIP) : dix items par trait au lieu de quatre, pour un score plus précis et plus stable dans le temps. Mêmes cinq dimensions, même absence de « bon » ou « mauvais » profil — juste plus de nuance. Si vous avez peu de temps, la version rapide suffit ; celle-ci est utile si vous voulez affiner un résultat ou suivre l'évolution d'un trait avec plus de précision.",
-  consigne: "Indiquez à quel point chaque affirmation vous décrit tel(le) que vous êtes généralement, en vous comparant à des personnes de votre âge.",
+  consigne: "Indiquez à quel point chaque affirmation vous décrit tel(le) que vous êtes généralement, en vous comparant honnêtement à des personnes de votre âge et de votre sexe.",
   echelle: ECH_ACCORD5,
   items: [
     { t: "Je suis le boute-en-train des soirées", d: "E" },
@@ -37,7 +37,7 @@ var TESTS_5 = [
     { t: "Je compatis aux sentiments des autres", d: "A" },
     { t: "Je mets la pagaille", d: "C", r: true },
     { t: "Je me sens rarement cafardeux(se)", d: "N", r: true },
-    { t: "Les idées abstraites, ça ne m'intéresse pas vraiment", d: "O", r: true },
+    { t: "J'engage facilement la conversation", d: "E" },
     { t: "Dans les soirées, je parle avec beaucoup de personnes différentes", d: "E" },
     { t: "Les problèmes des autres ne m'intéressent pas", d: "A", r: true },
     { t: "Je fais les tâches ménagères et corvées sans tarder", d: "C" },
@@ -101,6 +101,7 @@ var TESTS_5 = [
         { max: 5, label: "Plutôt haut", niveau: "neutre", texte: "L'harmonie et l'entraide comptent beaucoup pour vous. Angle mort possible : difficulté à dire non, à défendre vos intérêts, tendance à passer après les autres." }
       ],
       amelioration: {
+        intro: "Aucun des deux pôles n'est « meilleur » : la question utile est de savoir si votre position actuelle vous coûte quelque chose — relations abîmées d'un côté, intérêts sacrifiés de l'autre. Les deux directions se travaillent par des compétences concrètes.",
         axes: [
           { titre: "Si score bas : entraîner l'empathie délibérée", texte: "Avant de répondre dans un désaccord, reformulez la position de l'autre jusqu'à ce qu'il la valide (« steelmanning »). L'empathie est une compétence entraînable, pas un don." },
           { titre: "Si score haut : affirmation de soi", texte: "L'assertivité s'apprend (protocoles TCC bien validés) : exprimer un refus ou une demande de façon claire et non agressive, en commençant par des situations à faible enjeu." },
@@ -167,6 +168,7 @@ var TESTS_5 = [
         { max: 5, label: "Plutôt haut", niveau: "neutre", texte: "Les idées, l'art et la nouveauté vous nourrissent. Angle mort possible : dispersion, difficulté à finir ce qui est commencé." }
       ],
       amelioration: {
+        intro: "L'ouverture n'a pas de niveau « cible » : elle se cultive si vous en ressentez le besoin, par l'exposition régulière à la nouveauté — c'est la pratique qui entretient le trait, pas l'inverse.",
         axes: [
           { titre: "Curiosité délibérée", texte: "Un contenu exigeant par semaine hors de vos sujets habituels (essai, documentaire, exposition) — la nouveauté entretient la plasticité cognitive." },
           { titre: "Si dispersion", texte: "Couplage avec la conscienciosité : règle « je finis avant d'ouvrir » ou quota de projets simultanés (max 2-3)." },
@@ -199,7 +201,7 @@ var TESTS_5 = [
   cat: "Couple",
   duree: "8-10 min",
   special: "ecr",
-  intro: "Version approfondie du test d'attachement rapide (ECR-12) : 36 items au lieu de 12, pour une mesure beaucoup plus précise des deux dimensions de l'attachement adulte (Fraley, Waller & Brennan, 2000). Mêmes deux dimensions continues — anxiété d'abandon et évitement de l'intimité. Si vous n'êtes pas en couple, répondez d'après vos relations importantes passées.",
+  intro: "Mesure les deux mêmes dimensions que le test rapide (ECR-12), avec une banque d'items plus fine (ECR-R, 36 items) : une mesure beaucoup plus précise des deux dimensions de l'attachement adulte (Fraley, Waller & Brennan, 2000). Mêmes deux dimensions continues — anxiété d'abandon et évitement de l'intimité. Si vous n'êtes pas en couple, répondez d'après vos relations importantes passées.",
   consigne: "Indiquez votre degré d'accord avec chaque affirmation concernant ce que vous vivez généralement dans vos relations de couple.",
   echelle: ECH_ACCORD7,
   items: [
@@ -273,6 +275,7 @@ var TESTS_5 = [
         { max: 7, label: "Marqué", niveau: "attention", texte: "Se confier, dépendre de quelqu'un ou laisser l'autre s'approcher vous coûte. Souvent une stratégie apprise là où la vulnérabilité était risquée ou inutile. Modifiable — à condition d'y aller progressivement, comme une exposition." }
       ],
       amelioration: {
+        intro: "Comme pour l'anxiété d'abandon, la recherche sur la « sécurité gagnée » montre que l'attachement évolue par expériences répétées de fiabilité : chaque fois que se confier ou dépendre de quelqu'un se passe bien, le système apprend que la proximité n'est pas un danger.",
         axes: [
           { titre: "Auto-dévoilement gradué", texte: "L'intimité se construit par paliers de dévoilement réciproque (mécanisme le mieux documenté de la formation des liens). Commencez petit : partager UNE difficulté réelle par semaine avec une personne de confiance, sans minimiser." },
           { titre: "Repérer la désactivation", texte: "L'évitement opère par « désactivation » : focalisation sur les défauts de l'autre, nostalgie d'ex idéalisés, fuite dans le travail quand la relation s'approfondit. Nommer ces manœuvres au moment où elles surviennent leur enlève une grande partie de leur pouvoir." },
@@ -289,7 +292,7 @@ var TESTS_5 = [
   },
   source: {
     instrument: "Experiences in Close Relationships — Revised (ECR-R), 36 items",
-    statut: "Libre pour usage non commercial (Fraley) — la version française des 20 items déjà présents dans l'ECR-12 est reprise à l'identique ; les 16 items supplémentaires sont traduits pour cette application.",
+    statut: "Libre pour usage non commercial (Fraley). Traduction française réalisée pour cette application à partir des items originaux. L'ECR-R est une banque d'items distincte de l'ECR dont dérive l'ECR-12 : les deux tests mesurent les deux mêmes dimensions mais ne partagent que quelques items.",
     refs: [
       "Fraley, R. C., Waller, N. G., & Brennan, K. A. (2000). An item response theory analysis of self-report measures of adult attachment. Journal of Personality and Social Psychology, 78(2), 350-365.",
       "Brennan, K. A., Clark, C. L., & Shaver, P. R. (1998). Self-report measurement of adult attachment: An integrative overview. In J. A. Simpson & W. S. Rholes (Eds.), Attachment Theory and Close Relationships (pp. 46-76). Guilford Press.",
@@ -353,7 +356,8 @@ var TESTS_5 = [
           "Masi, C. M. et al. (2011). A meta-analysis of interventions to reduce loneliness. Personality and Social Psychology Review, 15(3).",
           "Fondation de France — baromètre des solitudes (données françaises).",
           "jeveuxaider.gouv.fr — plateforme publique du bénévolat."
-        ]
+        ],
+        consulter: "Si la solitude s'accompagne d'une humeur durablement basse ou d'un retrait qui s'aggrave, passez le test d'humeur (PHQ-9) et parlez-en à votre médecin traitant."
       }
     }
   },
@@ -374,13 +378,12 @@ var TESTS_5 = [
   sigle: "CSI-32 · 32 items",
   cat: "Couple",
   duree: "10-12 min",
-  intro: "Version complète du Couples Satisfaction Index (Funk & Rogge, 2007) — la version à 4 items déjà présente dans cette app en est le condensé le plus rapide. Trente-deux items, avec plusieurs types de questions (accord/désaccord, fréquence, adjectifs opposés), pour une mesure nettement plus précise, en particulier utile si votre score au CSI-4 est proche du seuil de détresse et que vous voulez affiner.",
+  intro: "Version complète du Couples Satisfaction Index (Funk & Rogge, 2007) — la version à 4 items déjà présente dans cette app en est le condensé le plus rapide. Trente-deux items, avec plusieurs types de questions (accord/désaccord, fréquence, adjectifs opposés), pour une mesure nettement plus précise, particulièrement utile si votre score au CSI-4 est proche du seuil de détresse et que vous voulez affiner.",
   consigne: "Pour les personnes actuellement en couple. Répondez d'après votre relation telle qu'elle est ces derniers temps ; le type de réponse change d'une question à l'autre, lisez bien chaque question.",
-  echelle: { labels: ["Extrêmement malheureuse", "Plutôt malheureuse", "Un peu malheureuse", "Heureuse", "Très heureuse", "Extrêmement heureuse", "Parfaite"], valeurs: [0, 1, 2, 3, 4, 5, 6] },
   echelles: [
     { labels: ["Extrêmement malheureuse", "Plutôt malheureuse", "Un peu malheureuse", "Heureuse", "Très heureuse", "Extrêmement heureuse", "Parfaite"], valeurs: [0, 1, 2, 3, 4, 5, 6] },
     { labels: ["Toujours d'accord", "Presque toujours d'accord", "Parfois en désaccord", "Souvent en désaccord", "Presque toujours en désaccord", "Toujours en désaccord"], valeurs: [5, 4, 3, 2, 1, 0] },
-    { labels: ["Tout le temps", "La plupart du temps", "Plus souvent qu'autrement", "Occasionnellement", "Rarement", "Jamais"], valeurs: [5, 4, 3, 2, 1, 0] },
+    { labels: ["Tout le temps", "La plupart du temps", "Assez souvent", "Occasionnellement", "Rarement", "Jamais"], valeurs: [5, 4, 3, 2, 1, 0] },
     { labels: ["Pas vrai du tout", "Un peu vrai", "Plutôt vrai", "Assez vrai", "Presque complètement vrai", "Complètement vrai"], valeurs: [0, 1, 2, 3, 4, 5] },
     { labels: ["Pas du tout", "Un peu", "Plutôt", "Beaucoup", "Presque complètement", "Complètement"], valeurs: [0, 1, 2, 3, 4, 5] },
     { labels: ["Bien pire que la plupart", "Pire que la plupart", "Un peu moins bien que la plupart", "Un peu mieux que la plupart", "Mieux que la plupart", "Bien mieux que la plupart"], valeurs: [0, 1, 2, 3, 4, 5] },
@@ -394,7 +397,7 @@ var TESTS_5 = [
     { labels: ["Agréable", "Plutôt agréable", "Un peu agréable", "Un peu pénible", "Plutôt pénible", "Pénible"], valeurs: [0, 1, 2, 3, 4, 5] }
   ],
   items: [
-    { t: "Tout bien considéré, quel est le degré de bonheur de votre relation ?", d: "SAT", e: 0 },
+    { t: "Tout bien considéré, comment décririez-vous votre relation ?", d: "SAT", e: 0 },
     { t: "Le temps que vous passez ensemble : accord ou désaccord avec votre partenaire ?", d: "SAT", e: 1 },
     { t: "La façon de prendre les décisions importantes : accord ou désaccord avec votre partenaire ?", d: "SAT", e: 1 },
     { t: "Les démonstrations d'affection : accord ou désaccord avec votre partenaire ?", d: "SAT", e: 1 },
@@ -445,7 +448,7 @@ var TESTS_5 = [
           { titre: "Faire du nouveau ensemble", texte: "Les activités nouvelles et un peu stimulantes partagées à deux augmentent la satisfaction dans des essais contrôlés (Aron et al., 2000) — l'habituation est un érodeur silencieux." },
           { titre: "Consulter tôt, pas en dernier recours", texte: "Les couples attendent en moyenne des années avant de consulter — quand les schémas sont incrustés. Les thérapies de couple structurées (EFT, approches comportementales intégratives) ont une efficacité démontrée par essais contrôlés." }
         ],
-        objectif: "Objectif : rester ou revenir durablement au-dessus de 104,5, puis viser 130+. Protocole 6 semaines : rituels positifs quotidiens + une nouveauté partagée + travail du conflit si le test « Conflits » est haut. Re-test toutes les 4 à 6 semaines.",
+        objectif: "Rester ou revenir durablement au-dessus de 104,5, puis viser 130+. Protocole 6 semaines : rituels positifs quotidiens + une nouveauté partagée + travail du conflit si le test « Conflits » est haut. Re-test toutes les 4 à 6 semaines.",
         ressources: [
           "Funk, J. L., & Rogge, R. D. (2007). Testing the ruler with item response theory: the Couples Satisfaction Index. Journal of Family Psychology, 21(4), 572-583.",
           "Aron, A., Norman, C., Aron, E., McKenna, C., & Heyman, R. (2000). Couples' shared participation in novel and arousing activities. Journal of Personality and Social Psychology, 78(2).",
@@ -472,8 +475,8 @@ var TESTS_5 = [
   cat: "Stress & énergie",
   duree: "2 min",
   avertissement: "Instrument protégé par le droit d'auteur (C. M. Morin), distribué commercialement par Mapi Research Trust — utilisé ici dans un cadre strictement personnel et non commercial. Ce n'est pas un instrument « libre de droits » comme les autres tests de cette app ; c'est une exception assumée.",
-  intro: "L'Insomnia Severity Index (Morin, 1993) est l'instrument de repérage de l'insomnie le plus utilisé en médecine du sommeil. Il porte sur le dernier mois et couvre à la fois la sévérité des symptômes et leur retentissement sur la vie quotidienne.",
-  consigne: "Répondez en pensant au dernier mois.",
+  intro: "L'Insomnia Severity Index (Morin, 1993) est l'instrument de repérage de l'insomnie le plus utilisé en médecine du sommeil. Il porte sur les 2 dernières semaines et couvre à la fois la sévérité des symptômes et leur retentissement sur la vie quotidienne.",
+  consigne: "Répondez en pensant aux 2 dernières semaines.",
   echelle: { labels: ["Aucune", "Légère", "Modérée", "Sévère", "Très sévère"], valeurs: [0, 1, 2, 3, 4] },
   echelles: [
     { labels: ["Aucune", "Légère", "Modérée", "Sévère", "Très sévère"], valeurs: [0, 1, 2, 3, 4] },
@@ -494,8 +497,8 @@ var TESTS_5 = [
   scoringNote: "Somme des 7 items, de 0 à 28. Seuils publiés : 0-7 pas d'insomnie cliniquement significative · 8-14 insomnie infraclinique · 15-21 insomnie clinique modérée · 22-28 insomnie clinique sévère.",
   dims: {
     IN: {
-      nom: "Sévérité de l'insomnie (dernier mois)", format: "somme", min: 0, max: 28, valence: false,
-      descriptif: "Intensité des difficultés de sommeil et de leur retentissement sur la vie quotidienne au cours du dernier mois. Une mauvaise nuit isolée n'a rien à voir avec l'insomnie chronique, qui se définit par la durée et le retentissement diurne.",
+      nom: "Sévérité de l'insomnie (2 dernières semaines)", format: "somme", min: 0, max: 28, valence: false,
+      descriptif: "Intensité des difficultés de sommeil et de leur retentissement sur la vie quotidienne au cours des 2 dernières semaines. Une mauvaise nuit isolée n'a rien à voir avec l'insomnie chronique, qui se définit par la durée et le retentissement diurne.",
       bandes: [
         { max: 7, label: "Pas d'insomnie significative", niveau: "ok", texte: "Votre sommeil ne pose pas de problème notable actuellement. Entretenez les fondamentaux : horaires réguliers, lumière du jour le matin, écrans limités le soir." },
         { max: 14, label: "Insomnie infraclinique", niveau: "attention", texte: "Des difficultés présentes mais qui ne constituent pas (encore) un trouble caractérisé. C'est le bon moment pour agir sur l'hygiène de sommeil avant que ça ne s'installe." },
@@ -539,7 +542,7 @@ var TESTS_5 = [
   duree: "3 min",
   intro: "L'auto-compassion — se traiter avec la même bienveillance qu'on offrirait à un(e) ami(e) en difficulté — est un concept distinct de l'estime de soi, développé par Kristin Neff. Elle prédit mieux le bien-être et la résilience émotionnelle que l'estime de soi classique, sans ses effets secondaires (comparaison sociale, dépendance à la réussite).",
   consigne: "Indiquez à quelle fréquence vous agissez de la façon décrite, dans les moments difficiles.",
-  echelle: ECH_ACCORD5,
+  echelle: { labels: ["Presque jamais", "Rarement", "Parfois", "Souvent", "Presque toujours"], valeurs: [1, 2, 3, 4, 5] },
   items: [
     { t: "Quand j'échoue dans quelque chose d'important pour moi, je suis envahi(e) par un sentiment de ne pas être à la hauteur", d: "SC", r: true },
     { t: "J'essaie d'être compréhensif(ve) et patient(e) envers les aspects de ma personnalité que je n'aime pas", d: "SC" },
@@ -550,7 +553,7 @@ var TESTS_5 = [
     { t: "Quand quelque chose me contrarie, j'essaie de garder mes émotions en équilibre", d: "SC" },
     { t: "Quand j'échoue dans quelque chose d'important pour moi, j'ai tendance à me sentir seul(e) dans mon échec", d: "SC", r: true },
     { t: "Quand je me sens mal, j'ai tendance à ressasser et à me focaliser sur tout ce qui ne va pas", d: "SC", r: true },
-    { t: "Quand je me sens pas à la hauteur d'une manière ou d'une autre, j'essaie de me rappeler que ce sentiment est partagé par la plupart des gens", d: "SC" },
+    { t: "Quand je ne me sens pas à la hauteur d'une manière ou d'une autre, j'essaie de me rappeler que ce sentiment est partagé par la plupart des gens", d: "SC" },
     { t: "Je suis dur(e) et sévère envers mes propres défauts et insuffisances", d: "SC", r: true },
     { t: "Je suis intolérant(e) et impatient(e) envers les aspects de ma personnalité que je n'aime pas", d: "SC", r: true }
   ],
@@ -576,7 +579,8 @@ var TESTS_5 = [
           "Neff, K. « S'aimer : comment se réconcilier avec soi-même » (Belfond).",
           "self-compassion.org — ressources et exercices audio guidés par Kristin Neff (en anglais).",
           "Neff, K. D., & Germer, C. K. (2013). A pilot study and randomized controlled trial of the Mindful Self-Compassion program. Journal of Clinical Psychology, 69(1), 28-44."
-        ]
+        ],
+        consulter: "Si l'autocritique tourne à la rumination permanente ou s'accompagne d'une humeur basse, passez le PHQ-9 ; les thérapies fondées sur la compassion (CFT) sont spécifiquement conçues pour cela."
       }
     }
   },
@@ -628,8 +632,10 @@ var TESTS_5 = [
         objectif: "6 semaines : à chaque épreuve, notez ce qui vous a aidé à vous en remettre. Complétez avec les tests Stress perçu et Auto-compassion, souvent liés. Refaites le test ensuite.",
         ressources: [
           "Smith, B. W., Dalen, J., Wiggins, K., Tooley, E., Christopher, P., & Bernard, J. (2008). The brief resilience scale: assessing the ability to bounce back. International Journal of Behavioral Medicine, 15(3), 194-200.",
-          "Ionescu, S. « Le résilience : de la recherche à la pratique » (revue de synthèse francophone)."
-        ]
+          "Chmitorz, A., et al. (2018). Intervention studies to foster resilience — A systematic review. Clinical Psychology Review, 59, 78-100.",
+          "Southwick, S. M., & Charney, D. S. « Resilience: The Science of Mastering Life's Greatest Challenges » (Cambridge University Press)."
+        ],
+        consulter: "Si les coups durs vous laissent durablement à terre — sommeil, humeur, anxiété —, faites les tests PHQ-9 et GAD-7 et parlez-en à un professionnel."
       }
     }
   },
@@ -637,7 +643,7 @@ var TESTS_5 = [
     instrument: "Brief Resilience Scale (BRS), 6 items",
     statut: "Libre d'utilisation en recherche et en pratique clinique, sans frais ni permission requise. Traduction française réalisée pour cette application à partir des items originaux.",
     refs: [
-      "Smith, B. W. et al. (2008). International Journal of Behavioral Medicine, 15(3), 194-200."
+      "Smith, B. W. et al. (2008). The brief resilience scale: Assessing the ability to bounce back. International Journal of Behavioral Medicine, 15(3), 194-200."
     ]
   }
 },

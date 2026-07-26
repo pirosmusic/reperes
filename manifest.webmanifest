@@ -1,0 +1,13 @@
+{
+  "name": "Iris — auto-évaluations psychologiques sérieuses",
+  "short_name": "Iris",
+  "lang": "fr",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#f9f9f7",
+  "theme_color": "#2a78d6",
+  "description": "Des questionnaires psychologiques validés par la recherche, avec les vrais barèmes et un suivi dans le temps. Vos réponses restent sur votre appareil.",
+  "icons": [
+    { "src": "/apple-touch-icon.png", "sizes": "180x180", "type": "image/png", "purpose": "any" }
+  ]
+}

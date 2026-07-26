@@ -4,7 +4,7 @@
    Tous les instruments : libres de droits ou d'usage libre, références citées.
    ============================================================ */
 
-var ECH_ACCORD5 = { labels: ["Pas du tout d'accord", "Plutôt pas d'accord", "Neutre", "Plutôt d'accord", "Tout à fait d'accord"], valeurs: [1, 2, 3, 4, 5] };
+var ECH_ACCORD5 = { labels: ["Pas du tout d'accord", "Plutôt pas d'accord", "Ni d'accord ni en désaccord", "Plutôt d'accord", "Tout à fait d'accord"], valeurs: [1, 2, 3, 4, 5] };
 var ECH_FREQ4 = { labels: ["Jamais", "Plusieurs jours", "Plus de la moitié des jours", "Presque tous les jours"], valeurs: [0, 1, 2, 3] };
 
 var TESTS_1 = [
@@ -17,13 +17,13 @@ var TESTS_1 = [
   cat: "Personnalité",
   duree: "4-5 min",
   radar: true,
-  intro: "Le modèle en cinq facteurs (Big Five) est le modèle de la personnalité le plus solide et le plus répliqué de la psychologie scientifique — à l'opposé des typologies non validées (MBTI, « types » des quizz en ligne). Il décrit cinq grandes dimensions continues, sans « bon » ni « mauvais » profil.",
+  intro: "Le modèle en cinq facteurs (Big Five) est le modèle de la personnalité le plus solide et le plus répliqué de la psychologie scientifique — à l'opposé des typologies non validées (MBTI, « types » des quiz en ligne). Il décrit cinq grandes dimensions continues, sans « bon » ni « mauvais » profil. Une version longue (IPIP-50, 50 items) est disponible plus bas dans la liste pour un profil plus fin.",
   consigne: "Indiquez à quel point chaque affirmation vous décrit tel(le) que vous êtes généralement, en vous comparant à des personnes de votre âge.",
   echelle: ECH_ACCORD5,
   items: [
     { t: "Je suis le boute-en-train des soirées", d: "E" },
     { t: "Je compatis aux sentiments des autres", d: "A" },
-    { t: "Je fais les tâches ménagères et corvées sans tarder", d: "C" },
+    { t: "Je fais les tâches ménagères et les corvées sans tarder", d: "C" },
     { t: "J'ai de fréquentes sautes d'humeur", d: "N" },
     { t: "J'ai une imagination débordante", d: "O" },
     { t: "Je ne parle pas beaucoup", d: "E", r: true },
@@ -34,12 +34,12 @@ var TESTS_1 = [
     { t: "Dans les soirées, je parle avec beaucoup de personnes différentes", d: "E" },
     { t: "Je ressens les émotions des autres", d: "A" },
     { t: "J'aime l'ordre", d: "C" },
-    { t: "Je me contrarie facilement", d: "N" },
+    { t: "Je suis facilement contrarié(e)", d: "N" },
     { t: "J'ai du mal à comprendre les idées abstraites", d: "O", r: true },
     { t: "Je reste en retrait", d: "E", r: true },
     { t: "Je ne m'intéresse pas vraiment aux autres", d: "A", r: true },
     { t: "Je mets la pagaille", d: "C", r: true },
-    { t: "Je me sens rarement cafardeux(se)", d: "N", r: true },
+    { t: "J'ai rarement le cafard", d: "N", r: true },
     { t: "Je n'ai pas une bonne imagination", d: "O", r: true }
   ],
   scoringNote: "Score = moyenne des 4 items de chaque dimension (items inversés recodés), de 1 à 5. Il n'existe pas de normes officielles françaises pour le Mini-IPIP : les repères « plutôt bas / moyen / plutôt haut » sont indicatifs (coupures à 2,5 et 3,5).",
@@ -57,11 +57,11 @@ var TESTS_1 = [
         axes: [
           { titre: "Si vous voulez plus d'aisance sociale", texte: "Exposition graduée et régulière : des micro-interactions faciles (saluer, poser une question à un commerçant), puis des situations plus engageantes. La régularité compte plus que l'intensité." },
           { titre: "Si vous êtes très extraverti(e)", texte: "Travaillez l'écoute active (reformuler avant de répondre) et tolérez les silences : c'est ce qui transforme la sociabilité en qualité relationnelle." },
-          { titre: "Distinguer introversion et anxiété sociale", texte: "Préférer la solitude est un trait ; éviter les autres par peur du jugement est de l'anxiété, qui se traite très bien (TCC). Si l'évitement vous fait souffrir, voyez le test d'anxiété et un professionnel." }
+          { titre: "Distinguer introversion et anxiété sociale", texte: "Préférer la solitude est un trait ; éviter les autres par peur du jugement est de l'anxiété, qui se traite très bien (TCC). Si l'évitement vous fait souffrir, voyez le test d'anxiété (GAD-7) et un professionnel." }
         ],
         objectif: "Choisissez UN comportement concret (ex. : proposer un café à un collègue par semaine), tenez-le 6 semaines, puis refaites le test. Visez un changement de comportement qui vous convient, pas un score.",
         ressources: [
-          "Roberts, B. W. et al. (2017). A systematic review of personality trait change through intervention. Psychological Bulletin, 143(2).",
+          "Roberts, B. W. et al. (2017). A systematic review of personality trait change through intervention. Psychological Bulletin, 143(2), 117-141.",
           "Susan Cain, « La force des discrets » (JC Lattès) — sur la valeur de l'introversion.",
           "Annuaire des thérapeutes TCC : aftcc.org (si anxiété sociale)."
         ]
@@ -76,6 +76,7 @@ var TESTS_1 = [
         { max: 5, label: "Plutôt haut", niveau: "neutre", texte: "L'harmonie et l'entraide comptent beaucoup pour vous. Angle mort possible : difficulté à dire non, à défendre vos intérêts, tendance à passer après les autres." }
       ],
       amelioration: {
+        intro: "L'agréabilité n'a pas de « bon » niveau : chaque pôle a ses forces. L'enjeu est d'élargir votre registre — savoir coopérer quand vous êtes plutôt direct(e), savoir vous affirmer quand vous êtes plutôt conciliant(e).",
         axes: [
           { titre: "Si score bas : entraîner l'empathie délibérée", texte: "Avant de répondre dans un désaccord, reformulez la position de l'autre jusqu'à ce qu'il la valide (« steelmanning »). L'empathie est une compétence entraînable, pas un don." },
           { titre: "Si score haut : affirmation de soi", texte: "L'assertivité s'apprend (protocoles TCC bien validés) : exprimer un refus ou une demande de façon claire et non agressive, en commençant par des situations à faible enjeu." },
@@ -84,7 +85,8 @@ var TESTS_1 = [
         objectif: "Score bas : une reformulation empathique par jour pendant 3 semaines. Score haut : un « non » posé et argumenté par semaine. Refaites le test après 6 semaines.",
         ressources: [
           "Fanget, F. « Affirmez-vous ! » (Odile Jacob) — référence francophone de l'assertivité, base TCC.",
-          "Christophe André & Patrick Légeron, « La peur des autres » (Odile Jacob)."
+          "Christophe André & Patrick Légeron, « La peur des autres » (Odile Jacob).",
+          "Speed, B. C., et al. (2018). Assertiveness training: A forgotten evidence-based treatment. Clinical Psychology: Science and Practice, 25(1)."
         ]
       }
     },
@@ -107,7 +109,7 @@ var TESTS_1 = [
         ressources: [
           "Gollwitzer, P. & Sheeran, P. (2006). Implementation intentions and goal achievement. Advances in Experimental Social Psychology, 38.",
           "Duhigg, C. « Le pouvoir des habitudes » (Flammarion) — vulgarisation correcte des mécanismes.",
-          "Sur la procrastination : Steel, P. (2007). The nature of procrastination. Psychological Bulletin, 133(1)."
+          "Sur la procrastination : Steel, P. (2007). The nature of procrastination. Psychological Bulletin, 133(1), 65-94."
         ]
       }
     },
@@ -145,6 +147,7 @@ var TESTS_1 = [
         { max: 5, label: "Plutôt haut", niveau: "neutre", texte: "Les idées, l'art et la nouveauté vous nourrissent. Angle mort possible : dispersion, difficulté à finir ce qui est commencé." }
       ],
       amelioration: {
+        intro: "L'ouverture n'a pas de niveau « idéal » : le pragmatisme comme la curiosité sont des forces. Si vous souhaitez la cultiver, la recherche sur la curiosité montre qu'elle s'entretient par l'exposition régulière à la nouveauté, pas par des déclarations d'intention.",
         axes: [
           { titre: "Curiosité délibérée", texte: "Un contenu exigeant par semaine hors de vos sujets habituels (essai, documentaire, exposition) — la nouveauté entretient la plasticité cognitive." },
           { titre: "Si dispersion", texte: "Couplage avec la conscienciosité : règle « je finis avant d'ouvrir » ou quota de projets simultanés (max 2-3)." },
@@ -152,8 +155,9 @@ var TESTS_1 = [
         ],
         objectif: "Pas de score cible : choisissez une pratique (lecture, musée, apprentissage d'une compétence) et tenez-la un mois.",
         ressources: [
-          "Universalis et CNRS Le Journal pour nourrir la curiosité avec des sources fiables.",
-          "Bronner, G. « Apocalypse cognitive » (PUF) — sur l'économie de l'attention."
+          "Kashdan, T. B., et al. (2018). The five-dimensional curiosity scale. Journal of Research in Personality, 73, 130-149 — sur les facettes de la curiosité.",
+          "Bronner, G. « Apocalypse cognitive » (PUF) — sur l'économie de l'attention.",
+          "CNRS Le Journal (lejournal.cnrs.fr) — pour nourrir la curiosité avec des sources fiables."
         ]
       }
     }
@@ -191,13 +195,13 @@ var TESTS_1 = [
     { t: "Parfois, je me sens vraiment inutile", d: "S", r: true },
     { t: "Il m'arrive de penser que je suis un(e) bon(ne) à rien", d: "S", r: true }
   ],
-  scoringNote: "Somme des 10 items (items négatifs recodés), de 10 à 40. Repères usuels de la version francophone : < 25 très faible · 25-30 faible · 31-34 moyenne · 35-39 forte · 40 très forte. Ce sont des repères indicatifs, pas des seuils diagnostiques.",
+  scoringNote: "Somme des 10 items (items négatifs recodés), de 10 à 40. Repères usuels de la version francophone : < 25 très faible · 25-30 faible · 31-34 moyenne · 35-39 forte · 40 très forte. Ce sont des repères d'usage clinique francophone, sans normes officielles — indicatifs, pas des seuils diagnostiques.",
   dims: {
     S: {
       nom: "Estime de soi globale", format: "somme", min: 10, max: 40, valence: true,
       descriptif: "Évaluation globale que vous portez sur votre propre valeur. Elle fluctue avec les événements ; ce score est une photographie, pas une sentence.",
       bandes: [
-        { max: 24, label: "Très faible", niveau: "alerte", texte: "Votre regard sur vous-même est durement négatif. Ce n'est ni une fatalité ni une vérité objective : l'estime de soi se reconstruit, et c'est un motif tout à fait légitime de consultation. Une estime très basse accompagne souvent un épisode anxieux ou dépressif — faites aussi les tests GAD-7 et PHQ-9." },
+        { max: 24, label: "Très faible", niveau: "alerte", texte: "Votre regard sur vous-même est très négatif. Ce n'est ni une fatalité ni une vérité objective : l'estime de soi se reconstruit, et c'est un motif tout à fait légitime de consultation. Une estime très basse accompagne souvent un épisode anxieux ou dépressif — faites aussi les tests GAD-7 et PHQ-9." },
         { max: 30, label: "Faible", niveau: "attention", texte: "Vous doutez de votre valeur plus souvent qu'à votre tour : autocritique forte, difficulté à recevoir les compliments, peur de décevoir. Les axes ci-dessous sont directement actionnables." },
         { max: 34, label: "Dans la moyenne", niveau: "ok", texte: "Estime de soi comparable à la majorité des gens : globalement positive, avec des fluctuations normales selon les succès et les échecs." },
         { max: 39, label: "Forte", niveau: "ok", texte: "Regard sur vous-même solide et bienveillant, bon facteur de protection psychologique." },
@@ -240,7 +244,7 @@ var TESTS_1 = [
   cat: "Clinique — repérage",
   duree: "1-2 min",
   badge: "clinique",
-  intro: "Le GAD-7 (Spitzer et al., 2006) est le questionnaire de repérage de l'anxiété le plus utilisé en médecine, libre de droits, validé en français. C'est un outil de REPÉRAGE : il indique s'il est pertinent d'en parler à un professionnel, il ne pose pas de diagnostic.",
+  intro: "Le GAD-7 (Spitzer et al., 2006) est le questionnaire de repérage de l'anxiété le plus utilisé en médecine, libre de droits, traduit et étudié en français. C'est un outil de REPÉRAGE : il indique s'il est pertinent d'en parler à un professionnel, il ne pose pas de diagnostic.",
   consigne: "Au cours des 14 derniers jours, à quelle fréquence avez-vous été gêné(e) par les problèmes suivants ?",
   echelle: ECH_FREQ4,
   items: [
@@ -248,7 +252,7 @@ var TESTS_1 = [
     { t: "Incapacité à arrêter de vous inquiéter ou à contrôler vos inquiétudes", d: "A" },
     { t: "Inquiétude excessive à propos de différentes choses", d: "A" },
     { t: "Difficulté à vous détendre", d: "A" },
-    { t: "Agitation telle qu'il est difficile de rester tranquille", d: "A" },
+    { t: "Agitation telle qu'il est difficile de rester assis(e) tranquillement", d: "A" },
     { t: "Tendance à être facilement contrarié(e) ou irritable", d: "A" },
     { t: "Sentiment de peur, comme si quelque chose de terrible risquait de se produire", d: "A" }
   ],
@@ -288,7 +292,7 @@ var TESTS_1 = [
     statut: "Libre d'utilisation (développé avec Pfizer, aucune permission requise). Version française validée.",
     refs: [
       "Spitzer, R. L., Kroenke, K., Williams, J. B., & Löwe, B. (2006). Archives of Internal Medicine, 166(10), 1092-1097.",
-      "Micoulaud-Franchi, J.-A. et al. (2016). Validation française du GAD-7."
+      "Micoulaud-Franchi, J.-A., et al. (2016). Rapid detection of generalized anxiety disorder and major depression in epilepsy. Epilepsy & Behavior, 57, 211-216 — validation française (population épileptique)."
     ]
   }
 },
@@ -313,8 +317,8 @@ var TESTS_1 = [
     { t: "Peu d'appétit, ou au contraire trop manger", d: "D" },
     { t: "Mauvaise opinion de vous-même — sentiment d'être nul(le), d'avoir déçu votre famille ou de vous être déçu(e) vous-même", d: "D" },
     { t: "Difficultés à vous concentrer (par exemple pour lire ou regarder un film)", d: "D" },
-    { t: "Lenteur inhabituelle pour bouger ou parler, remarquable par les autres — ou au contraire agitation, difficulté à tenir en place", d: "D" },
-    { t: "Pensées qu'il vaudrait mieux mourir, ou envie de vous faire du mal d'une manière ou d'une autre", d: "D" }
+    { t: "Lenteur inhabituelle pour bouger ou parler, au point que les autres ont pu le remarquer — ou au contraire agitation, difficulté à tenir en place", d: "D" },
+    { t: "Pensées qu'il vaudrait mieux mourir, ou des pensées de vous faire du mal d'une manière ou d'une autre", d: "D" }
   ],
   flagCrise: { itemIndex: 8, seuil: 1 },
   scoringNote: "Somme des 9 items, de 0 à 27. Seuils publiés (Kroenke et al., 2001) : 0-4 minimale · 5-9 légère · 10-14 modérée · 15-19 modérément sévère · 20-27 sévère. Un score ≥ 10 justifie une consultation.",
@@ -352,10 +356,10 @@ var TESTS_1 = [
   },
   source: {
     instrument: "Patient Health Questionnaire 9 (PHQ-9)",
-    statut: "Libre d'utilisation (développé avec Pfizer, aucune permission requise). Version française validée, utilisée en médecine générale.",
+    statut: "Libre d'utilisation (développé avec Pfizer, aucune permission requise). Version française validée, utilisée en médecine générale — items légèrement adaptés ici (formulations modernisées).",
     refs: [
       "Kroenke, K., Spitzer, R. L., & Williams, J. B. (2001). Journal of General Internal Medicine, 16(9), 606-613.",
-      "Arthurs, E. et al. (2012). Validation française du PHQ-9."
+      "Arthurs, E., et al. (2012). Are scores on English and French versions of the PHQ-9 comparable? PLoS ONE, 7(12), e52028 — étude d'équivalence linguistique anglais/français."
     ]
   }
 }

@@ -181,7 +181,11 @@ async function runQuiz(page, testId, optIndex, n){
   await page.screenshot({ path: OUT + "/02-passation.png" });
   // nav cachée pendant la passation ?
   check("Nav masquée pendant passation", await page.locator("nav").evaluate(n => getComputedStyle(n).display === "none"));
+  // quitter en cours de passation déclenche une demande de confirmation (protection contre le retour navigateur)
+  let dlgMsg = "";
+  page.once("dialog", d => { dlgMsg = d.message(); d.accept(); });
   await page.goto(URL + "#/"); await page.waitForTimeout(200);
+  check("Confirmation demandée avant de quitter une passation", dlgMsg.includes("test est en cours"));
   check("Nav réaffichée après passation", await page.locator("nav").evaluate(n => getComputedStyle(n).display !== "none"));
 
   // ---- Tableau de bord
