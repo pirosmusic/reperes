@@ -295,7 +295,7 @@ var TESTS_1 = [
     },
     O: {
       nom: "Ouverture (imagination / intellect)", format: "moyenne", min: 1, max: 5, valence: null,
-      descriptif: "Curiosité intellectuelle, goût pour les idées abstraites, l'imagination, l'esthétique et la nouveauté.",
+      descriptif: "Curiosité intellectuelle, goût pour les idées abstraites, l'imagination, l'esthétique et la nouveauté. C'est le trait le moins lié à la réussite professionnelle classique, mais l'un des plus associés à la créativité et à l'adaptabilité face au changement.",
       bandes: [
         { max: 2.5, label: "Plutôt bas", niveau: "neutre", texte: "Vous préférez le concret, le pratique, l'éprouvé. Force : pragmatisme et constance. Angle mort possible : rester dans sa zone de confort intellectuelle." },
         { max: 3.5, label: "Moyen", niveau: "neutre", texte: "Curiosité sélective : ouvert(e) à la nouveauté quand elle a du sens pour vous." },
@@ -1086,7 +1086,7 @@ var TESTS_3 = [
   dims: {
     PAR: {
       nom: "Paroles valorisantes", format: "moyenne", min: 1, max: 5, valence: null,
-      descriptif: "Compliments, encouragements, mots d'amour explicites — être DIT aimé(e), pas seulement le déduire.",
+      descriptif: "Compliments, encouragements, mots d'amour explicites — être DIT aimé(e), pas seulement le déduire. C'est le canal le plus simple à activer au quotidien, et souvent le premier que l'usure du couple fait disparaître.",
       bandes: [
         { max: 2.5, label: "Secondaire", niveau: "neutre", texte: "Les mots comptent moins pour vous : leur rareté ne vous blesse probablement pas beaucoup." },
         { max: 3.5, label: "Apprécié", niveau: "neutre", texte: "Les mots font plaisir sans être votre canal le plus sensible." },
@@ -1095,7 +1095,8 @@ var TESTS_3 = [
       amelioration: {
         axes: [
           { titre: "Le demander sans honte", texte: "Demander « dis-moi ce que tu apprécies chez moi » n'enlève rien à la valeur de la réponse. Attendre que l'autre devine est la recette documentée de la frustration — personne ne lit dans les pensées." },
-          { titre: "Le donner avec précision", texte: "Si c'est le canal de votre partenaire : des mots SPÉCIFIQUES (« j'ai adoré ta façon de gérer la soirée ») touchent bien plus que des génériques (« t'es super »). La recherche sur la gratitude exprimée en couple le confirme." }
+          { titre: "Le donner avec précision", texte: "Si c'est le canal de votre partenaire : des mots SPÉCIFIQUES (« j'ai adoré ta façon de gérer la soirée ») touchent bien plus que des génériques (« t'es super »). La recherche sur la gratitude exprimée en couple le confirme." },
+          { titre: "La pudeur n'est pas de l'indifférence", texte: "Beaucoup de gens n'expriment pas verbalement par habitude familiale ou pudeur, pas par manque d'amour. Si vous recevez peu de mots, creusez avant de conclure à un désintérêt — la retenue peut coexister avec un attachement fort." }
         ],
         objectif: "Montrez votre hiérarchie à votre partenaire, découvrez la sienne, et testez pendant un mois une attention par semaine dans le canal préféré de l'autre. L'indicateur, c'est ce que ça change dans la relation — pas le score.",
         ressources: [
@@ -1106,7 +1107,7 @@ var TESTS_3 = [
     },
     TEMPS: {
       nom: "Temps de qualité", format: "moyenne", min: 1, max: 5, valence: null,
-      descriptif: "Attention pleine et non partagée : moments à deux, vraies conversations, présence sans écran.",
+      descriptif: "Attention pleine et non partagée : moments à deux, vraies conversations, présence sans écran. Le canal le plus sensible à l'érosion progressive du quotidien (enfants, travail, fatigue), souvent sans qu'on s'en rende compte.",
       bandes: [
         { max: 2.5, label: "Secondaire", niveau: "neutre", texte: "Vous pouvez vous sentir aimé(e) sans beaucoup de temps dédié en tête-à-tête." },
         { max: 3.5, label: "Apprécié", niveau: "neutre", texte: "Les moments à deux nourrissent le lien sans être votre baromètre principal." },
@@ -1115,7 +1116,8 @@ var TESTS_3 = [
       amelioration: {
         axes: [
           { titre: "Ritualiser plutôt qu'espérer", texte: "Un créneau récurrent protégé (marche du dimanche, dîner sans téléphone) vaut mieux que d'attendre du temps « spontané » qui ne vient jamais dans des vies chargées." },
-          { titre: "Qualité = attention, pas durée", texte: "15 minutes de conversation avec attention complète comptent plus qu'une soirée côte à côte sur deux écrans. Le mécanisme sérieux derrière : la réactivité perçue — l'autre remarque, comprend et répond à ce que je vis." }
+          { titre: "Qualité = attention, pas durée", texte: "15 minutes de conversation avec attention complète comptent plus qu'une soirée côte à côte sur deux écrans. Le mécanisme sérieux derrière : la réactivité perçue — l'autre remarque, comprend et répond à ce que je vis." },
+          { titre: "Distinguer présence et coprésence", texte: "Être physiquement dans la même pièce sans attention réelle (chacun sur son écran) ne nourrit pas ce canal — c'est l'attention portée à l'autre, pas la simple coprésence, qui compte pour vous." }
         ],
         objectif: "Un rituel hebdomadaire protégé pendant un mois, téléphones ailleurs. Puis demandez-vous à deux : qu'est-ce que ça a changé ?",
         ressources: [
@@ -1126,7 +1128,7 @@ var TESTS_3 = [
     },
     SERV: {
       nom: "Services rendus", format: "moyenne", min: 1, max: 5, valence: null,
-      descriptif: "L'amour prouvé par les actes concrets : alléger la charge de l'autre, remarquer ce qui doit être fait, le faire.",
+      descriptif: "L'amour prouvé par les actes concrets : alléger la charge de l'autre, remarquer ce qui doit être fait, le faire. Un canal particulièrement exposé au ressentiment silencieux quand l'effort n'est pas vu ni reconnu.",
       bandes: [
         { max: 2.5, label: "Secondaire", niveau: "neutre", texte: "Les coups de main comptent moins pour vous que d'autres formes d'attention." },
         { max: 3.5, label: "Apprécié", niveau: "neutre", texte: "L'aide concrète vous touche, parmi d'autres canaux." },
@@ -1135,7 +1137,8 @@ var TESTS_3 = [
       amelioration: {
         axes: [
           { titre: "Expliciter la charge invisible", texte: "Si vous attendez de l'aide « sans avoir à demander », listez ensemble qui porte quoi (la charge mentale se discute mieux sur une liste que dans un reproche). C'est un vrai sujet de recherche, pas un caprice." },
-          { titre: "Remercier les actes, pas seulement les faire", texte: "Dans ce canal, on donne souvent ce qu'on aimerait recevoir puis on s'épuise en silence. Nommer ce que l'autre fait déjà change la dynamique documentée du ressentiment." }
+          { titre: "Remercier les actes, pas seulement les faire", texte: "Dans ce canal, on donne souvent ce qu'on aimerait recevoir puis on s'épuise en silence. Nommer ce que l'autre fait déjà change la dynamique documentée du ressentiment." },
+          { titre: "Ne pas glisser vers le contrôle", texte: "Faire À LA PLACE de l'autre sans son accord (refaire une tâche « mieux », décider seul(e) de ce qui doit être fait) peut être vécu comme une critique déguisée de sa façon de faire, même avec de bonnes intentions." }
         ],
         objectif: "Une négociation explicite de la répartition des tâches + une attention hebdomadaire dans le canal de l'autre, pendant un mois.",
         ressources: [
@@ -1146,7 +1149,7 @@ var TESTS_3 = [
     },
     CAD: {
       nom: "Cadeaux & attentions matérielles", format: "moyenne", min: 1, max: 5, valence: null,
-      descriptif: "L'objet comme preuve de pensée : « il/elle a pensé à moi en mon absence ». La valeur symbolique, pas le prix.",
+      descriptif: "L'objet comme preuve de pensée : « il/elle a pensé à moi en mon absence ». La valeur symbolique, pas le prix — un post-it ou une fleur cueillie compte autant qu'un cadeau coûteux si l'attention est réelle.",
       bandes: [
         { max: 2.5, label: "Secondaire", niveau: "neutre", texte: "Les objets vous touchent peu — d'autres canaux portent le sentiment d'être aimé(e)." },
         { max: 3.5, label: "Apprécié", niveau: "neutre", texte: "Les attentions matérielles font plaisir sans être votre langage dominant." },
@@ -1155,7 +1158,8 @@ var TESTS_3 = [
       amelioration: {
         axes: [
           { titre: "Dédramatiser la demande", texte: "Dire « les petites attentions comptent énormément pour moi » évite à l'autre des années de cadeaux à côté et à vous des déceptions rituelles. La précision n'est pas de l'ingratitude." },
-          { titre: "Si c'est le canal de l'autre", texte: "Tenez une note des choses qu'il/elle mentionne aimer au fil de l'année — le cadeau juste est une preuve d'écoute, c'est exactement pour ça qu'il touche." }
+          { titre: "Si c'est le canal de l'autre", texte: "Tenez une note des choses qu'il/elle mentionne aimer au fil de l'année — le cadeau juste est une preuve d'écoute, c'est exactement pour ça qu'il touche." },
+          { titre: "Séparer fréquence et budget", texte: "Un petit geste régulier (un mot ramassé en rentrant, un fruit préféré rapporté) fonctionne au moins aussi bien qu'un cadeau rare et cher — c'est la régularité de l'attention qui nourrit ce canal, pas la dépense." }
         ],
         objectif: "Même protocole que les autres canaux : hiérarchies échangées, une attention par semaine dans le canal de l'autre pendant un mois, bilan à deux.",
         ressources: [
@@ -1165,7 +1169,7 @@ var TESTS_3 = [
     },
     TOUCH: {
       nom: "Le toucher", format: "moyenne", min: 1, max: 5, valence: null,
-      descriptif: "Contact physique affectueux au quotidien — câlins, mains tenues, proximité — comme canal principal de connexion.",
+      descriptif: "Contact physique affectueux au quotidien — câlins, mains tenues, proximité — comme canal principal de connexion. Son besoin varie naturellement avec la fatigue, le stress ou le contexte de vie.",
       bandes: [
         { max: 2.5, label: "Secondaire", niveau: "neutre", texte: "Le contact physique fréquent n'est pas votre canal principal — ce qui mérite d'être dit si votre partenaire, lui/elle, en a besoin." },
         { max: 3.5, label: "Apprécié", niveau: "neutre", texte: "Le contact affectueux nourrit le lien parmi d'autres canaux." },
@@ -1174,7 +1178,8 @@ var TESTS_3 = [
       amelioration: {
         axes: [
           { titre: "Découpler tendresse et sexualité", texte: "Beaucoup de couples perdent le toucher affectueux quand il devient implicitement une demande sexuelle. Restaurer du contact « gratuit » (câlin, main, épaule) détend précisément cette pression — et c'est souvent ce qui manque le plus." },
-          { titre: "Respecter les différences", texte: "Si l'un a ce canal central et l'autre pas, la solution n'est ni de forcer ni de se priver : nommer la différence, trouver les formes de contact confortables pour les deux, et compenser par les canaux de l'autre." }
+          { titre: "Respecter les différences", texte: "Si l'un a ce canal central et l'autre pas, la solution n'est ni de forcer ni de se priver : nommer la différence, trouver les formes de contact confortables pour les deux, et compenser par les canaux de l'autre." },
+          { titre: "Ne pas confondre baisse temporaire et retrait", texte: "Une période de fatigue, de maladie ou de stress intense (jeunes enfants, deuil, surcharge) réduit souvent le contact physique sans que ce soit un désinvestissement affectif — nommer la cause évite les malentendus les plus douloureux." }
         ],
         objectif: "Un mois de contact affectueux quotidien « sans agenda », puis bilan à deux sur ce que ça a changé.",
         ressources: [
@@ -1706,7 +1711,7 @@ var TESTS_5 = [
       }
     },
     O: { nom: "Ouverture (imagination / intellect)", format: "moyenne", min: 1, max: 5, valence: null,
-      descriptif: "Curiosité intellectuelle, goût pour les idées abstraites, l'imagination, l'esthétique et la nouveauté.",
+      descriptif: "Curiosité intellectuelle, goût pour les idées abstraites, l'imagination, l'esthétique et la nouveauté. C'est le trait le moins lié à la réussite professionnelle classique, mais l'un des plus associés à la créativité et à l'adaptabilité face au changement.",
       bandes: [
         { max: 2.5, label: "Plutôt bas", niveau: "neutre", texte: "Vous préférez le concret, le pratique, l'éprouvé. Force : pragmatisme et constance. Angle mort possible : rester dans sa zone de confort intellectuelle." },
         { max: 3.5, label: "Moyen", niveau: "neutre", texte: "Curiosité sélective : ouvert(e) à la nouveauté quand elle a du sens pour vous." },

@@ -160,7 +160,7 @@ var TESTS_5 = [
       }
     },
     O: { nom: "Ouverture (imagination / intellect)", format: "moyenne", min: 1, max: 5, valence: null,
-      descriptif: "Curiosité intellectuelle, goût pour les idées abstraites, l'imagination, l'esthétique et la nouveauté.",
+      descriptif: "Curiosité intellectuelle, goût pour les idées abstraites, l'imagination, l'esthétique et la nouveauté. C'est le trait le moins lié à la réussite professionnelle classique, mais l'un des plus associés à la créativité et à l'adaptabilité face au changement.",
       bandes: [
         { max: 2.5, label: "Plutôt bas", niveau: "neutre", texte: "Vous préférez le concret, le pratique, l'éprouvé. Force : pragmatisme et constance. Angle mort possible : rester dans sa zone de confort intellectuelle." },
         { max: 3.5, label: "Moyen", niveau: "neutre", texte: "Curiosité sélective : ouvert(e) à la nouveauté quand elle a du sens pour vous." },
