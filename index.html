@@ -1,0 +1,2154 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#f9f9f7" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#0d0d0d" media="(prefers-color-scheme: dark)">
+<title>Repères — auto-évaluations psychologiques sérieuses</title>
+<style>
+:root{
+  color-scheme: light;
+  --page:#f9f9f7; --surface:#fcfcfb; --ink:#0b0b0b; --ink2:#52514e; --muted:#898781;
+  --grid:#e1e0d9; --line:#c3c2b7; --border:rgba(11,11,11,.10);
+  --accent:#2a78d6; --accent-soft:rgba(42,120,214,.10);
+  --good:#0ca30c; --warn:#fab219; --crit:#d03b3b; --good-text:#006300;
+  --seg-ok:rgba(12,163,12,.13); --seg-ok-c:rgba(12,163,12,.30);
+  --seg-warn:rgba(250,178,25,.16); --seg-warn-c:rgba(250,178,25,.42);
+  --seg-crit:rgba(208,59,59,.11); --seg-crit-c:rgba(208,59,59,.30);
+  --seg-neu:rgba(137,135,129,.12); --seg-neu-c:rgba(137,135,129,.32);
+}
+@media (prefers-color-scheme: dark){
+  :root{
+    color-scheme: dark;
+    --page:#0d0d0d; --surface:#1a1a19; --ink:#ffffff; --ink2:#c3c2b7; --muted:#898781;
+    --grid:#2c2c2a; --line:#383835; --border:rgba(255,255,255,.10);
+    --accent:#3987e5; --accent-soft:rgba(57,135,229,.16);
+    --good-text:#0ca30c;
+    --seg-ok:rgba(12,163,12,.16); --seg-ok-c:rgba(12,163,12,.38);
+    --seg-warn:rgba(250,178,25,.13); --seg-warn-c:rgba(250,178,25,.38);
+    --seg-crit:rgba(230,103,103,.13); --seg-crit-c:rgba(230,103,103,.36);
+    --seg-neu:rgba(137,135,129,.14); --seg-neu-c:rgba(137,135,129,.40);
+  }
+}
+*{box-sizing:border-box; -webkit-tap-highlight-color:transparent}
+html{font-size:16px}
+body{
+  margin:0; background:var(--page); color:var(--ink);
+  font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  font-size:.97rem; line-height:1.55;
+}
+#app{max-width:680px; margin:0 auto; padding:14px 14px 96px}
+a{color:var(--accent); text-decoration:none}
+h1{font-size:1.28rem; line-height:1.25; margin:.4rem 0 .5rem; letter-spacing:-.01em}
+h2{font-size:1.06rem; margin:1.4rem 0 .5rem}
+h3{font-size:.97rem; margin:1rem 0 .3rem}
+p{margin:.45rem 0}
+.small{font-size:.84rem} .muted{color:var(--muted)} .ink2{color:var(--ink2)}
+.center{text-align:center}
+
+/* ---- cards & chrome ---- */
+.card{background:var(--surface); border:1px solid var(--border); border-radius:14px; padding:15px 16px; margin:10px 0}
+.card.tap{cursor:pointer; transition:transform .06s} .card.tap:active{transform:scale(.985)}
+.hdr{display:flex; align-items:baseline; justify-content:space-between; gap:10px}
+.brand{font-weight:800; font-size:1.05rem; letter-spacing:-.01em}
+.brand small{font-weight:500; color:var(--muted)}
+.pill{display:inline-block; font-size:.72rem; font-weight:600; color:var(--ink2); background:var(--accent-soft); border-radius:99px; padding:2px 9px; margin-right:6px}
+.pill.warnp{background:var(--seg-crit); color:var(--ink2)}
+.testmeta{font-size:.8rem; color:var(--muted); margin-top:2px}
+.done{font-size:.8rem; color:var(--good-text); font-weight:600}
+.right{margin-left:auto}
+hr{border:none; border-top:1px solid var(--grid); margin:14px 0}
+
+/* ---- chips (statut : pastille + libellé, jamais couleur seule) ---- */
+.chip{display:inline-flex; align-items:center; gap:7px; font-size:.86rem; font-weight:700}
+.dot{width:10px; height:10px; border-radius:50%; flex:0 0 auto; border:1px solid var(--border)}
+.dot.ok{background:var(--good)} .dot.attention{background:var(--warn)}
+.dot.alerte{background:var(--crit)} .dot.neutre{background:var(--muted)} .dot.info{background:var(--accent)}
+
+/* ---- buttons ---- */
+.btn{display:block; width:100%; border:none; border-radius:12px; min-height:50px;
+  background:var(--accent); color:#fff; font-size:1rem; font-weight:700; cursor:pointer; padding:12px 16px; margin:8px 0}
+.btn:active{opacity:.85}
+.btn.ghost{background:var(--surface); color:var(--ink); border:1px solid var(--line); font-weight:600}
+.btn.slim{min-height:42px; padding:8px 14px; font-size:.9rem; width:auto; display:inline-block}
+.linkbtn{background:none; border:none; color:var(--accent); font:inherit; font-weight:600; cursor:pointer; padding:0}
+
+/* ---- passation ---- */
+.progress{height:4px; background:var(--grid); border-radius:2px; margin:10px 0 4px; overflow:hidden}
+.progress i{display:block; height:100%; background:var(--accent); border-radius:2px; transition:width .2s}
+.qcount{font-size:.78rem; color:var(--muted); margin:6px 0 2px}
+.qtext{font-size:1.13rem; font-weight:700; line-height:1.4; margin:8px 0 14px}
+.consigne{font-size:.84rem; color:var(--ink2); background:var(--accent-soft); border-radius:10px; padding:8px 12px}
+.opt{display:block; width:100%; text-align:left; background:var(--surface); color:var(--ink);
+  border:1.5px solid var(--line); border-radius:12px; min-height:50px; padding:12px 14px;
+  font-size:.95rem; font-weight:600; margin:7px 0; cursor:pointer}
+.opt:active,.opt.sel{border-color:var(--accent); background:var(--accent-soft)}
+.runnav{display:flex; justify-content:space-between; align-items:center; margin-top:10px}
+
+/* ---- résultats ---- */
+.scorebig{font-size:1.9rem; font-weight:800; letter-spacing:-.02em}
+.scorebig small{font-size:1rem; font-weight:600; color:var(--muted)}
+.dimblock{margin:4px 0 6px}
+svg{display:block}
+svg text{font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+.seg.ok{fill:var(--seg-ok)} .seg.ok.cur{fill:var(--seg-ok-c)}
+.seg.attention{fill:var(--seg-warn)} .seg.attention.cur{fill:var(--seg-warn-c)}
+.seg.alerte{fill:var(--seg-crit)} .seg.alerte.cur{fill:var(--seg-crit-c)}
+.seg.neutre{fill:var(--seg-neu)} .seg.neutre.cur{fill:var(--seg-neu-c)}
+.mark{fill:var(--ink); stroke:var(--surface); stroke-width:2}
+.tick{fill:var(--muted); font-size:10px}
+.gridln{stroke:var(--grid); stroke-width:1}
+.axisln{stroke:var(--line); stroke-width:1}
+.ln{stroke:var(--accent); stroke-width:2; fill:none; stroke-linecap:round; stroke-linejoin:round}
+.pt{fill:var(--accent); stroke:var(--surface); stroke-width:2}
+.lbl{fill:var(--ink); font-size:11px; font-weight:700}
+.lblm{fill:var(--muted); font-size:10px}
+details{border:1px solid var(--border); border-radius:12px; padding:10px 14px; margin:8px 0; background:var(--surface)}
+details summary{cursor:pointer; font-weight:700; font-size:.93rem; color:var(--ink)}
+details[open] summary{margin-bottom:6px}
+.axe{margin:10px 0}
+.axe b{display:block; margin-bottom:2px}
+.axe p{margin:2px 0; color:var(--ink2)}
+.objectif{background:var(--accent-soft); border-radius:10px; padding:10px 12px; margin:10px 0; font-size:.92rem}
+.reslist{padding-left:18px; margin:6px 0} .reslist li{margin:7px 0; font-size:.86rem; color:var(--ink2)}
+.consult{border-left:3px solid var(--warn); padding:2px 0 2px 12px; margin:10px 0; font-size:.92rem}
+.urgence{border:1.5px solid var(--crit); border-radius:12px; padding:12px 14px; margin:10px 0; background:var(--surface)}
+.urgence h3{margin-top:0; color:var(--crit)}
+.urgence li{margin:6px 0; font-size:.92rem}
+.avert{font-size:.87rem; color:var(--ink2); border-left:3px solid var(--line); padding-left:12px; margin:10px 0}
+
+/* ---- tableau / historique ---- */
+table{width:100%; border-collapse:collapse; font-size:.88rem}
+th{text-align:left; color:var(--muted); font-weight:600; font-size:.78rem; padding:6px 8px 6px 0; border-bottom:1px solid var(--grid)}
+td{padding:7px 8px 7px 0; border-bottom:1px solid var(--grid); font-variant-numeric:tabular-nums}
+.delta-good{color:var(--good-text); font-weight:700}
+.delta-bad{color:var(--crit); font-weight:700}
+.delta-neu{color:var(--muted); font-weight:600}
+
+/* ---- nav ---- */
+nav{position:fixed; bottom:0; left:0; right:0; background:var(--surface); border-top:1px solid var(--border);
+  display:flex; justify-content:space-around; padding:6px 0 max(8px, env(safe-area-inset-bottom)); z-index:10}
+nav button{background:none; border:none; color:var(--muted); font-size:.7rem; font-weight:600; cursor:pointer;
+  display:flex; flex-direction:column; align-items:center; gap:3px; padding:4px 18px; font-family:inherit}
+nav button.on{color:var(--accent)}
+nav svg{width:22px; height:22px}
+.foot{margin-top:26px; font-size:.78rem; color:var(--muted); text-align:center}
+.foot a{font-weight:600}
+.catlabel{font-size:.78rem; font-weight:700; text-transform:uppercase; letter-spacing:.06em; color:var(--muted); margin:18px 2px 6px}
+.notice{font-size:.83rem; color:var(--ink2); background:var(--surface); border:1px dashed var(--line); border-radius:10px; padding:9px 12px; margin:10px 0}
+.prio{display:flex; gap:10px; align-items:flex-start; padding:10px 0; border-bottom:1px solid var(--grid)}
+.prio:last-child{border-bottom:none}
+.prio .dot{margin-top:5px}
+.sparkwrap{display:flex; align-items:center; gap:10px; margin-top:6px; flex-wrap:wrap}
+.quad text{font-size:10px}
+</style>
+</head>
+<body>
+<div id="app" role="main"></div>
+<nav aria-label="Navigation principale">
+  <button id="nav-home" onclick="location.hash='#/'" aria-label="Tests">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 6h16M4 12h10M4 18h7"/></svg>Tests</button>
+  <button id="nav-bord" onclick="location.hash='#/bord'" aria-label="Tableau de bord">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 19V10M10 19V5M16 19v-7M21 19H3"/></svg>Suivi</button>
+  <button id="nav-meth" onclick="location.hash='#/methode'" aria-label="Méthode et références">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 3a9 9 0 1 0 0 18 9 9 0 0 0 0-18Z"/><path d="M12 16v-5M12 8h.01"/></svg>Méthode</button>
+</nav>
+<script>
+/* ============================================================
+   DONNÉES — PARTIE 1 : Big Five (Mini-IPIP), Estime de soi (Rosenberg),
+   Anxiété (GAD-7), Humeur (PHQ-9)
+   Tous les instruments : libres de droits ou d'usage libre, références citées.
+   ============================================================ */
+
+var ECH_ACCORD5 = { labels: ["Pas du tout d'accord", "Plutôt pas d'accord", "Neutre", "Plutôt d'accord", "Tout à fait d'accord"], valeurs: [1, 2, 3, 4, 5] };
+var ECH_FREQ4 = { labels: ["Jamais", "Plusieurs jours", "Plus de la moitié des jours", "Presque tous les jours"], valeurs: [0, 1, 2, 3] };
+
+var TESTS_1 = [
+
+/* ---------------- 1. BIG FIVE — Mini-IPIP ---------------- */
+{
+  id: "bigfive",
+  nom: "Personnalité : les Big Five",
+  sigle: "Mini-IPIP · 20 items",
+  cat: "Personnalité",
+  duree: "4-5 min",
+  radar: true,
+  intro: "Le modèle en cinq facteurs (Big Five) est le modèle de la personnalité le plus solide et le plus répliqué de la psychologie scientifique — à l'opposé des typologies non validées (MBTI, « types » des quizz en ligne). Il décrit cinq grandes dimensions continues, sans « bon » ni « mauvais » profil.",
+  consigne: "Indiquez à quel point chaque affirmation vous décrit tel(le) que vous êtes généralement, en vous comparant à des personnes de votre âge.",
+  echelle: ECH_ACCORD5,
+  items: [
+    { t: "Je suis le boute-en-train des soirées", d: "E" },
+    { t: "Je compatis aux sentiments des autres", d: "A" },
+    { t: "Je fais les tâches ménagères et corvées sans tarder", d: "C" },
+    { t: "J'ai de fréquentes sautes d'humeur", d: "N" },
+    { t: "J'ai une imagination débordante", d: "O" },
+    { t: "Je ne parle pas beaucoup", d: "E", r: true },
+    { t: "Les problèmes des autres ne m'intéressent pas", d: "A", r: true },
+    { t: "J'oublie souvent de remettre les choses à leur place", d: "C", r: true },
+    { t: "Je suis détendu(e) la plupart du temps", d: "N", r: true },
+    { t: "Les idées abstraites ne m'intéressent pas", d: "O", r: true },
+    { t: "Dans les soirées, je parle avec beaucoup de personnes différentes", d: "E" },
+    { t: "Je ressens les émotions des autres", d: "A" },
+    { t: "J'aime l'ordre", d: "C" },
+    { t: "Je me contrarie facilement", d: "N" },
+    { t: "J'ai du mal à comprendre les idées abstraites", d: "O", r: true },
+    { t: "Je reste en retrait", d: "E", r: true },
+    { t: "Je ne m'intéresse pas vraiment aux autres", d: "A", r: true },
+    { t: "Je mets la pagaille", d: "C", r: true },
+    { t: "Je me sens rarement cafardeux(se)", d: "N", r: true },
+    { t: "Je n'ai pas une bonne imagination", d: "O", r: true }
+  ],
+  scoringNote: "Score = moyenne des 4 items de chaque dimension (items inversés recodés), de 1 à 5. Il n'existe pas de normes officielles françaises pour le Mini-IPIP : les repères « plutôt bas / moyen / plutôt haut » sont indicatifs (coupures à 2,5 et 3,5).",
+  dims: {
+    E: {
+      nom: "Extraversion", format: "moyenne", min: 1, max: 5, valence: null,
+      descriptif: "Tendance à rechercher la stimulation sociale, à s'exprimer, à ressentir des émotions positives en groupe. Les introvertis ne sont ni timides ni asociaux : ils rechargent leurs batteries autrement.",
+      bandes: [
+        { max: 2.5, label: "Plutôt introverti(e)", niveau: "neutre", texte: "Vous préférez probablement les échanges en petit comité, la profondeur à la quantité, et vous avez besoin de temps seul(e) pour récupérer. C'est un fonctionnement, pas un défaut." },
+        { max: 3.5, label: "Ambiverti(e)", niveau: "neutre", texte: "Vous alternez selon le contexte entre sociabilité et retrait. C'est le profil le plus fréquent en population générale." },
+        { max: 5, label: "Plutôt extraverti(e)", niveau: "neutre", texte: "Le contact social vous stimule et vous nourrit. Veillez simplement à préserver des temps de récupération et d'écoute." }
+      ],
+      amelioration: {
+        intro: "L'extraversion n'a pas à « augmenter » : la question utile est de savoir si votre vie sociale actuelle vous convient. La recherche (Roberts et al., 2017) montre qu'on peut infléchir volontairement ses traits, modestement mais durablement.",
+        axes: [
+          { titre: "Si vous voulez plus d'aisance sociale", texte: "Exposition graduée et régulière : des micro-interactions faciles (saluer, poser une question à un commerçant), puis des situations plus engageantes. La régularité compte plus que l'intensité." },
+          { titre: "Si vous êtes très extraverti(e)", texte: "Travaillez l'écoute active (reformuler avant de répondre) et tolérez les silences : c'est ce qui transforme la sociabilité en qualité relationnelle." },
+          { titre: "Distinguer introversion et anxiété sociale", texte: "Préférer la solitude est un trait ; éviter les autres par peur du jugement est de l'anxiété, qui se traite très bien (TCC). Si l'évitement vous fait souffrir, voyez le test d'anxiété et un professionnel." }
+        ],
+        objectif: "Choisissez UN comportement concret (ex. : proposer un café à un collègue par semaine), tenez-le 6 semaines, puis refaites le test. Visez un changement de comportement qui vous convient, pas un score.",
+        ressources: [
+          "Roberts, B. W. et al. (2017). A systematic review of personality trait change through intervention. Psychological Bulletin, 143(2).",
+          "Susan Cain, « La force des discrets » (JC Lattès) — sur la valeur de l'introversion.",
+          "Annuaire des thérapeutes TCC : aftcc.org (si anxiété sociale)."
+        ]
+      }
+    },
+    A: {
+      nom: "Agréabilité", format: "moyenne", min: 1, max: 5, valence: null,
+      descriptif: "Tendance à la coopération, à la confiance, à l'empathie. Un score élevé facilite les relations ; un score bas peut aider à négocier et à dire non — chaque pôle a ses forces et ses angles morts.",
+      bandes: [
+        { max: 2.5, label: "Plutôt bas", niveau: "neutre", texte: "Vous êtes probablement direct(e), compétitif(ve), peu enclin(e) à vous laisser marcher dessus. Angle mort possible : la dureté perçue par les autres, qui peut coûter cher relationnellement." },
+        { max: 3.5, label: "Moyen", niveau: "neutre", texte: "Équilibre entre coopération et affirmation de soi." },
+        { max: 5, label: "Plutôt haut", niveau: "neutre", texte: "L'harmonie et l'entraide comptent beaucoup pour vous. Angle mort possible : difficulté à dire non, à défendre vos intérêts, tendance à passer après les autres." }
+      ],
+      amelioration: {
+        axes: [
+          { titre: "Si score bas : entraîner l'empathie délibérée", texte: "Avant de répondre dans un désaccord, reformulez la position de l'autre jusqu'à ce qu'il la valide (« steelmanning »). L'empathie est une compétence entraînable, pas un don." },
+          { titre: "Si score haut : affirmation de soi", texte: "L'assertivité s'apprend (protocoles TCC bien validés) : exprimer un refus ou une demande de façon claire et non agressive, en commençant par des situations à faible enjeu." },
+          { titre: "Attention au lien avec l'estime de soi", texte: "Dire oui à tout pour être apprécié(e) relève souvent de l'estime de soi plus que de la gentillesse. Voyez le test de Rosenberg si c'est votre cas." }
+        ],
+        objectif: "Score bas : une reformulation empathique par jour pendant 3 semaines. Score haut : un « non » posé et argumenté par semaine. Refaites le test après 6 semaines.",
+        ressources: [
+          "Fanget, F. « Affirmez-vous ! » (Odile Jacob) — référence francophone de l'assertivité, base TCC.",
+          "Christophe André & Patrick Légeron, « La peur des autres » (Odile Jacob)."
+        ]
+      }
+    },
+    C: {
+      nom: "Conscienciosité", format: "moyenne", min: 1, max: 5, valence: null,
+      descriptif: "Organisation, autodiscipline, fiabilité, orientation vers les buts. C'est le trait le plus prédictif de la réussite professionnelle et de la santé à long terme dans les études longitudinales.",
+      bandes: [
+        { max: 2.5, label: "Plutôt bas", niveau: "neutre", texte: "Spontanéité et flexibilité, mais probablement des difficultés d'organisation, de procrastination ou de suivi des engagements qui peuvent vous coûter." },
+        { max: 3.5, label: "Moyen", niveau: "neutre", texte: "Organisation correcte sans rigidité." },
+        { max: 5, label: "Plutôt haut", niveau: "neutre", texte: "Discipline et fiabilité élevées. Angle mort possible : perfectionnisme, rigidité, difficulté à déléguer ou à lâcher prise." }
+      ],
+      amelioration: {
+        intro: "Bonne nouvelle : la conscienciosité est l'un des traits qui répond le mieux aux interventions volontaires, surtout via les habitudes et l'environnement plutôt que la « volonté ».",
+        axes: [
+          { titre: "Intentions d'implémentation", texte: "La technique la plus validée (Gollwitzer, méta-analyses) : formuler « SI situation X, ALORS je fais Y » (« si je pose mon téléphone sur la table du salon, alors je le mets en charge dans l'entrée »). Double environ le taux de suivi des objectifs." },
+          { titre: "Réduire la friction, pas augmenter l'effort", texte: "Préparez l'environnement : sortir les affaires de sport la veille, listes de contrôle, rappels. La discipline des gens « disciplinés » est surtout un bon aménagement de l'environnement." },
+          { titre: "Si perfectionnisme", texte: "Fixez des critères de « suffisamment bien » AVANT de commencer une tâche, et un temps maximal. Le perfectionnisme clinique se travaille bien en TCC." }
+        ],
+        objectif: "Choisissez UNE habitude clé, écrivez son plan « si… alors… », suivez-la sur un calendrier visible. Objectif : 80 % de jours tenus sur 6 semaines, puis refaites le test.",
+        ressources: [
+          "Gollwitzer, P. & Sheeran, P. (2006). Implementation intentions and goal achievement. Advances in Experimental Social Psychology, 38.",
+          "Duhigg, C. « Le pouvoir des habitudes » (Flammarion) — vulgarisation correcte des mécanismes.",
+          "Sur la procrastination : Steel, P. (2007). The nature of procrastination. Psychological Bulletin, 133(1)."
+        ]
+      }
+    },
+    N: {
+      nom: "Névrosisme (instabilité émotionnelle)", format: "moyenne", min: 1, max: 5, valence: false,
+      descriptif: "Tendance à ressentir des émotions négatives (inquiétude, irritabilité, humeur changeante). C'est la dimension la plus liée au bien-être — et celle qui se travaille le mieux en psychothérapie.",
+      bandes: [
+        { max: 2.5, label: "Stabilité émotionnelle élevée", niveau: "ok", texte: "Vous encaissez bien les contrariétés et gardez un moral stable. C'est un facteur protecteur pour la santé mentale et physique." },
+        { max: 3.5, label: "Moyen", niveau: "neutre", texte: "Réactivité émotionnelle dans la moyenne : des hauts et des bas normaux, sans vulnérabilité marquée." },
+        { max: 5, label: "Réactivité émotionnelle élevée", niveau: "attention", texte: "Vous ressentez les émotions négatives plus fort et plus souvent que la moyenne. Ce n'est pas une maladie, mais c'est un facteur de vulnérabilité au stress, à l'anxiété et à la dépression — et ça se travaille très bien." }
+      ],
+      amelioration: {
+        intro: "Le névrosisme est le trait qui diminue le plus en psychothérapie (Roberts et al., 2017 : effets significatifs en quelques semaines, maintenus des années). C'est l'axe d'amélioration au meilleur rendement de toute la psychologie.",
+        axes: [
+          { titre: "Thérapies cognitivo-comportementales (TCC)", texte: "Apprendre à repérer et à réévaluer les pensées automatiques catastrophistes. C'est l'approche la plus validée pour réduire la réactivité émotionnelle." },
+          { titre: "Activité physique régulière", texte: "L'expertise collective INSERM (2019) confirme un effet anxiolytique et antidépresseur de l'activité d'endurance régulière (30 min, 3-5 fois/semaine, intensité modérée)." },
+          { titre: "Méditation de pleine conscience", texte: "Les programmes structurés type MBSR/MBCT (8 semaines) réduisent la réactivité au stress avec un niveau de preuve correct — préférez-les aux applis gadgets." },
+          { titre: "Sommeil", texte: "La privation de sommeil amplifie fortement la réactivité émotionnelle. Régularité des horaires d'abord, quantité ensuite (7-9 h)." }
+        ],
+        objectif: "Complétez les tests GAD-7, PHQ-9 et stress (PSS-10) pour préciser où se loge votre réactivité. Puis : activité physique 3×/semaine + une technique TCC (journal des pensées) pendant 8 semaines, et refaites le test. Si le score reste haut avec une souffrance réelle, consultez — c'est précisément ce que la thérapie sait faire.",
+        ressources: [
+          "INSERM (2019). Activité physique : prévention et traitement des maladies chroniques (expertise collective).",
+          "Dispositif « Mon soutien psy » (ameli.fr) : séances de psychologue remboursées sur adressage.",
+          "Annuaire TCC : aftcc.org · Burns, D. « Être bien dans sa peau » (auto-aide TCC validée par essais cliniques)."
+        ],
+        consulter: "Si vos émotions négatives perturbent sommeil, travail ou relations depuis plus de quelques semaines, parlez-en à votre médecin traitant."
+      }
+    },
+    O: {
+      nom: "Ouverture (imagination / intellect)", format: "moyenne", min: 1, max: 5, valence: null,
+      descriptif: "Curiosité intellectuelle, goût pour les idées abstraites, l'imagination, l'esthétique et la nouveauté.",
+      bandes: [
+        { max: 2.5, label: "Plutôt bas", niveau: "neutre", texte: "Vous préférez le concret, le pratique, l'éprouvé. Force : pragmatisme et constance. Angle mort possible : rester dans sa zone de confort intellectuelle." },
+        { max: 3.5, label: "Moyen", niveau: "neutre", texte: "Curiosité sélective : ouvert(e) à la nouveauté quand elle a du sens pour vous." },
+        { max: 5, label: "Plutôt haut", niveau: "neutre", texte: "Les idées, l'art et la nouveauté vous nourrissent. Angle mort possible : dispersion, difficulté à finir ce qui est commencé." }
+      ],
+      amelioration: {
+        axes: [
+          { titre: "Curiosité délibérée", texte: "Un contenu exigeant par semaine hors de vos sujets habituels (essai, documentaire, exposition) — la nouveauté entretient la plasticité cognitive." },
+          { titre: "Si dispersion", texte: "Couplage avec la conscienciosité : règle « je finis avant d'ouvrir » ou quota de projets simultanés (max 2-3)." },
+          { titre: "Esprit critique", texte: "L'ouverture sans esprit critique expose aux pseudosciences. Complétez avec la page « Méthode » de cette app : les critères d'une information fiable." }
+        ],
+        objectif: "Pas de score cible : choisissez une pratique (lecture, musée, apprentissage d'une compétence) et tenez-la un mois.",
+        ressources: [
+          "Universalis et CNRS Le Journal pour nourrir la curiosité avec des sources fiables.",
+          "Bronner, G. « Apocalypse cognitive » (PUF) — sur l'économie de l'attention."
+        ]
+      }
+    }
+  },
+  source: {
+    instrument: "Mini-IPIP (20 items), forme courte validée de l'IPIP Big Five",
+    statut: "Domaine public — International Personality Item Pool (ipip.ori.org). Traduction française réalisée pour cette application à partir des items originaux.",
+    refs: [
+      "Donnellan, M. B., Oswald, F. L., Baird, B. M., & Lucas, R. E. (2006). The Mini-IPIP scales: tiny-yet-effective measures of the Big Five. Psychological Assessment, 18(2), 192-203.",
+      "Goldberg, L. R. (1999). A broad-bandwidth, public domain, personality inventory (IPIP). ipip.ori.org.",
+      "John, O. P., & Srivastava, S. (1999). The Big Five trait taxonomy. Handbook of Personality."
+    ]
+  }
+},
+
+/* ---------------- 2. ESTIME DE SOI — ROSENBERG ---------------- */
+{
+  id: "rosenberg",
+  nom: "Estime de soi",
+  sigle: "Échelle de Rosenberg · 10 items",
+  cat: "Soi",
+  duree: "2 min",
+  intro: "L'échelle de Rosenberg (1965) est l'outil de mesure de l'estime de soi globale le plus utilisé au monde, traduit et validé en français (Vallières & Vallerand, 1990). Dix items, un score de 10 à 40.",
+  consigne: "Indiquez à quel point vous êtes en accord avec chaque affirmation, telle que vous vous sentez en général.",
+  echelle: { labels: ["Tout à fait en désaccord", "Plutôt en désaccord", "Plutôt en accord", "Tout à fait en accord"], valeurs: [1, 2, 3, 4] },
+  items: [
+    { t: "Je pense que je suis une personne de valeur, au moins égale à n'importe qui d'autre", d: "S" },
+    { t: "Je pense que je possède un certain nombre de belles qualités", d: "S" },
+    { t: "Tout bien considéré, je suis porté(e) à me considérer comme un(e) raté(e)", d: "S", r: true },
+    { t: "Je suis capable de faire les choses aussi bien que la majorité des gens", d: "S" },
+    { t: "Je sens peu de raisons d'être fier(ère) de moi", d: "S", r: true },
+    { t: "J'ai une attitude positive vis-à-vis de moi-même", d: "S" },
+    { t: "Dans l'ensemble, je suis satisfait(e) de moi", d: "S" },
+    { t: "J'aimerais avoir plus de respect pour moi-même", d: "S", r: true },
+    { t: "Parfois, je me sens vraiment inutile", d: "S", r: true },
+    { t: "Il m'arrive de penser que je suis un(e) bon(ne) à rien", d: "S", r: true }
+  ],
+  scoringNote: "Somme des 10 items (items négatifs recodés), de 10 à 40. Repères usuels de la version francophone : < 25 très faible · 25-30 faible · 31-34 moyenne · 35-39 forte · 40 très forte. Ce sont des repères indicatifs, pas des seuils diagnostiques.",
+  dims: {
+    S: {
+      nom: "Estime de soi globale", format: "somme", min: 10, max: 40, valence: true,
+      descriptif: "Évaluation globale que vous portez sur votre propre valeur. Elle fluctue avec les événements ; ce score est une photographie, pas une sentence.",
+      bandes: [
+        { max: 24, label: "Très faible", niveau: "alerte", texte: "Votre regard sur vous-même est durement négatif. Ce n'est ni une fatalité ni une vérité objective : l'estime de soi se reconstruit, et c'est un motif tout à fait légitime de consultation. Une estime très basse accompagne souvent un épisode anxieux ou dépressif — faites aussi les tests GAD-7 et PHQ-9." },
+        { max: 30, label: "Faible", niveau: "attention", texte: "Vous doutez de votre valeur plus souvent qu'à votre tour : autocritique forte, difficulté à recevoir les compliments, peur de décevoir. Les axes ci-dessous sont directement actionnables." },
+        { max: 34, label: "Dans la moyenne", niveau: "ok", texte: "Estime de soi comparable à la majorité des gens : globalement positive, avec des fluctuations normales selon les succès et les échecs." },
+        { max: 39, label: "Forte", niveau: "ok", texte: "Regard sur vous-même solide et bienveillant, bon facteur de protection psychologique." },
+        { max: 40, label: "Très forte", niveau: "ok", texte: "Estime de soi très élevée. Si elle s'accompagne d'une forte dépendance au regard des autres ou d'une difficulté à entendre la critique, voyez la nuance entre estime solide et estime fragile dans les axes ci-dessous." }
+      ],
+      amelioration: {
+        intro: "La recherche distingue l'estime de soi SOLIDE (stable, peu dépendante de la validation externe) de l'estime FRAGILE (haute mais réactive). L'objectif n'est pas de « se trouver génial » mais de se traiter comme on traiterait un(e) ami(e).",
+        axes: [
+          { titre: "Réduire l'autocritique par l'auto-compassion", texte: "L'approche de Kristin Neff (bien étayée par la recherche) : quand vous échouez, notez ce que vous vous dites, puis réécrivez-le comme vous le diriez à un(e) ami(e) proche. Exercice contre-intuitif mais efficace sur l'autocritique chronique." },
+          { titre: "Expériences de maîtrise", texte: "L'estime durable vient des actes, pas des affirmations positives devant le miroir (dont l'efficacité n'est pas démontrée, voire inverse chez les personnes à basse estime — Wood et al., 2009). Fixez des défis modestes et réussissables, et tenez un registre écrit de ce que vous avez accompli." },
+          { titre: "Agir selon ses valeurs", texte: "Identifiez 2-3 valeurs centrales (honnêteté, soin des autres, création…) et posez chaque semaine une action qui les incarne. L'estime suit la cohérence entre valeurs et actes." },
+          { titre: "Hygiène de la comparaison sociale", texte: "Limitez l'exposition aux vitrines de réussite (réseaux sociaux) : la comparaison ascendante permanente est un des facteurs les mieux documentés d'érosion de l'estime de soi." }
+        ],
+        objectif: "Pendant 6 semaines : registre quotidien de 3 actions accomplies (même minuscules) + 1 exercice d'auto-compassion par situation d'échec. Visez d'abord un passage dans la bande supérieure, puis la zone 31-39. Refaites le test toutes les 4-6 semaines.",
+        ressources: [
+          "Christophe André & François Lelord, « L'estime de soi : s'aimer pour mieux vivre avec les autres » (Odile Jacob) — LA référence francophone.",
+          "Neff, K. « S'aimer : comment se réconcilier avec soi-même » (Belfond).",
+          "Fanget, F. « Oser : thérapie de la confiance en soi » (Odile Jacob).",
+          "Vallières, E. F., & Vallerand, R. J. (1990). Traduction et validation canadienne-française de l'échelle de l'estime de soi de Rosenberg. International Journal of Psychology, 25, 305-316."
+        ],
+        consulter: "Si l'estime très basse s'accompagne de tristesse durable, de retrait ou d'idées noires : médecin traitant ou psychologue (dispositif « Mon soutien psy », séances remboursées). L'estime de soi répond bien aux TCC."
+      }
+    }
+  },
+  source: {
+    instrument: "Rosenberg Self-Esteem Scale (RSE), version francophone",
+    statut: "Libre d'utilisation (la famille Rosenberg autorise l'usage sans permission). Version française validée.",
+    refs: [
+      "Rosenberg, M. (1965). Society and the Adolescent Self-Image. Princeton University Press.",
+      "Vallières, E. F., & Vallerand, R. J. (1990). Traduction et validation canadienne-française de l'échelle de l'estime de soi de Rosenberg. International Journal of Psychology, 25, 305-316."
+    ]
+  }
+},
+
+/* ---------------- 3. ANXIÉTÉ — GAD-7 ---------------- */
+{
+  id: "gad7",
+  nom: "Anxiété",
+  sigle: "GAD-7 · 7 items",
+  cat: "Clinique — repérage",
+  duree: "1-2 min",
+  badge: "clinique",
+  intro: "Le GAD-7 (Spitzer et al., 2006) est le questionnaire de repérage de l'anxiété le plus utilisé en médecine, libre de droits, validé en français. C'est un outil de REPÉRAGE : il indique s'il est pertinent d'en parler à un professionnel, il ne pose pas de diagnostic.",
+  consigne: "Au cours des 14 derniers jours, à quelle fréquence avez-vous été gêné(e) par les problèmes suivants ?",
+  echelle: ECH_FREQ4,
+  items: [
+    { t: "Sentiment de nervosité, d'anxiété ou de tension", d: "A" },
+    { t: "Incapacité à arrêter de vous inquiéter ou à contrôler vos inquiétudes", d: "A" },
+    { t: "Inquiétude excessive à propos de différentes choses", d: "A" },
+    { t: "Difficulté à vous détendre", d: "A" },
+    { t: "Agitation telle qu'il est difficile de rester tranquille", d: "A" },
+    { t: "Tendance à être facilement contrarié(e) ou irritable", d: "A" },
+    { t: "Sentiment de peur, comme si quelque chose de terrible risquait de se produire", d: "A" }
+  ],
+  scoringNote: "Somme des 7 items, de 0 à 21. Seuils publiés (Spitzer et al., 2006) : 0-4 minimale · 5-9 légère · 10-14 modérée · 15-21 sévère. Un score ≥ 10 justifie d'en parler à un professionnel.",
+  dims: {
+    A: {
+      nom: "Anxiété (2 dernières semaines)", format: "somme", min: 0, max: 21, valence: false,
+      descriptif: "Intensité des symptômes anxieux sur les 14 derniers jours. L'anxiété est une émotion normale ; elle devient un problème quand elle est excessive, incontrôlable et durable.",
+      bandes: [
+        { max: 4, label: "Anxiété minimale", niveau: "ok", texte: "Niveau d'anxiété faible sur la période. Rien à signaler de ce côté — entretenez ce qui vous fait du bien (sommeil, activité physique, liens sociaux)." },
+        { max: 9, label: "Anxiété légère", niveau: "attention", texte: "Symptômes présents mais limités. Souvent lié à une période de stress : les axes ci-dessous (hygiène de vie + techniques TCC de base) suffisent généralement. Surveillez l'évolution en refaisant le test dans 2-4 semaines." },
+        { max: 14, label: "Anxiété modérée", niveau: "alerte", texte: "Score au-dessus du seuil clinique de repérage (≥ 10) : il est recommandé d'en parler à votre médecin traitant ou à un psychologue. Ce niveau d'anxiété se traite très efficacement (TCC en première intention)." },
+        { max: 21, label: "Anxiété sévère", niveau: "alerte", texte: "Symptômes anxieux importants. Consultez sans attendre votre médecin traitant ou un psychologue : les prises en charge validées (TCC, parfois traitement médicamenteux) donnent de très bons résultats. Vous n'avez pas à « tenir » comme ça." }
+      ],
+      amelioration: {
+        intro: "L'anxiété est l'un des troubles les mieux traités de toute la médecine. Première intention selon la Haute Autorité de Santé : les thérapies cognitivo-comportementales.",
+        axes: [
+          { titre: "Restructuration cognitive (TCC)", texte: "Noter l'inquiétude, estimer sa probabilité réelle, chercher les preuves pour/contre, formuler une pensée alternative réaliste. Un journal des pensées 10 min/jour change la relation aux inquiétudes en quelques semaines." },
+          { titre: "Temps d'inquiétude programmé", texte: "Technique validée pour l'inquiétude chronique : réserver 20 min/jour à heure fixe pour s'inquiéter « à fond » par écrit, et reporter toute inquiétude surgissant hors créneau. Réduit la rumination diffuse." },
+          { titre: "Exposition plutôt qu'évitement", texte: "L'évitement soulage à court terme et aggrave à long terme — c'est le moteur central de l'anxiété. Listez ce que vous évitez, classez du plus facile au plus dur, et ré-affrontez progressivement." },
+          { titre: "Corps : respiration lente et activité physique", texte: "Respiration lente (~6 cycles/min, 5-10 min) pour l'apaisement immédiat ; endurance régulière pour le fond anxieux (effet démontré, INSERM 2019). Réduisez aussi caféine et alcool, anxiogènes sous-estimés." }
+        ],
+        objectif: "Objectif chiffré : repasser sous 5 (anxiété minimale) ou au minimum sous 10. Protocole 8 semaines : journal des pensées quotidien + 3 séances d'activité physique/semaine + réduction caféine, puis re-test toutes les 2 semaines pour suivre la courbe.",
+        ressources: [
+          "HAS — Troubles anxieux graves : recommandations de prise en charge (has-sante.fr).",
+          "Ameli.fr — dossier « Troubles anxieux » et dispositif « Mon soutien psy » (séances de psychologue remboursées).",
+          "Christophe André, « Psychologie de la peur : craintes, angoisses et phobies » (Odile Jacob).",
+          "Annuaire de thérapeutes TCC : aftcc.org.",
+          "Spitzer, R. L., Kroenke, K., Williams, J. B., & Löwe, B. (2006). A brief measure for assessing generalized anxiety disorder: the GAD-7. Archives of Internal Medicine, 166(10), 1092-1097."
+        ],
+        consulter: "Score ≥ 10, ou anxiété qui perturbe sommeil/travail/relations, ou attaques de panique : médecin traitant en première ligne. C'est fréquent (environ 1 personne sur 5 au cours de la vie) et ça se soigne."
+      }
+    }
+  },
+  source: {
+    instrument: "Generalized Anxiety Disorder 7-item scale (GAD-7)",
+    statut: "Libre d'utilisation (développé avec Pfizer, aucune permission requise). Version française validée.",
+    refs: [
+      "Spitzer, R. L., Kroenke, K., Williams, J. B., & Löwe, B. (2006). Archives of Internal Medicine, 166(10), 1092-1097.",
+      "Micoulaud-Franchi, J.-A. et al. (2016). Validation française du GAD-7."
+    ]
+  }
+},
+
+/* ---------------- 4. HUMEUR — PHQ-9 ---------------- */
+{
+  id: "phq9",
+  nom: "Humeur dépressive",
+  sigle: "PHQ-9 · 9 items",
+  cat: "Clinique — repérage",
+  duree: "2 min",
+  badge: "clinique",
+  avertissement: "Outil de repérage utilisé par les médecins, pas un diagnostic. Un score élevé signifie « il est pertinent de consulter », jamais « vous êtes dépressif(ve) ». Si vous traversez un moment difficile, des ressources d'aide figurent en bas des résultats.",
+  intro: "Le PHQ-9 (Kroenke, Spitzer & Williams, 2001) est l'auto-questionnaire de repérage de la dépression le plus validé au monde, libre de droits, utilisé quotidiennement en médecine générale. Il balaie les 9 symptômes du diagnostic d'épisode dépressif.",
+  consigne: "Au cours des 14 derniers jours, à quelle fréquence avez-vous été gêné(e) par les problèmes suivants ?",
+  echelle: ECH_FREQ4,
+  items: [
+    { t: "Peu d'intérêt ou de plaisir à faire les choses", d: "D" },
+    { t: "Sentiment d'être triste, déprimé(e) ou désespéré(e)", d: "D" },
+    { t: "Difficultés à vous endormir ou à rester endormi(e), ou au contraire trop dormir", d: "D" },
+    { t: "Sentiment de fatigue ou manque d'énergie", d: "D" },
+    { t: "Peu d'appétit, ou au contraire trop manger", d: "D" },
+    { t: "Mauvaise opinion de vous-même — sentiment d'être nul(le), d'avoir déçu votre famille ou de vous être déçu(e) vous-même", d: "D" },
+    { t: "Difficultés à vous concentrer (par exemple pour lire ou regarder un film)", d: "D" },
+    { t: "Lenteur inhabituelle pour bouger ou parler, remarquable par les autres — ou au contraire agitation, difficulté à tenir en place", d: "D" },
+    { t: "Pensées qu'il vaudrait mieux mourir, ou envie de vous faire du mal d'une manière ou d'une autre", d: "D" }
+  ],
+  flagCrise: { itemIndex: 8, seuil: 1 },
+  scoringNote: "Somme des 9 items, de 0 à 27. Seuils publiés (Kroenke et al., 2001) : 0-4 minimale · 5-9 légère · 10-14 modérée · 15-19 modérément sévère · 20-27 sévère. Un score ≥ 10 justifie une consultation.",
+  dims: {
+    D: {
+      nom: "Symptômes dépressifs (2 dernières semaines)", format: "somme", min: 0, max: 27, valence: false,
+      descriptif: "Intensité des symptômes dépressifs sur les 14 derniers jours. La déprime passagère est universelle ; l'épisode dépressif est autre chose : durable, envahissant, et il se soigne.",
+      bandes: [
+        { max: 4, label: "Symptômes minimaux", niveau: "ok", texte: "Pas de signal dépressif notable sur la période. Entretenez les fondamentaux : sommeil régulier, activité physique, liens sociaux, activités qui ont du sens pour vous." },
+        { max: 9, label: "Symptômes légers", niveau: "attention", texte: "Quelques symptômes présents — souvent une période de creux ou de fatigue. Les axes ci-dessous (activation comportementale, hygiène de vie) sont efficaces à ce stade. Refaites le test dans 2 semaines : c'est l'ÉVOLUTION qui compte." },
+        { max: 14, label: "Symptômes modérés", niveau: "alerte", texte: "Score au-dessus du seuil de repérage (≥ 10) : parlez-en à votre médecin traitant ou à un psychologue. Ce n'est ni une faiblesse ni un caprice — et les prises en charge validées sont efficaces." },
+        { max: 19, label: "Modérément sévères", niveau: "alerte", texte: "Symptômes importants qui méritent une consultation rapide (médecin traitant en première ligne). La dépression se traite : psychothérapie structurée, parfois médicament, souvent les deux." },
+        { max: 27, label: "Sévères", niveau: "alerte", texte: "Symptômes majeurs : consultez rapidement — médecin traitant, ou 3114 si des idées suicidaires sont présentes (24h/24, gratuit). Vous n'êtes pas seul(e), et cet état, aussi écrasant soit-il, est une condition qui se soigne, pas une vérité sur vous ou sur l'avenir." }
+      ],
+      amelioration: {
+        intro: "Ce qui a le plus de preuves contre les symptômes dépressifs légers à modérés : l'activation comportementale, l'activité physique et les TCC. Au-delà, l'accompagnement professionnel est la voie efficace — ces axes restent utiles en complément, jamais en remplacement.",
+        axes: [
+          { titre: "Activation comportementale", texte: "La dépression pousse à tout arrêter, et l'inactivité aggrave la dépression. Le protocole le plus validé consiste à re-planifier des activités (plaisir, maîtrise, lien social) en commençant ridiculement petit : 10 minutes de marche comptent. L'action précède la motivation, pas l'inverse." },
+          { titre: "Activité physique", texte: "Effet antidépresseur démontré pour les formes légères à modérées (INSERM 2019, méta-analyses) : viser progressivement 30 min d'endurance modérée, 3-5 fois/semaine. Commencer par ce qui est faisable aujourd'hui." },
+          { titre: "Rythme et sommeil", texte: "Lever à heure fixe (même le week-end), lumière du jour le matin, pas d'alcool le soir — la régularité circadienne est un levier antidépresseur sous-estimé." },
+          { titre: "Lien social minimal garanti", texte: "Un contact réel par jour (appel, café, message vocal), même bref, même sans envie. L'isolement est à la fois symptôme et carburant de la dépression." }
+        ],
+        objectif: "Objectif : repasser sous 10, puis sous 5. Protocole : 3 activités planifiées/jour (minuscules au début) + activité physique progressive + re-test tous les 14 jours pour tracer la courbe. Si pas d'amélioration après 4 semaines, ou si score ≥ 15 d'emblée : consultation, sans attendre.",
+        ressources: [
+          "3114 — numéro national de prévention du suicide, 24h/24, 7j/7, gratuit (3114.fr).",
+          "Ameli.fr — dossier « Dépression » et « Mon soutien psy » (séances de psychologue remboursées).",
+          "HAS — Épisode dépressif caractérisé de l'adulte : prise en charge (has-sante.fr).",
+          "Psycom.org — information fiable et indépendante sur la santé mentale.",
+          "Burns, D. « Être bien dans sa peau » (auto-aide TCC dont l'efficacité a été testée en essais cliniques).",
+          "Kroenke, K., Spitzer, R. L., & Williams, J. B. (2001). The PHQ-9: validity of a brief depression severity measure. Journal of General Internal Medicine, 16(9), 606-613."
+        ],
+        consulter: "Score ≥ 10, ou tristesse/perte d'intérêt quasi quotidienne depuis plus de 2 semaines : médecin traitant. Idées suicidaires, même fugaces : 3114, tout de suite — c'est exactement leur rôle, ils écoutent et orientent sans juger."
+      }
+    }
+  },
+  source: {
+    instrument: "Patient Health Questionnaire 9 (PHQ-9)",
+    statut: "Libre d'utilisation (développé avec Pfizer, aucune permission requise). Version française validée, utilisée en médecine générale.",
+    refs: [
+      "Kroenke, K., Spitzer, R. L., & Williams, J. B. (2001). Journal of General Internal Medicine, 16(9), 606-613.",
+      "Arthurs, E. et al. (2012). Validation française du PHQ-9."
+    ]
+  }
+}
+];
+/* ============================================================
+   DONNÉES — PARTIE 2 : Stress perçu (PSS-10), Bien-être (WHO-5),
+   Attachement (ECR-12), Triade sombre (SD3)
+   ============================================================ */
+
+var ECH_ACCORD7 = { labels: ["Fortement en désaccord", "En désaccord", "Plutôt en désaccord", "Neutre / partagé(e)", "Plutôt en accord", "En accord", "Fortement en accord"], valeurs: [1, 2, 3, 4, 5, 6, 7] };
+
+var TESTS_2 = [
+
+/* ---------------- 5. STRESS PERÇU — PSS-10 ---------------- */
+{
+  id: "pss10",
+  nom: "Stress perçu",
+  sigle: "PSS-10 · 10 items",
+  cat: "Stress & énergie",
+  duree: "2-3 min",
+  intro: "L'échelle de stress perçu de Cohen (PSS-10, 1988) mesure à quel point votre vie vous a semblé imprévisible, incontrôlable et surchargée durant le dernier mois. C'est l'instrument de référence international sur le stress, validé en français (Bellinghausen et al., 2009 ; Lesage et al., 2012).",
+  consigne: "Au cours du DERNIER MOIS, à quelle fréquence…",
+  echelle: { labels: ["Jamais", "Presque jamais", "Parfois", "Assez souvent", "Très souvent"], valeurs: [0, 1, 2, 3, 4] },
+  items: [
+    { t: "…avez-vous été dérangé(e) par un événement inattendu ?", d: "P" },
+    { t: "…vous a-t-il semblé difficile de contrôler les choses importantes de votre vie ?", d: "P" },
+    { t: "…vous êtes-vous senti(e) nerveux(se) ou stressé(e) ?", d: "P" },
+    { t: "…vous êtes-vous senti(e) confiant(e) dans votre capacité à prendre en main vos problèmes personnels ?", d: "P", r: true },
+    { t: "…avez-vous senti que les choses allaient comme vous le vouliez ?", d: "P", r: true },
+    { t: "…avez-vous pensé que vous ne pouviez pas assumer toutes les choses que vous deviez faire ?", d: "P" },
+    { t: "…avez-vous été capable de maîtriser votre énervement ?", d: "P", r: true },
+    { t: "…avez-vous senti que vous dominiez la situation ?", d: "P", r: true },
+    { t: "…vous êtes-vous senti(e) irrité(e) parce que les événements échappaient à votre contrôle ?", d: "P" },
+    { t: "…avez-vous trouvé que les difficultés s'accumulaient à un point tel que vous ne pouviez pas les surmonter ?", d: "P" }
+  ],
+  scoringNote: "Somme des 10 items (4 items positifs recodés), de 0 à 40. Il n'existe pas de seuil clinique officiel ; repères usuels de la littérature : < 14 stress faible · 14-26 modéré · > 26 élevé.",
+  dims: {
+    P: {
+      nom: "Stress perçu (dernier mois)", format: "somme", min: 0, max: 40, valence: false,
+      descriptif: "Le stress perçu dépend moins des événements eux-mêmes que du rapport entre les exigences que vous percevez et les ressources que vous vous reconnaissez. C'est précisément pour ça qu'il est modifiable.",
+      bandes: [
+        { max: 13, label: "Stress faible", niveau: "ok", texte: "Vous percevez votre vie comme globalement prévisible et gérable. Bon signe — le stress ponctuel et récupérable est normal et même utile." },
+        { max: 26, label: "Stress modéré", niveau: "attention", texte: "Niveau de stress notable, le plus fréquent en population active. À surveiller si ça dure : le stress chronique use (sommeil, immunité, humeur). Les axes ci-dessous ont un bon rendement à ce niveau." },
+        { max: 40, label: "Stress élevé", niveau: "alerte", texte: "Vous vivez une période de surcharge où beaucoup semble échapper à votre contrôle. Le stress chronique élevé est un facteur de risque sérieux (anxiété, dépression, épuisement, santé cardiovasculaire) : agissez maintenant, et pas seul(e) si c'est lié au travail (médecin du travail, médecin traitant)." }
+      ],
+      amelioration: {
+        intro: "Deux leviers complémentaires : réduire la charge réelle (stresseurs) et renforcer la récupération et le sentiment de contrôle. Les deux se travaillent.",
+        axes: [
+          { titre: "Cartographier ses stresseurs", texte: "Listez ce qui vous stresse, classez en 3 colonnes : je peux agir / je peux influencer / je ne contrôle pas. Un plan d'action pour la colonne 1, une acceptation active pour la colonne 3 — la rumination sur l'incontrôlable est le carburant du stress perçu." },
+          { titre: "Récupération quotidienne non négociable", texte: "Le stress se gère comme l'entraînement sportif : par la récupération. Un créneau quotidien réellement déconnecté (marche, sport, lecture, respiration lente 5-10 min) — sans écran, car le défilement d'actualités et de notifications maintient l'activation physiologique." },
+          { titre: "Pleine conscience structurée", texte: "Les programmes MBSR (8 semaines) réduisent le stress perçu avec un niveau de preuve correct — c'est d'ailleurs sur le PSS que beaucoup d'essais le mesurent. Préférez un programme structuré à une appli utilisée 3 minutes de temps en temps." },
+          { titre: "Charge de travail : dire non et déléguer", texte: "Si la source est professionnelle : négocier les priorités par écrit avec votre hiérarchie (« qu'est-ce qui passe après ? »), et documenter la surcharge. L'INRS fournit des repères sérieux sur les risques psychosociaux." }
+        ],
+        objectif: "Objectif : redescendre sous 14, ou perdre au moins 5 points en 6 semaines. Protocole : plan d'action sur 2 stresseurs « actionnables » + récupération quotidienne 20 min + re-test toutes les 3 semaines. Complétez avec le test d'épuisement (CBI) si la fatigue domine.",
+        ressources: [
+          "Cohen, S., & Williamson, G. (1988). Perceived stress in a probability sample of the United States. The Social Psychology of Health.",
+          "Bellinghausen, L. et al. (2009). Validation factorielle de l'échelle française de stress perçu en milieu professionnel. Santé Publique, 21(4).",
+          "INRS — Risques psychosociaux (inrs.fr) : références sur le stress au travail.",
+          "Kabat-Zinn, J. « Au cœur de la tourmente, la pleine conscience » (De Boeck) — le manuel du MBSR.",
+          "INSERM (2019). Expertise collective sur l'activité physique."
+        ],
+        consulter: "Stress élevé durable malgré vos efforts, sommeil durablement dégradé, ou signes d'épuisement : médecin traitant, et médecin du travail si la source est professionnelle (consultation possible à votre initiative, confidentielle)."
+      }
+    }
+  },
+  source: {
+    instrument: "Perceived Stress Scale (PSS-10)",
+    statut: "Utilisation libre pour usage non commercial (S. Cohen). Version française validée.",
+    refs: [
+      "Cohen, S., Kamarck, T., & Mermelstein, R. (1983). A global measure of perceived stress. Journal of Health and Social Behavior, 24, 385-396.",
+      "Lesage, F.-X., Berjot, S., & Deschamps, F. (2012). Psychometric properties of the French versions of the Perceived Stress Scale. International Journal of Occupational Medicine and Environmental Health, 25(2)."
+    ]
+  }
+},
+
+/* ---------------- 6. BIEN-ÊTRE — WHO-5 ---------------- */
+{
+  id: "who5",
+  nom: "Bien-être",
+  sigle: "WHO-5 (OMS) · 5 items",
+  cat: "Stress & énergie",
+  duree: "1 min",
+  intro: "L'indice de bien-être de l'Organisation Mondiale de la Santé (WHO-5, 1998) : 5 questions, un score sur 100. C'est l'un des questionnaires les plus utilisés au monde (plus de 5000 études, revue : Topp et al., 2015), libre d'utilisation. Idéal pour un suivi régulier, comme un « thermomètre » du moral.",
+  consigne: "Au cours des DEUX DERNIÈRES SEMAINES…",
+  echelle: { labels: ["Jamais", "De temps en temps", "Moins de la moitié du temps", "Plus de la moitié du temps", "La plupart du temps", "Tout le temps"], valeurs: [0, 1, 2, 3, 4, 5] },
+  items: [
+    { t: "…je me suis senti(e) bien et de bonne humeur", d: "B" },
+    { t: "…je me suis senti(e) calme et tranquille", d: "B" },
+    { t: "…je me suis senti(e) plein(e) d'énergie et vigoureux(se)", d: "B" },
+    { t: "…je me suis réveillé(e) en me sentant frais(fraîche) et dispos(e)", d: "B" },
+    { t: "…ma vie quotidienne a été remplie de choses intéressantes", d: "B" }
+  ],
+  scoringNote: "Somme des 5 items (0-25) multipliée par 4 → score de 0 à 100. Repère OMS : un score ≤ 50 signale un bien-être dégradé ; ≤ 28, un risque dépressif justifiant un repérage (Topp et al., 2015).",
+  dims: {
+    B: {
+      nom: "Bien-être subjectif (2 dernières semaines)", format: "pct25", min: 0, max: 100, valence: true,
+      descriptif: "Le WHO-5 mesure le versant POSITIF du moral : humeur, calme, énergie, récupération, intérêt. Sa force : détecter tôt une dégradation, avant les symptômes.",
+      bandes: [
+        { max: 28, label: "Bien-être très dégradé", niveau: "alerte", texte: "Score dans la zone où l'OMS recommande un repérage de la dépression. Faites le test PHQ-9 de cette app et parlez-en à votre médecin traitant. Ce niveau d'épuisement du moral n'est pas un état à endurer : il se prend en charge." },
+        { max: 50, label: "Bien-être dégradé", niveau: "attention", texte: "Moral, énergie ou intérêt en berne sur la quinzaine. Signal à prendre au sérieux sans dramatiser : regardez ce qui s'est dégradé (sommeil ? charge ? isolement ?) et appliquez les axes ci-dessous. Re-testez dans 2 semaines." },
+        { max: 75, label: "Bien-être correct", niveau: "ok", texte: "Niveau de bien-être dans la moyenne. Les axes ci-dessous restent utiles pour consolider — le bien-être s'entretient comme une condition physique." },
+        { max: 100, label: "Bien-être élevé", niveau: "ok", texte: "Excellent niveau d'humeur, d'énergie et d'intérêt. Notez ce qui le nourrit en ce moment : c'est votre meilleure assurance pour les périodes plus rudes." }
+      ],
+      amelioration: {
+        intro: "Le bien-être durable repose sur des piliers prosaïques et bien documentés : sommeil, mouvement, liens, sens. Les « astuces bonheur » spectaculaires ont des effets modestes ; les fondamentaux ont des effets solides.",
+        axes: [
+          { titre: "Relations sociales de qualité", texte: "Le prédicteur le plus robuste du bien-être à long terme (notamment l'étude longitudinale de Harvard, 80+ ans de suivi). Investissez dans quelques liens profonds : rituels réguliers (repas hebdomadaire, appel fixe) plutôt que contacts diffus." },
+          { titre: "Sommeil et lumière", texte: "Horaires réguliers, exposition à la lumière du jour le matin (30 min dehors), écrans coupés avant le coucher. Les 2 premiers items du WHO-5 (humeur, calme) réagissent fortement au sommeil." },
+          { titre: "Activités à valeur et engagement", texte: "Planifiez chaque semaine des activités qui ont du SENS pour vous (créer, aider, apprendre, transmettre) et pas seulement du plaisir passif. Le bénévolat a un effet mesurable sur le bien-être." },
+          { titre: "Mouvement quotidien", texte: "Même la marche compte : la relation dose-réponse entre activité physique et bien-être est l'une des mieux établies (INSERM 2019)." },
+          { titre: "Gratitude — avec les bonnes attentes", texte: "Noter 3 choses positives du jour a un effet réel mais MODESTE dans les méta-analyses. Utile en complément, insuffisant seul — méfiez-vous de quiconque le vend comme une solution miracle." }
+        ],
+        objectif: "Le WHO-5 est fait pour le suivi : re-testez toutes les 2 semaines. Objectif : rester durablement au-dessus de 50, idéalement vers 60-75. Une chute de plus de 10 points d'une mesure à l'autre = signal à explorer (que s'est-il passé ?).",
+        ressources: [
+          "Topp, C. W. et al. (2015). The WHO-5 Well-Being Index: a systematic review of the literature. Psychotherapy and Psychosomatics, 84(3), 167-176.",
+          "Waldinger, R. & Schulz, M. « Une vie heureuse » (Les Arènes) — par les directeurs de l'étude de Harvard.",
+          "INSERM (2019). Activité physique : prévention et traitement des maladies chroniques.",
+          "Psycom.org — rubrique « prendre soin de sa santé mentale »."
+        ]
+      }
+    }
+  },
+  source: {
+    instrument: "WHO-5 Well-Being Index (Organisation Mondiale de la Santé, 1998)",
+    statut: "Libre d'utilisation avec citation. Version française officielle disponible auprès de l'OMS.",
+    refs: [
+      "WHO Regional Office for Europe (1998). Wellbeing measures in primary health care — the DepCare Project.",
+      "Topp, C. W., Østergaard, S. D., Søndergaard, S., & Bech, P. (2015). Psychotherapy and Psychosomatics, 84(3), 167-176."
+    ]
+  }
+},
+
+/* ---------------- 7. ATTACHEMENT — ECR-12 ---------------- */
+{
+  id: "ecr12",
+  nom: "Attachement dans les relations",
+  sigle: "ECR-12 (adaptation) · 12 items",
+  cat: "Couple",
+  duree: "3 min",
+  radar: false,
+  special: "ecr",
+  intro: "Voici la version SÉRIEUSE des quizz « trauma patterns » : la théorie de l'attachement adulte, un des domaines les plus solides de la psychologie relationnelle (Bowlby, Ainsworth, puis Brennan et al., 1998). Deux dimensions continues — anxiété d'abandon et évitement de l'intimité — décrivent votre manière d'être en couple. Si vous n'êtes pas en couple, répondez d'après vos relations importantes passées.",
+  consigne: "Indiquez votre degré d'accord avec chaque affirmation concernant ce que vous vivez généralement dans vos relations de couple.",
+  echelle: ECH_ACCORD7,
+  items: [
+    { t: "J'ai peur d'être abandonné(e)", d: "ANX" },
+    { t: "Je m'inquiète beaucoup au sujet de mes relations", d: "ANX" },
+    { t: "Je crains que mon/ma partenaire ne tienne pas autant à moi que je tiens à lui/elle", d: "ANX" },
+    { t: "J'ai besoin que mon/ma partenaire me rassure souvent sur ses sentiments", d: "ANX" },
+    { t: "Je trouve que mon/ma partenaire ne souhaite pas être aussi proche de moi que je le voudrais", d: "ANX" },
+    { t: "Je suis frustré(e) quand mon/ma partenaire n'est pas disponible alors que j'ai besoin de lui/d'elle", d: "ANX" },
+    { t: "Je veux me rapprocher de mon/ma partenaire, mais quelque chose me retient toujours", d: "EVIT" },
+    { t: "Je deviens mal à l'aise lorsque mon/ma partenaire se rapproche trop de moi", d: "EVIT" },
+    { t: "J'essaie d'éviter de devenir trop proche de mon/ma partenaire", d: "EVIT" },
+    { t: "En général, je discute de mes problèmes et de mes préoccupations avec mon/ma partenaire", d: "EVIT", r: true },
+    { t: "Cela m'aide de me tourner vers mon/ma partenaire dans les moments difficiles", d: "EVIT", r: true },
+    { t: "Je me tourne vers mon/ma partenaire pour beaucoup de choses, notamment pour être réconforté(e) et rassuré(e)", d: "EVIT", r: true }
+  ],
+  scoringNote: "Moyenne de 1 à 7 sur chaque dimension (items inversés recodés). Il n'y a pas de « cases » : les styles (sécure, préoccupé, détaché, craintif) sont des repères de lecture aux croisements des deux dimensions, la réalité est continue. Repère indicatif : au-dessus de 4 = dimension marquée.",
+  dims: {
+    ANX: {
+      nom: "Anxiété d'abandon", format: "moyenne", min: 1, max: 7, valence: false,
+      descriptif: "Peur du rejet et de l'abandon, besoin de réassurance, hypervigilance aux signes de distance. Élevée, elle pousse à la protestation (reproches, contrôle, vérifications) qui produit souvent… la distance redoutée.",
+      bandes: [
+        { max: 4, label: "Faible à modérée", niveau: "ok", texte: "La peur de l'abandon ne domine pas votre vie relationnelle. Les inquiétudes ponctuelles en début de relation ou après un conflit sont normales." },
+        { max: 7, label: "Marquée", niveau: "attention", texte: "La peur de perdre l'autre occupe beaucoup d'espace : besoin fréquent de réassurance, ruminations sur la relation, réactions fortes à la distance. C'est un schéma appris — donc modifiable — pas un défaut de fabrication." }
+      ],
+      amelioration: {
+        intro: "La recherche sur la « sécurité gagnée » (earned security) montre qu'on peut évoluer vers un attachement plus sécure, notamment via des relations correctrices et la thérapie. Les schémas d'attachement ne sont PAS une condamnation de l'enfance.",
+        axes: [
+          { titre: "Nommer le schéma au lieu de le jouer", texte: "Quand l'alarme s'active (message sans réponse, ton distant), notez : « mon système d'attachement s'active » — puis attendez 30-60 min avant d'agir. L'étiquetage émotionnel réduit mesurablement l'intensité de la réaction." },
+          { titre: "Demander directement plutôt que protester", texte: "Remplacer les stratégies indirectes (reproches, froideur punitive, tests) par une demande claire : « quand tu ne réponds pas de la journée, je m'inquiète ; un simple message me suffit ». C'est le cœur des thérapies de couple fondées sur l'attachement (EFT, bien validée)." },
+          { titre: "Auto-apaisement", texte: "Construire 2-3 stratégies qui ne dépendent pas du/de la partenaire : respiration lente, marche, appeler un(e) ami(e), écrire. Objectif : que la réassurance de l'autre devienne un plus, pas une perfusion." },
+          { titre: "Vérifier les faits", texte: "Technique TCC : lister les preuves concrètes d'engagement de l'autre vs l'interprétation anxieuse du moment. L'anxiété d'abandon lit l'ambiguïté comme un rejet — corriger cette lecture s'entraîne." }
+        ],
+        objectif: "Sur 8 semaines : à chaque activation, pause + étiquetage + une demande directe formulée calmement. Re-testez ensuite. Si les relations restent une source majeure de souffrance : thérapie individuelle ou de couple (EFT / TCC) — c'est un motif de consultation très classique et qui répond bien.",
+        ressources: [
+          "Mikulincer, M., & Shaver, P. R. (2016). Attachment in Adulthood (2e éd.) — la somme scientifique de référence.",
+          "Johnson, S. « Serre-moi fort » (édition française) — application de la théorie de l'attachement au couple (EFT).",
+          "Guédeney, N. & A. « L'attachement : approche théorique et clinique » (Elsevier Masson) — référence francophone.",
+          "Brennan, K. A., Clark, C. L., & Shaver, P. R. (1998). Self-report measurement of adult attachment. Attachment Theory and Close Relationships."
+        ]
+      }
+    },
+    EVIT: {
+      nom: "Évitement de l'intimité", format: "moyenne", min: 1, max: 7, valence: false,
+      descriptif: "Inconfort avec la proximité et la dépendance : garder ses problèmes pour soi, se sentir envahi(e), préférer l'autonomie. Élevé, il protège de la vulnérabilité au prix de la profondeur du lien.",
+      bandes: [
+        { max: 4, label: "Faible à modéré", niveau: "ok", texte: "La proximité émotionnelle vous est accessible : vous pouvez vous appuyer sur l'autre et le/la laisser s'appuyer sur vous. Le besoin ponctuel de solitude est normal et sain." },
+        { max: 7, label: "Marqué", niveau: "attention", texte: "Se confier, dépendre de quelqu'un ou laisser l'autre s'approcher vous coûte. Souvent une stratégie apprise là où la vulnérabilité était risquée ou inutile. Modifiable — à condition d'y aller progressivement, comme une exposition." }
+      ],
+      amelioration: {
+        axes: [
+          { titre: "Auto-dévoilement gradué", texte: "L'intimité se construit par paliers de dévoilement réciproque (mécanisme le mieux documenté de la formation des liens). Commencez petit : partager UNE difficulté réelle par semaine avec une personne de confiance, sans minimiser." },
+          { titre: "Repérer la désactivation", texte: "L'évitement opère par « désactivation » : focalisation sur les défauts de l'autre, nostalgie d'ex idéalisés, fuite dans le travail quand la relation s'approfondit. Nommer ces manœuvres au moment où elles surviennent leur enlève une grande partie de leur pouvoir." },
+          { titre: "Demander de l'aide une fois", texte: "Exercice cible : demander concrètement de l'aide ou du réconfort une fois par semaine — précisément ce que l'évitement interdit. L'objectif est d'apprendre par l'expérience que dépendre ponctuellement de quelqu'un n'est pas dangereux." },
+          { titre: "Ne pas confondre autonomie et évitement", texte: "Aimer la solitude est un goût ; être INCAPABLE de se confier même quand ça va mal est une contrainte. C'est la liberté de choisir qui fait la différence — visez la flexibilité, pas la transformation en « fusionnel(le) »." }
+        ],
+        objectif: "8 semaines : un auto-dévoilement authentique + une demande d'aide par semaine, et notez ce qui se passe réellement (vs ce que vous craigniez). Re-testez ensuite — c'est l'une des dimensions qui bouge le plus lentement, la régularité prime.",
+        ressources: [
+          "Mikulincer, M., & Shaver, P. R. (2016). Attachment in Adulthood (2e éd.).",
+          "Johnson, S. « Serre-moi fort » — exercices de conversation à deux, utilisables sans thérapeute.",
+          "Lafontaine, M.-F. et al. (2016). Selecting the best items for a short-form ECR. European Journal of Psychological Assessment, 32(2)."
+        ]
+      }
+    }
+  },
+  source: {
+    instrument: "Experiences in Close Relationships — forme courte à 12 items (ECR-12)",
+    statut: "Instrument de recherche librement utilisé dans la littérature. Adaptation française réalisée pour cette application d'après les items originaux ; une version francophone validée existe (Lafontaine et al., 2016).",
+    refs: [
+      "Brennan, K. A., Clark, C. L., & Shaver, P. R. (1998). Self-report measurement of adult romantic attachment.",
+      "Lafontaine, M.-F., Brassard, A., Lussier, Y., Valois, P., Shaver, P. R., & Johnson, S. M. (2016). Selecting the best items for a short-form ECR. European Journal of Psychological Assessment, 32(2), 140-154.",
+      "Fraley, R. C. — yourpersonality.net : ressources scientifiques sur l'attachement adulte."
+    ]
+  }
+},
+
+/* ---------------- 8. TRIADE SOMBRE — SD3 ---------------- */
+{
+  id: "sd3",
+  nom: "Triade sombre",
+  sigle: "SD3 (adaptation) · 27 items",
+  cat: "Personnalité",
+  duree: "5 min",
+  radar: true,
+  avertissement: "Contrairement aux « tests de narcissisme » des réseaux sociaux, cet instrument mesure des TRAITS présents chez tout le monde à des degrés divers. Un score élevé ne signifie en aucun cas un trouble de la personnalité — seul un clinicien peut évaluer cela, en entretien.",
+  intro: "Le Short Dark Triad (Jones & Paulhus, 2014) mesure trois traits de personnalité dits « sombres » : machiavélisme (stratégie, cynisme), narcissisme (grandiosité, besoin d'admiration) et psychopathie subclinique (impulsivité, insensibilité). C'est l'instrument court de référence de la recherche — la réponse sérieuse aux quizz « êtes-vous un narcissique toxique à 98 % ».",
+  consigne: "Indiquez votre degré d'accord avec chaque affirmation. Répondez spontanément et honnêtement — personne d'autre que vous ne voit ces réponses.",
+  echelle: ECH_ACCORD5,
+  items: [
+    { t: "Il n'est pas prudent de confier ses secrets", d: "M" },
+    { t: "J'aime utiliser une manipulation habile pour arriver à mes fins", d: "M" },
+    { t: "Quoi qu'il en coûte, il faut mettre les personnes influentes de son côté", d: "M" },
+    { t: "Il faut éviter les conflits directs avec les autres : ils pourraient être utiles plus tard", d: "M" },
+    { t: "Il est avisé de garder les informations qu'on pourra utiliser contre les gens plus tard", d: "M" },
+    { t: "Il faut savoir attendre le bon moment pour prendre sa revanche", d: "M" },
+    { t: "Il y a des choses qu'il vaut mieux cacher aux autres : ils n'ont pas besoin de savoir", d: "M" },
+    { t: "Il faut s'assurer que ses projets profitent à soi-même, pas aux autres", d: "M" },
+    { t: "La plupart des gens peuvent être manipulés", d: "M" },
+    { t: "Les gens me voient comme un(e) leader né(e)", d: "N" },
+    { t: "Je déteste être le centre de l'attention", d: "N", r: true },
+    { t: "Beaucoup d'activités de groupe seraient ennuyeuses sans moi", d: "N" },
+    { t: "Je sais que je suis quelqu'un de spécial, car tout le monde me le répète", d: "N" },
+    { t: "J'aime fréquenter des personnes importantes", d: "N" },
+    { t: "Je me sens gêné(e) quand on me complimente", d: "N", r: true },
+    { t: "On m'a déjà comparé(e) à des personnes célèbres", d: "N" },
+    { t: "Je suis quelqu'un d'ordinaire", d: "N", r: true },
+    { t: "J'insiste pour obtenir le respect qui m'est dû", d: "N" },
+    { t: "J'aime me venger des figures d'autorité", d: "PS" },
+    { t: "J'évite les situations dangereuses", d: "PS", r: true },
+    { t: "Quand on me nuit, la revanche doit être rapide et cinglante", d: "PS" },
+    { t: "Les gens disent souvent que je suis incontrôlable", d: "PS" },
+    { t: "C'est vrai que je peux être dur(e) et méchant(e) avec les autres", d: "PS" },
+    { t: "Ceux qui s'en prennent à moi le regrettent toujours", d: "PS" },
+    { t: "Je n'ai jamais eu d'ennuis avec la justice", d: "PS", r: true },
+    { t: "J'aime les aventures intimes sans lendemain avec des personnes que je connais à peine", d: "PS" },
+    { t: "Je suis prêt(e) à dire n'importe quoi pour obtenir ce que je veux", d: "PS" }
+  ],
+  scoringNote: "Moyenne de 1 à 5 par sous-échelle (9 items chacune, items inversés recodés). Repères issus des échantillons de recherche (Jones & Paulhus, 2014, moyennes approximatives) : machiavélisme ≈ 3,1 · narcissisme ≈ 2,8 · psychopathie ≈ 2,1. Ce sont des repères de comparaison, pas des seuils cliniques.",
+  dims: {
+    M: {
+      nom: "Machiavélisme", format: "moyenne", min: 1, max: 5, valence: false,
+      descriptif: "Vision stratégique et cynique des relations : calcul, prudence, manipulation instrumentale. Distinct de l'intelligence sociale : c'est l'usage des autres comme moyens.",
+      bandes: [
+        { max: 2.5, label: "Bas", niveau: "ok", texte: "Vous abordez les relations avec peu de calcul. Revers possible : une certaine naïveté face aux personnes réellement stratèges." },
+        { max: 3.5, label: "Dans la moyenne", niveau: "neutre", texte: "Niveau proche de la moyenne des échantillons de recherche (≈ 3,1) : une prudence stratégique ordinaire, sans cynisme systématique." },
+        { max: 5, label: "Élevé", niveau: "attention", texte: "Vision très stratégique et défiante des relations. Efficace à court terme, mais la recherche montre un coût à long terme : confiance érodée, relations superficielles, réputation. La question utile : ce cynisme est-il un choix ou une armure ?" }
+      ],
+      amelioration: {
+        intro: "Si votre score vous questionne, l'enjeu n'est pas de devenir « gentil(le) » mais d'évaluer le rapport coût/bénéfice réel du fonctionnement stratégique — et ce qu'il protège.",
+        axes: [
+          { titre: "Tester la coopération", texte: "La littérature sur la confiance (économie comportementale) est claire : la coopération conditionnelle bat le cynisme systématique à long terme. Expérimentez : accordez une confiance par défaut, retirable, sur des enjeux limités, et mesurez ce qui se passe réellement." },
+          { titre: "Examiner l'origine de la défiance", texte: "Le cynisme relationnel est souvent une généralisation d'expériences où la confiance a coûté cher. Question à creuser (seul(e) ou en thérapie) : « qu'est-ce que je crains qu'il arrive si je joue franc ? »" },
+          { titre: "Mesurer le coût caché", texte: "Listez honnêtement : relations profondes actuelles, personnes qui vous appelleraient en cas de coup dur. Le machiavélisme élevé prédit un réseau large mais peu de liens solides — vérifiez si c'est votre cas et si ça vous convient." }
+        ],
+        objectif: "Pas de score cible : l'objectif est un choix éclairé. Si le fonctionnement stratégique nuit à vos relations ou vous isole, un travail psychothérapeutique sur la confiance est la voie efficace.",
+        ressources: [
+          "Jones, D. N., & Paulhus, D. L. (2014). Introducing the Short Dark Triad (SD3). Assessment, 21(1), 28-41.",
+          "Axelrod, R. « Donnant donnant : théorie du comportement coopératif » (Odile Jacob) — pourquoi la coopération gagne."
+        ]
+      }
+    },
+    N: {
+      nom: "Narcissisme (trait)", format: "moyenne", min: 1, max: 5, valence: false,
+      descriptif: "Grandiosité, besoin d'admiration, sentiment d'être spécial. ATTENTION : le narcissisme-trait mesuré ici n'est pas le trouble narcissique de la personnalité, et un certain narcissisme est banal — voire adaptatif (confiance, leadership).",
+      bandes: [
+        { max: 2.5, label: "Bas", niveau: "neutre", texte: "Peu de besoin d'admiration ou de sentiment de spécialité. Si cela s'accompagne d'auto-dévalorisation, c'est l'estime de soi qu'il faut regarder (test de Rosenberg), pas le narcissisme." },
+        { max: 3.5, label: "Dans la moyenne", niveau: "neutre", texte: "Niveau proche de la moyenne de recherche (≈ 2,8) : une dose ordinaire de fierté, d'ambition et de plaisir à être reconnu(e). Banal et plutôt fonctionnel." },
+        { max: 5, label: "Élevé", niveau: "attention", texte: "Fort besoin de reconnaissance et sentiment marqué d'être exceptionnel(le). Ni un diagnostic, ni une insulte : le point de vigilance documenté est le coût relationnel (difficulté à entendre la critique, à s'excuser, à laisser de la place). Le signal qui compte : est-ce que vos proches souffrent de la relation ?" }
+      ],
+      amelioration: {
+        intro: "Le narcissisme-trait élevé se travaille rarement « de face » : le levier efficace est l'empathie et la qualité des relations, où les bénéfices sont directs.",
+        axes: [
+          { titre: "Empathie délibérée", texte: "Entraînement concret : dans chaque conversation importante, poser 2 questions sur l'autre avant de parler de soi, et reformuler ce qu'il/elle ressent. La prise de perspective est entraînable et améliore mesurablement les relations." },
+          { titre: "Chercher activement le feedback critique", texte: "Demander régulièrement à 2-3 personnes de confiance « qu'est-ce que je devrais faire différemment ? » — et se contenter de remercier, sans se justifier. C'est l'antidote comportemental à la bulle d'auto-confirmation." },
+          { titre: "S'excuser proprement", texte: "Exercice cible s'il vous est difficile : des excuses complètes (reconnaître le fait + l'impact + réparer), sans « mais ». La recherche sur les relations montre un rendement énorme de cette compétence." },
+          { titre: "Si vous êtes plutôt DE L'AUTRE CÔTÉ", texte: "Si vous avez fait ce test parce qu'un proche vous fait douter de vous (culpabilisation permanente, manipulation, dévalorisation), la ressource pertinente n'est pas ce score : parlez-en à un professionnel. En cas de violence psychologique au sein du couple : 3919 (Violences Femmes Info, gratuit) ou votre médecin." }
+        ],
+        objectif: "Sur 6 semaines : 1 demande de feedback critique par semaine + pratique d'empathie quotidienne. L'indicateur de réussite n'est pas le score, mais ce que disent vos proches de la relation.",
+        ressources: [
+          "Jones, D. N., & Paulhus, D. L. (2014). Assessment, 21(1), 28-41.",
+          "Campbell, W. K., & Miller, J. D. (2011). The Handbook of Narcissism and Narcissistic Personality Disorder — l'état de la science.",
+          "Sur le vrai trouble narcissique : seul un entretien clinique est valide — psychiatre ou psychologue clinicien."
+        ]
+      }
+    },
+    PS: {
+      nom: "Psychopathie subclinique", format: "moyenne", min: 1, max: 5, valence: false,
+      descriptif: "Impulsivité, recherche de sensations, faible empathie, insensibilité aux conséquences. « Subclinique » = un trait dimensionnel banal à faible dose, pas la figure du criminel des séries télé.",
+      bandes: [
+        { max: 2, label: "Bas", niveau: "ok", texte: "Niveau proche ou en dessous de la moyenne de recherche (≈ 2,1) : contrôle des impulsions correct et sensibilité aux autres préservée." },
+        { max: 3, label: "Modéré", niveau: "neutre", texte: "Un peu au-dessus de la moyenne : goût du risque et franc-parler, sans nécessairement de coût majeur. Vigilance sur l'impulsivité dans les conflits." },
+        { max: 5, label: "Élevé", niveau: "attention", texte: "Impulsivité et dureté relationnelles marquées. Les coûts documentés : conflits à répétition, décisions regrettées, prises de risque. Si vos colères ou impulsions vous ont déjà causé de vrais ennuis (travail, couple, justice), c'est un motif de consultation utile — la gestion de l'impulsivité se travaille (TCC, entraînement à la gestion de la colère)." }
+      ],
+      amelioration: {
+        axes: [
+          { titre: "Allonger le délai entre impulsion et action", texte: "Règle des 24 h pour tout message ou décision sous colère ; sortir physiquement de la situation quand la tension monte. L'impulsivité se joue dans les secondes — gagnez-en." },
+          { titre: "Gestion de la colère structurée", texte: "Les protocoles TCC de gestion de la colère (repérage des déclencheurs, restructuration, techniques d'apaisement corporel) ont un bon niveau de preuve. En groupe ou en individuel." },
+          { titre: "Canaliser la recherche de sensations", texte: "Le besoin de stimulation ne disparaît pas : donnez-lui des exutoires à coût contrôlé (sport intense, compétition, projets ambitieux) plutôt que des prises de risque relationnelles ou financières." }
+        ],
+        objectif: "Indicateur concret : zéro décision importante prise à chaud pendant 8 semaines. Si l'impulsivité ou la froideur émotionnelle pèsent sur votre vie, consultez — ces dimensions répondent au travail thérapeutique, contrairement au cliché.",
+        ressources: [
+          "Jones, D. N., & Paulhus, D. L. (2014). Assessment, 21(1), 28-41.",
+          "AFTCC (aftcc.org) — thérapeutes formés à la gestion de la colère et de l'impulsivité."
+        ]
+      }
+    }
+  },
+  source: {
+    instrument: "Short Dark Triad (SD3), 27 items",
+    statut: "Instrument de recherche librement utilisable à des fins non commerciales. Adaptation française réalisée pour cette application d'après les items originaux ; des validations francophones existent (Savard et al.).",
+    refs: [
+      "Jones, D. N., & Paulhus, D. L. (2014). Introducing the Short Dark Triad (SD3): a brief measure of dark personality traits. Assessment, 21(1), 28-41.",
+      "Paulhus, D. L., & Williams, K. M. (2002). The Dark Triad of personality. Journal of Research in Personality, 36(6), 556-563.",
+      "Savard, C. et al. — validation canadienne-française du SD3."
+    ]
+  }
+}
+];
+/* ============================================================
+   DONNÉES — PARTIE 3 : Régulation émotionnelle (ERQ),
+   Épuisement (CBI), Solitude (UCLA-3) + contenus transverses
+   ============================================================ */
+
+var TESTS_3 = [
+
+/* ---------------- 9. RÉGULATION ÉMOTIONNELLE — ERQ ---------------- */
+{
+  id: "erq",
+  nom: "Régulation des émotions",
+  sigle: "ERQ · 10 items",
+  cat: "Émotions",
+  duree: "2-3 min",
+  intro: "L'Emotion Regulation Questionnaire (Gross & John, 2003 ; validation française : Christophe et al., 2009) mesure vos deux grandes stratégies face aux émotions : la RÉÉVALUATION (changer sa lecture de la situation) et la SUPPRESSION (masquer ce qu'on ressent). La recherche est nette : la première est globalement bénéfique, la seconde coûte cher à long terme.",
+  consigne: "Indiquez votre degré d'accord avec chaque affirmation sur votre manière habituelle de gérer vos émotions.",
+  echelle: ECH_ACCORD7,
+  items: [
+    { t: "Quand je veux ressentir plus d'émotions positives (joie, amusement), je modifie ce à quoi je pense", d: "R" },
+    { t: "Je garde mes émotions pour moi", d: "S" },
+    { t: "Quand je veux ressentir moins d'émotions négatives (tristesse, colère), je modifie ce à quoi je pense", d: "R" },
+    { t: "Quand je ressens des émotions positives, je fais attention à ne pas les exprimer", d: "S" },
+    { t: "Face à une situation stressante, je m'efforce de la voir sous un angle qui m'aide à rester calme", d: "R" },
+    { t: "Je contrôle mes émotions en ne les exprimant pas", d: "S" },
+    { t: "Quand je veux ressentir plus d'émotions positives, je change ma façon de voir la situation", d: "R" },
+    { t: "Je contrôle mes émotions en changeant ma façon de penser à la situation dans laquelle je me trouve", d: "R" },
+    { t: "Quand je ressens des émotions négatives, je fais en sorte de ne pas les exprimer", d: "S" },
+    { t: "Quand je veux ressentir moins d'émotions négatives, je change ma façon de voir la situation", d: "R" }
+  ],
+  scoringNote: "Moyenne de 1 à 7 par stratégie (réévaluation : 6 items ; suppression : 4 items). Moyennes indicatives des échantillons adultes : réévaluation ≈ 4,5 · suppression ≈ 3,3. Il s'agit de repères, pas de seuils.",
+  dims: {
+    R: {
+      nom: "Réévaluation cognitive", format: "moyenne", min: 1, max: 7, valence: true,
+      descriptif: "Capacité à changer la lecture d'une situation pour en changer l'impact émotionnel (« ce retard est agaçant » → « c'est 20 minutes pour souffler »). Associée à plus de bien-être, de meilleures relations et moins de symptômes anxio-dépressifs.",
+      bandes: [
+        { max: 3.5, label: "Peu utilisée", niveau: "attention", texte: "Vous utilisez peu la réévaluation : les situations « imposent » leur charge émotionnelle sans que vous puissiez la moduler. Bonne nouvelle : c'est LA compétence émotionnelle la plus entraînable — c'est le cœur des TCC." },
+        { max: 5, label: "Usage moyen", niveau: "ok", texte: "Vous savez recadrer les situations, au moins parfois. Les axes ci-dessous permettent d'en faire un réflexe plus systématique." },
+        { max: 7, label: "Usage fréquent", niveau: "ok", texte: "La réévaluation est un réflexe chez vous — un des meilleurs prédicteurs de stabilité émotionnelle. Vigilance : recadrer ne doit pas devenir nier (certaines situations méritent colère ou tristesse, et une action)." }
+      ],
+      amelioration: {
+        axes: [
+          { titre: "La question des trois lectures", texte: "Face à une contrariété, s'imposer d'écrire 3 interprétations différentes de la situation, dont une neutre et une charitable. Puis choisir la plus PLAUSIBLE (pas la plus rose). C'est l'exercice de base de la restructuration cognitive." },
+          { titre: "Recadrage temporel", texte: "« Qu'est-ce que j'en penserai dans une semaine ? dans un an ? » — le zoom arrière temporel est une des formes de réévaluation les plus efficaces et les plus simples." },
+          { titre: "Distanciation linguistique", texte: "Se parler à la 2e ou 3e personne (« Fabien, qu'est-ce qui se joue là ? ») crée une distance psychologique mesurable (travaux d'Ethan Kross) et facilite le recadrage." }
+        ],
+        objectif: "3 semaines d'exercice « trois lectures » sur chaque contrariété notable (1-2 par jour max), puis en réflexe mental sans écrire. Re-test à 6 semaines : viser un gain de 0,5 à 1 point.",
+        ressources: [
+          "Gross, J. J., & John, O. P. (2003). Individual differences in two emotion regulation processes. Journal of Personality and Social Psychology, 85(2), 348-362.",
+          "Kross, E. « Le monologue intérieur » (JC Lattès) — sur la distanciation.",
+          "Christophe, V. et al. (2009). Adaptation française de l'ERQ. Revue Européenne de Psychologie Appliquée, 59(1)."
+        ]
+      }
+    },
+    S: {
+      nom: "Suppression expressive", format: "moyenne", min: 1, max: 7, valence: false,
+      descriptif: "Tendance à masquer l'expression de ses émotions (visage neutre, « ça va très bien »). Utile ponctuellement (réunion, négociation), mais son usage CHRONIQUE est associé à moins de bien-être, des relations plus pauvres et paradoxalement plus d'activation physiologique.",
+      bandes: [
+        { max: 3, label: "Faible", niveau: "ok", texte: "Vous laissez vos émotions s'exprimer la plupart du temps. C'est associé à des relations plus authentiques et à un meilleur bien-être." },
+        { max: 4.5, label: "Modérée", niveau: "neutre", texte: "Usage sélectif du masquage émotionnel — probablement contextuel (travail, par exemple). Sain tant que des espaces d'expression authentique existent par ailleurs." },
+        { max: 7, label: "Élevée", niveau: "attention", texte: "Vous masquez systématiquement ce que vous ressentez. Coût documenté : les autres se sentent tenus à distance, le lien s'appauvrit, et l'émotion non exprimée continue de tourner à l'intérieur (la suppression ne DIMINUE pas l'émotion ressentie, elle en cache juste la surface)." }
+      ],
+      amelioration: {
+        axes: [
+          { titre: "Étiqueter avant tout", texte: "Mettre des mots précis sur l'émotion (« je suis déçu et un peu vexé », pas juste « ça va ») réduit son intensité (affect labeling, travaux de Lieberman). C'est l'étape zéro, faisable même sans rien montrer aux autres." },
+          { titre: "Zones d'expression choisies", texte: "Inutile de tout dire à tout le monde : choisissez 1-2 personnes « sûres » avec qui pratiquer l'expression honnête (« la journée a été rude, je suis à cran »). L'objectif est la flexibilité : pouvoir choisir d'exprimer ou non." },
+          { titre: "Remplacer la suppression par la réévaluation", texte: "La suppression intervient APRÈS coup (l'émotion est déjà là) ; la réévaluation intervient AVANT (elle change l'émotion). Chaque fois que vous vous surprenez à masquer, demandez-vous : « quelle autre lecture de la situation aurait changé ce que je ressens ? »" }
+        ],
+        objectif: "6 semaines : un étiquetage émotionnel précis par jour (à l'écrit ou à voix haute) + une expression authentique par semaine auprès d'une personne de confiance. Viser un score qui redescend sous 4.",
+        ressources: [
+          "Gross, J. J. (2015). Emotion regulation: current status and future prospects. Psychological Inquiry, 26(1).",
+          "Lieberman, M. D. et al. (2007). Putting feelings into words. Psychological Science, 18(5).",
+          "David, S. « L'agilité émotionnelle » (HarperCollins France) — vulgarisation sérieuse (Harvard) sur la flexibilité émotionnelle."
+        ]
+      }
+    }
+  },
+  source: {
+    instrument: "Emotion Regulation Questionnaire (ERQ)",
+    statut: "Libre pour usage non commercial (Stanford, J. Gross). Version française validée.",
+    refs: [
+      "Gross, J. J., & John, O. P. (2003). Journal of Personality and Social Psychology, 85(2), 348-362.",
+      "Christophe, V., Antoine, P., Leroy, T., & Delelis, G. (2009). Évaluation de deux stratégies de régulation émotionnelle : la suppression expressive et la réévaluation cognitive. Revue Européenne de Psychologie Appliquée, 59(1), 59-67."
+    ]
+  }
+},
+
+/* ---------------- 10. ÉPUISEMENT — CBI ---------------- */
+{
+  id: "cbi",
+  nom: "Épuisement (burnout personnel)",
+  sigle: "CBI · 6 items",
+  cat: "Stress & énergie",
+  duree: "1 min",
+  intro: "Le Copenhagen Burnout Inventory (Kristensen et al., 2005) est une alternative scientifique libre au MBI (payant). Cette échelle « épuisement personnel » mesure la fatigue physique et psychologique globale, que la cause soit professionnelle ou non.",
+  consigne: "Répondez d'après ce que vous ressentez ces dernières semaines.",
+  echelle: { labels: ["Jamais ou presque", "Rarement", "Parfois", "Souvent", "Toujours"], valeurs: [0, 25, 50, 75, 100] },
+  items: [
+    { t: "Vous sentez-vous fatigué(e) ?", d: "F" },
+    { t: "Êtes-vous physiquement épuisé(e) ?", d: "F" },
+    { t: "Êtes-vous émotionnellement épuisé(e) ?", d: "F" },
+    { t: "Vous arrive-t-il de penser « je n'en peux plus » ?", d: "F" },
+    { t: "Vous sentez-vous vidé(e) ?", d: "F" },
+    { t: "Vous sentez-vous affaibli(e) et vulnérable aux maladies ?", d: "F" }
+  ],
+  scoringNote: "Moyenne des 6 items sur une échelle 0-100. Convention CBI : ≥ 50 = épuisement notable ; ≥ 75 = épuisement sévère.",
+  dims: {
+    F: {
+      nom: "Épuisement personnel", format: "moyenne", min: 0, max: 100, valence: false,
+      descriptif: "Fatigue globale, physique et émotionnelle. L'épuisement durable n'est pas une preuve de courage ni une fatalité de la vie moderne : c'est un signal physiologique à traiter comme tel.",
+      bandes: [
+        { max: 24, label: "Énergie préservée", niveau: "ok", texte: "Fatigue faible. Continuez à protéger ce qui vous régénère : sommeil, coupures réelles, activité physique." },
+        { max: 49, label: "Fatigue notable", niveau: "attention", texte: "Fatigue régulière mais pas encore installée. C'est LE bon moment pour agir : à ce stade, récupération et réglages de charge suffisent souvent. Re-testez toutes les 2-3 semaines pour surveiller la pente." },
+        { max: 74, label: "Épuisement élevé", niveau: "alerte", texte: "Épuisement au-dessus du seuil notable (≥ 50). Prenez-le au sérieux : identifiez la source principale (travail ? charge familiale ? santé ? sommeil ?) et si c'est professionnel, sachez que le médecin du travail peut être saisi à votre initiative, confidentiellement. Faites aussi le PHQ-9 : épuisement et dépression se recouvrent en partie." },
+        { max: 100, label: "Épuisement sévère", niveau: "alerte", texte: "Niveau d'épuisement majeur. Consultez votre médecin traitant rapidement — pour objectiver (bilan), protéger (arrêt si nécessaire) et traiter. Le burnout sévère ne se « volonté » pas : il se soigne avec du repos réel, un accompagnement, et un changement des conditions qui l'ont produit." }
+      ],
+      amelioration: {
+        intro: "La récupération d'un épuisement suit toujours le même ordre : d'abord restaurer (sommeil, coupure), ensuite comprendre (qu'est-ce qui épuise ?), enfin renégocier (charge, limites, sens).",
+        axes: [
+          { titre: "Restaurer le sommeil en priorité absolue", texte: "Tant que le sommeil est dégradé, rien d'autre ne tiendra. Horaires réguliers, pas d'écran au lit, pas d'alcool comme somnifère. Si insomnie installée : la TCC de l'insomnie est le traitement de référence (plus efficace que les somnifères à moyen terme)." },
+          { titre: "Coupures réelles et récupération active", texte: "La récupération exige un désengagement psychologique du travail (recherche de Sabine Sonnentag) : des activités qui absorbent l'attention (sport, artisanat, nature) récupèrent mieux que le canapé-écran, qui ne « décroche » pas la tête." },
+          { titre: "Réduire la charge, pas seulement mieux la porter", texte: "Listez ce qui épuise le plus, et pour chaque item : supprimer / déléguer / renégocier / accepter. Un épuisement qui vient de conditions objectives (surcharge chronique) ne se règle pas par la méditation." },
+          { titre: "Vérifier le versant médical", texte: "Fatigue persistante = aussi un motif de bilan médical simple (thyroïde, fer, apnée du sommeil…). Ne psychologisez pas trop vite une fatigue qui peut être somatique." }
+        ],
+        objectif: "Objectif : repasser sous 50 en 4-6 semaines, puis sous 25. Protocole : sommeil régularisé + une coupure « absorbante » par jour + une renégociation de charge concrète. Re-test toutes les 2 semaines ; si la courbe ne descend pas, consultez.",
+        ressources: [
+          "Kristensen, T. S., Borritz, M., Villadsen, E., & Christensen, K. B. (2005). The Copenhagen Burnout Inventory. Work & Stress, 19(3), 192-207.",
+          "HAS (2017). Repérage et prise en charge cliniques du syndrome d'épuisement professionnel (has-sante.fr).",
+          "INRS — dossier « Épuisement professionnel » (inrs.fr).",
+          "Sonnentag, S., & Fritz, C. (2015). Recovery from job stress. Journal of Organizational Behavior, 36."
+        ],
+        consulter: "Score ≥ 50 durable, ou ≥ 75, ou signes associés (troubles du sommeil, cynisme envers le travail, erreurs inhabituelles, idées noires) : médecin traitant et/ou médecin du travail."
+      }
+    }
+  },
+  source: {
+    instrument: "Copenhagen Burnout Inventory (CBI) — échelle « épuisement personnel »",
+    statut: "Libre d'utilisation (explicitement mis à disposition par les auteurs). Traduction française réalisée pour cette application ; des adaptations francophones existent.",
+    refs: [
+      "Kristensen, T. S. et al. (2005). The Copenhagen Burnout Inventory: a new tool for the assessment of burnout. Work & Stress, 19(3), 192-207."
+    ]
+  }
+},
+
+/* ---------------- 11. SOLITUDE — UCLA-3 ---------------- */
+{
+  id: "ucla3",
+  nom: "Solitude ressentie",
+  sigle: "UCLA-3 · 3 items",
+  cat: "Relations",
+  duree: "30 s",
+  intro: "La version à 3 items de l'échelle de solitude UCLA (Hughes et al., 2004) est l'outil standard des grandes enquêtes internationales. La solitude RESSENTIE (être mal accompagné, même entouré) est distincte de l'isolement objectif — et c'est elle qui pèse sur la santé.",
+  consigne: "En général, à quelle fréquence…",
+  echelle: { labels: ["Presque jamais", "Parfois", "Souvent"], valeurs: [1, 2, 3] },
+  items: [
+    { t: "…vous sentez-vous en manque de compagnie ?", d: "L" },
+    { t: "…vous sentez-vous laissé(e) de côté, exclu(e) ?", d: "L" },
+    { t: "…vous sentez-vous isolé(e) des autres ?", d: "L" }
+  ],
+  scoringNote: "Somme des 3 items, de 3 à 9. Convention de recherche : 3-5 = solitude faible · 6-9 = solitude marquée.",
+  dims: {
+    L: {
+      nom: "Solitude ressentie", format: "somme", min: 3, max: 9, valence: false,
+      descriptif: "Écart ressenti entre les relations que vous avez et celles dont vous auriez besoin. La solitude chronique est un facteur de risque sanitaire sérieux et documenté — et elle se combat efficacement.",
+      bandes: [
+        { max: 5, label: "Solitude faible", niveau: "ok", texte: "Votre vie relationnelle couvre l'essentiel de vos besoins. Les moments de solitude ponctuels sont normaux — et la solitude choisie peut être précieuse." },
+        { max: 9, label: "Solitude marquée", niveau: "alerte", texte: "Le sentiment d'être seul(e) ou à l'écart pèse sur votre quotidien. Deux choses à savoir : c'est très répandu (ce n'est pas une anomalie honteuse), et ça se traite — pas en « rencontrant plus de monde » au hasard, mais en construisant de la régularité et de la profondeur (axes ci-dessous)." }
+      ],
+      amelioration: {
+        intro: "La recherche (méta-analyses sur les interventions contre la solitude) montre que le levier le plus efficace n'est pas de multiplier les contacts, mais de changer ce qu'on attend et perçoit des autres, et d'installer des liens RÉGULIERS.",
+        axes: [
+          { titre: "Régularité avant quantité", texte: "Les liens se créent par exposition répétée dans la durée : activité HEBDOMADAIRE fixe avec les mêmes personnes (club sportif, chorale, association, cours). Un an de mardis soirs bat cent soirées ponctuelles." },
+          { titre: "Raviver les liens dormants", texte: "Recontacter d'anciens amis est étonnamment efficace et bien accueilli (la recherche montre qu'on sous-estime systématiquement le plaisir que notre message fera). Un message concret : « j'ai repensé à toi, on se fait un café ? »" },
+          { titre: "Corriger la lecture anxieuse", texte: "La solitude chronique biaise la perception (« je vais déranger », « ils ne m'apprécient pas vraiment ») et pousse au retrait qui aggrave la solitude. C'est le cercle que les TCC ciblent en priorité — et la partie la plus efficace des interventions." },
+          { titre: "Donner pour se relier", texte: "Le bénévolat régulier crée du lien avec un prétexte intégré (on fait ensemble, pas face à face) : francebenevolat.org ou jeveuxaider.gouv.fr pour trouver une mission près de chez vous." }
+        ],
+        objectif: "8 semaines : une activité collective régulière + un lien dormant ravivé + un contact réel par jour. Re-testez ensuite ; visez le passage sous 6, puis vers 3-4. Si l'anxiété sociale bloque le premier pas, c'est elle qu'il faut traiter d'abord (TCC — très efficace).",
+        ressources: [
+          "Hughes, M. E., Waite, L. J., Hawkley, L. C., & Cacioppo, J. T. (2004). A short scale for measuring loneliness in large surveys. Research on Aging, 26(6), 655-672.",
+          "Masi, C. M. et al. (2011). A meta-analysis of interventions to reduce loneliness. Personality and Social Psychology Review, 15(3).",
+          "Fondation de France — baromètre des solitudes (données françaises).",
+          "jeveuxaider.gouv.fr — plateforme publique du bénévolat."
+        ]
+      }
+    }
+  },
+  source: {
+    instrument: "UCLA Loneliness Scale — version courte à 3 items",
+    statut: "Version courte librement utilisée dans les enquêtes internationales (SHARE, HRS…). Traduction française réalisée pour cette application.",
+    refs: [
+      "Hughes, M. E. et al. (2004). Research on Aging, 26(6), 655-672.",
+      "Russell, D. W. (1996). UCLA Loneliness Scale (Version 3). Journal of Personality Assessment, 66(1)."
+    ]
+  }
+},
+
+/* ---------------- 12. LANGAGES DE L'AMOUR (pop-psychologie assumée) ---------------- */
+{
+  id: "amour",
+  nom: "Langages de l'amour",
+  sigle: "Profil de préférences · 20 items",
+  cat: "Couple",
+  duree: "3 min",
+  special: "amour",
+  avertissement: "Étiquette honnête — ce test est différent des autres de cette app : les « 5 langages de l'amour » (Chapman, 1992) sont un concept populaire, pas un construit scientifiquement validé. La recherche récente (Impett et al., 2024) ne confirme ni l'existence de 5 langages distincts, ni le fait d'avoir « un » langage principal, ni l'idée que l'appariement des langages prédit la satisfaction du couple. Utilisez ce profil comme un support de conversation à deux — pas comme une vérité sur vous.",
+  intro: "Le concept des « langages de l'amour » est partout — et il faut être clair : c'est de la pop-psychologie, sans validation solide. Il reste pourtant un bon prétexte de dialogue : ce questionnaire (items originaux, le quiz officiel étant propriétaire) dresse votre profil de préférences sur les cinq canaux classiques. La partie réellement étayée par la recherche — dire ce qui vous touche, découvrir ce qui touche l'autre, y répondre — est dans les résultats.",
+  consigne: "Chaque affirmation complète la phrase : « Je me sens particulièrement aimé(e) quand… ». Indiquez à quel point c'est vrai pour vous. Si vous n'êtes pas en couple, répondez d'après vos relations passées.",
+  echelle: { labels: ["Pas du tout vrai pour moi", "Un peu vrai", "Moyennement vrai", "Très vrai", "Tout à fait vrai"], valeurs: [1, 2, 3, 4, 5] },
+  items: [
+    { t: "…mon/ma partenaire me dit explicitement ce qu'il/elle apprécie chez moi", d: "PAR" },
+    { t: "…nous passons un moment ensemble sans téléphone ni distraction", d: "TEMPS" },
+    { t: "…il/elle me décharge d'une tâche sans que j'aie besoin de le demander", d: "SERV" },
+    { t: "…il/elle m'offre quelque chose qui montre qu'il/elle a pensé à moi", d: "CAD" },
+    { t: "…il/elle me prend dans ses bras", d: "TOUCH" },
+    { t: "…je reçois un mot doux, un message ou un compliment inattendu", d: "PAR" },
+    { t: "…il/elle me consacre du temps rien qu'à nous deux", d: "TEMPS" },
+    { t: "…il/elle fait quelque chose de concret pour me faciliter la vie", d: "SERV" },
+    { t: "…je reçois un petit cadeau sans occasion particulière", d: "CAD" },
+    { t: "…nous nous tenons la main ou restons physiquement proches", d: "TOUCH" },
+    { t: "…il/elle me dit qu'il/elle est fier(ère) de moi", d: "PAR" },
+    { t: "…nous avons une vraie conversation où il/elle m'écoute pleinement", d: "TEMPS" },
+    { t: "…il/elle prend en charge une corvée que je redoute", d: "SERV" },
+    { t: "…il/elle me rapporte un petit quelque chose qui prouve qu'il/elle me connaît vraiment", d: "CAD" },
+    { t: "…il/elle me touche affectueusement en passant (main sur l'épaule, dans le dos…)", d: "TOUCH" },
+    { t: "…il/elle m'encourage avec des mots quand je doute de moi", d: "PAR" },
+    { t: "…il/elle organise une activité juste pour qu'on soit ensemble", d: "TEMPS" },
+    { t: "…il/elle remarque ce qui doit être fait et le fait, sans commentaire", d: "SERV" },
+    { t: "…un cadeau choisi avec soin me touche durablement", d: "CAD" },
+    { t: "…nous nous câlinons sans que ça doive forcément mener à autre chose", d: "TOUCH" }
+  ],
+  scoringNote: "Moyenne de 1 à 5 par canal (4 items chacun). Il n'existe aucune norme scientifique : comparez vos cinq scores ENTRE EUX (votre hiérarchie personnelle), pas à ceux d'autres personnes. Les cinq canaux ne sont pas étanches — la plupart des gens valorisent plusieurs canaux à la fois, ce que la recherche confirme d'ailleurs contre la théorie d'origine.",
+  dims: {
+    PAR: {
+      nom: "Paroles valorisantes", format: "moyenne", min: 1, max: 5, valence: null,
+      descriptif: "Compliments, encouragements, mots d'amour explicites — être DIT aimé(e), pas seulement le déduire.",
+      bandes: [
+        { max: 2.5, label: "Secondaire", niveau: "neutre", texte: "Les mots comptent moins pour vous : leur rareté ne vous blesse probablement pas beaucoup." },
+        { max: 3.5, label: "Apprécié", niveau: "neutre", texte: "Les mots font plaisir sans être votre canal le plus sensible." },
+        { max: 5, label: "Central", niveau: "neutre", texte: "Canal majeur pour vous : sans mots explicites, le sentiment d'être aimé(e) s'érode, même si tout le reste est là. Dites-le à votre partenaire — beaucoup de gens pensent que « ça se voit » et ne le disent jamais." }
+      ],
+      amelioration: {
+        axes: [
+          { titre: "Le demander sans honte", texte: "Demander « dis-moi ce que tu apprécies chez moi » n'enlève rien à la valeur de la réponse. Attendre que l'autre devine est la recette documentée de la frustration — personne ne lit dans les pensées." },
+          { titre: "Le donner avec précision", texte: "Si c'est le canal de votre partenaire : des mots SPÉCIFIQUES (« j'ai adoré ta façon de gérer la soirée ») touchent bien plus que des génériques (« t'es super »). La recherche sur la gratitude exprimée en couple le confirme." }
+        ],
+        objectif: "Montrez votre hiérarchie à votre partenaire, découvrez la sienne, et testez pendant un mois une attention par semaine dans le canal préféré de l'autre. L'indicateur, c'est ce que ça change dans la relation — pas le score.",
+        ressources: [
+          "Impett, E. A., Park, H. G., & Muise, A. (2024). Evaluating love languages and the case for perceived partner responsiveness. Current Directions in Psychological Science, 33(2).",
+          "Algoe, S. B. (2012). Find, remind, and bind: the functions of gratitude in everyday relationships. Social and Personality Psychology Compass, 6(6)."
+        ]
+      }
+    },
+    TEMPS: {
+      nom: "Temps de qualité", format: "moyenne", min: 1, max: 5, valence: null,
+      descriptif: "Attention pleine et non partagée : moments à deux, vraies conversations, présence sans écran.",
+      bandes: [
+        { max: 2.5, label: "Secondaire", niveau: "neutre", texte: "Vous pouvez vous sentir aimé(e) sans beaucoup de temps dédié en tête-à-tête." },
+        { max: 3.5, label: "Apprécié", niveau: "neutre", texte: "Les moments à deux nourrissent le lien sans être votre baromètre principal." },
+        { max: 5, label: "Central", niveau: "neutre", texte: "C'est la présence attentive qui vous fait vous sentir aimé(e) — et la distraction (téléphone, télé permanente) qui vous blesse le plus. À nommer clairement plutôt qu'à reprocher." }
+      ],
+      amelioration: {
+        axes: [
+          { titre: "Ritualiser plutôt qu'espérer", texte: "Un créneau récurrent protégé (marche du dimanche, dîner sans téléphone) vaut mieux que d'attendre du temps « spontané » qui ne vient jamais dans des vies chargées." },
+          { titre: "Qualité = attention, pas durée", texte: "15 minutes de conversation avec attention complète comptent plus qu'une soirée côte à côte sur deux écrans. Le mécanisme sérieux derrière : la réactivité perçue — l'autre remarque, comprend et répond à ce que je vis." }
+        ],
+        objectif: "Un rituel hebdomadaire protégé pendant un mois, téléphones ailleurs. Puis demandez-vous à deux : qu'est-ce que ça a changé ?",
+        ressources: [
+          "Reis, H. T., & Clark, M. S. (2013). Responsiveness. The Oxford Handbook of Close Relationships.",
+          "Impett, E. A., Park, H. G., & Muise, A. (2024). Current Directions in Psychological Science, 33(2)."
+        ]
+      }
+    },
+    SERV: {
+      nom: "Services rendus", format: "moyenne", min: 1, max: 5, valence: null,
+      descriptif: "L'amour prouvé par les actes concrets : alléger la charge de l'autre, remarquer ce qui doit être fait, le faire.",
+      bandes: [
+        { max: 2.5, label: "Secondaire", niveau: "neutre", texte: "Les coups de main comptent moins pour vous que d'autres formes d'attention." },
+        { max: 3.5, label: "Apprécié", niveau: "neutre", texte: "L'aide concrète vous touche, parmi d'autres canaux." },
+        { max: 5, label: "Central", niveau: "neutre", texte: "Pour vous, aimer c'est agir : un lave-vaisselle vidé spontanément parle plus qu'un bouquet. Attention au piège documenté de ce canal : la comptabilité silencieuse de la charge mentale — mieux vaut la rendre explicite et la négocier." }
+      ],
+      amelioration: {
+        axes: [
+          { titre: "Expliciter la charge invisible", texte: "Si vous attendez de l'aide « sans avoir à demander », listez ensemble qui porte quoi (la charge mentale se discute mieux sur une liste que dans un reproche). C'est un vrai sujet de recherche, pas un caprice." },
+          { titre: "Remercier les actes, pas seulement les faire", texte: "Dans ce canal, on donne souvent ce qu'on aimerait recevoir puis on s'épuise en silence. Nommer ce que l'autre fait déjà change la dynamique documentée du ressentiment." }
+        ],
+        objectif: "Une négociation explicite de la répartition des tâches + une attention hebdomadaire dans le canal de l'autre, pendant un mois.",
+        ressources: [
+          "Impett, E. A., Park, H. G., & Muise, A. (2024). Current Directions in Psychological Science, 33(2).",
+          "Haicault, M. (1984). La gestion ordinaire de la vie en deux — le concept d'origine de la charge mentale (Sociologie du travail, 26(3))."
+        ]
+      }
+    },
+    CAD: {
+      nom: "Cadeaux & attentions matérielles", format: "moyenne", min: 1, max: 5, valence: null,
+      descriptif: "L'objet comme preuve de pensée : « il/elle a pensé à moi en mon absence ». La valeur symbolique, pas le prix.",
+      bandes: [
+        { max: 2.5, label: "Secondaire", niveau: "neutre", texte: "Les objets vous touchent peu — d'autres canaux portent le sentiment d'être aimé(e)." },
+        { max: 3.5, label: "Apprécié", niveau: "neutre", texte: "Les attentions matérielles font plaisir sans être votre langage dominant." },
+        { max: 5, label: "Central", niveau: "neutre", texte: "Le petit objet qui prouve « j'ai pensé à toi » vous touche profondément — et son absence aux moments symboliques (anniversaires) blesse durablement. Ce n'est pas du matérialisme : c'est la trace tangible de la pensée de l'autre." }
+      ],
+      amelioration: {
+        axes: [
+          { titre: "Dédramatiser la demande", texte: "Dire « les petites attentions comptent énormément pour moi » évite à l'autre des années de cadeaux à côté et à vous des déceptions rituelles. La précision n'est pas de l'ingratitude." },
+          { titre: "Si c'est le canal de l'autre", texte: "Tenez une note des choses qu'il/elle mentionne aimer au fil de l'année — le cadeau juste est une preuve d'écoute, c'est exactement pour ça qu'il touche." }
+        ],
+        objectif: "Même protocole que les autres canaux : hiérarchies échangées, une attention par semaine dans le canal de l'autre pendant un mois, bilan à deux.",
+        ressources: [
+          "Impett, E. A., Park, H. G., & Muise, A. (2024). Current Directions in Psychological Science, 33(2)."
+        ]
+      }
+    },
+    TOUCH: {
+      nom: "Le toucher", format: "moyenne", min: 1, max: 5, valence: null,
+      descriptif: "Contact physique affectueux au quotidien — câlins, mains tenues, proximité — comme canal principal de connexion.",
+      bandes: [
+        { max: 2.5, label: "Secondaire", niveau: "neutre", texte: "Le contact physique fréquent n'est pas votre canal principal — ce qui mérite d'être dit si votre partenaire, lui/elle, en a besoin." },
+        { max: 3.5, label: "Apprécié", niveau: "neutre", texte: "Le contact affectueux nourrit le lien parmi d'autres canaux." },
+        { max: 5, label: "Central", niveau: "neutre", texte: "Le contact physique est votre baromètre du lien : sa raréfaction vous insécurise plus que tout discours ne rassure. À noter : le toucher affectif quotidien est l'un des rares éléments de cette typologie avec un vrai soutien empirique (lien documenté avec la satisfaction relationnelle et la réduction du stress)." }
+      ],
+      amelioration: {
+        axes: [
+          { titre: "Découpler tendresse et sexualité", texte: "Beaucoup de couples perdent le toucher affectueux quand il devient implicitement une demande sexuelle. Restaurer du contact « gratuit » (câlin, main, épaule) détend précisément cette pression — et c'est souvent ce qui manque le plus." },
+          { titre: "Respecter les différences", texte: "Si l'un a ce canal central et l'autre pas, la solution n'est ni de forcer ni de se priver : nommer la différence, trouver les formes de contact confortables pour les deux, et compenser par les canaux de l'autre." }
+        ],
+        objectif: "Un mois de contact affectueux quotidien « sans agenda », puis bilan à deux sur ce que ça a changé.",
+        ressources: [
+          "Jakubiak, B. K., & Feeney, B. C. (2017). Affectionate touch to promote relational, psychological, and physical well-being in adulthood. Personality and Social Psychology Review, 21(3).",
+          "Impett, E. A., Park, H. G., & Muise, A. (2024). Current Directions in Psychological Science, 33(2)."
+        ]
+      }
+    }
+  },
+  source: {
+    instrument: "Profil de préférences relationnelles inspiré de la typologie des « 5 langages de l'amour »",
+    statut: "Typologie populaire NON validée scientifiquement (voir Impett et al., 2024) — incluse ici avec cette étiquette explicite, comme outil de dialogue. Items originaux rédigés pour cette application (le questionnaire officiel de Chapman est propriétaire). Aucune norme n'existe : seule votre hiérarchie interne est interprétable.",
+    refs: [
+      "Chapman, G. (1992). The Five Love Languages. Northfield Publishing (trad. fr. « Les langages de l'amour », Farel/Leduc).",
+      "Impett, E. A., Park, H. G., & Muise, A. (2024). Popular psychology through a scientific lens: Evaluating love languages and the case for perceived partner responsiveness. Current Directions in Psychological Science, 33(2), 87-92.",
+      "Bunt, S., & Hazelwood, Z. J. (2017). Walking the walk, talking the talk: Love languages, self-regulation, and relationship satisfaction."
+    ]
+  }
+}
+];
+
+/* ============================================================
+   CONTENUS TRANSVERSES
+   ============================================================ */
+
+var URGENCES = {
+  titre: "Besoin d'aide maintenant ?",
+  texte: "Si vous traversez un moment très difficile ou avez des idées suicidaires, n'attendez pas les résultats d'un questionnaire :",
+  liste: [
+    { nom: "3114", detail: "Numéro national de prévention du suicide — gratuit, 24h/24, 7j/7 (3114.fr)" },
+    { nom: "15", detail: "SAMU, en cas d'urgence vitale" },
+    { nom: "SOS Amitié", detail: "09 72 39 40 50 — écoute 24h/24" },
+    { nom: "Votre médecin traitant", detail: "Première ligne pour toute souffrance psychique ; « Mon soutien psy » permet des séances de psychologue remboursées" }
+  ]
+};
+
+var METHODE = {
+  intro: "Cette application a été construite en réaction aux « tests psychologiques » qui pullulent sur les réseaux sociaux. Elle n'utilise QUE des instruments publiés dans des revues scientifiques à comité de lecture, libres de droits, avec leurs règles de calcul et leurs seuils d'origine.",
+  sections: [
+    {
+      t: "Pourquoi les quizz des réseaux sociaux sont du vent",
+      p: [
+        "Aucune validation : un test sérieux doit démontrer sa fidélité (mesure stable) et sa validité (mesure bien ce qu'il prétend), sur des échantillons documentés, dans des publications vérifiables. Les quizz publicitaires (« Narcissism Test », « quel est votre trauma pattern ») n'ont rien de tout cela — ce sont des tunnels marketing conçus pour vendre un abonnement.",
+        "L'effet Barnum : depuis l'expérience de Forer (1949), on sait que des descriptions vagues et flatteuses (« vous avez un grand potentiel inexploité… ») sont perçues comme étonnamment justes par presque tout le monde. C'est le moteur des horoscopes comme de ces quizz.",
+        "Des concepts déformés : « fight/flight/freeze/fawn » comme typologie de personnalité, « 98 % narcissique toxique »… Ces contenus recyclent du vocabulaire clinique hors de tout cadre scientifique. Le concept de « fawn response », par exemple, vient d'un livre grand public et n'est pas un construit validé de la littérature — contrairement à l'attachement adulte, mesuré ici avec l'ECR.",
+        "Le danger réel : s'auto-étiqueter (« je suis un empath victime d'un narcissique ») fige des situations complexes, culpabilise, et retarde parfois une vraie prise en charge."
+      ]
+    },
+    {
+      t: "Ce que cette app est — et n'est pas",
+      p: [
+        "EST : un ensemble d'auto-questionnaires validés, avec les vrais barèmes publiés, pour vous situer, suivre votre évolution dans le temps et identifier des axes de travail étayés par la recherche.",
+        "N'EST PAS : un outil de diagnostic. Aucun questionnaire auto-administré ne diagnostique quoi que ce soit — pas même le PHQ-9 utilisé par les médecins. Un diagnostic est un acte clinique qui prend en compte contexte, durée, retentissement et diagnostic différentiel.",
+        "Limites à garder en tête : l'auto-évaluation est biaisée (désirabilité sociale, humeur du moment, connaissance de soi imparfaite). Un score n'est pas une identité ; c'est une mesure bruitée, à un instant donné. D'où l'intérêt de re-tester à quelques semaines d'intervalle plutôt que de sur-interpréter une mesure unique."
+      ]
+    },
+    {
+      t: "Comment progresser vraiment",
+      p: [
+        "1. Mesurer : faites les tests qui correspondent à vos questions du moment. 2. Prioriser : le tableau de bord met en avant les zones d'alerte (les scores cliniques passent avant les traits de personnalité). 3. Agir : chaque résultat propose des axes fondés sur des preuves — TCC, activation comportementale, activité physique, pleine conscience structurée, affirmation de soi. 4. Re-mesurer : refaites le test après 2 à 6 semaines selon l'échelle ; c'est la COURBE qui informe, pas le point.",
+        "Le meilleur rapport efficacité/coût de toute la littérature : activité physique régulière, sommeil régulier, liens sociaux réguliers, et TCC quand un score clinique s'allume. Méfiez-vous par principe de tout ce qui promet une transformation rapide, secrète ou sans effort."
+      ]
+    },
+    {
+      t: "Vie privée",
+      p: [
+        "Vos réponses ne quittent jamais votre appareil : aucune connexion, aucun compte, aucune donnée transmise. Pensez à exporter régulièrement une sauvegarde (menu Historique) si vous tenez à vos données."
+      ]
+    }
+  ],
+  refsGlobales: [
+    "Forer, B. R. (1949). The fallacy of personal validation. Journal of Abnormal and Social Psychology, 44(1), 118-123.",
+    "Lilienfeld, S. O. et al. (2010). 50 Great Myths of Popular Psychology. Wiley-Blackwell.",
+    "Roberts, B. W. et al. (2017). A systematic review of personality trait change through intervention. Psychological Bulletin, 143(2), 117-141.",
+    "INSERM (2019). Activité physique : prévention et traitement des maladies chroniques. Expertise collective.",
+    "Haute Autorité de Santé — has-sante.fr (recommandations troubles anxieux, dépression, burnout).",
+    "Psycom.org — information de référence, publique et indépendante, sur la santé mentale."
+  ]
+};
+
+var TESTS = TESTS_1.concat(TESTS_2).concat(TESTS_3);
+/* ============================================================
+   DONNÉES — PARTIE 4 : Vie de couple
+   Réactivité perçue (PPRS), Satisfaction (CSI-4),
+   Conflits (IAI + exigence-retrait), Satisfaction intime (GMSEX)
+   ============================================================ */
+
+var TESTS_4 = [
+
+/* ---------------- 13. RÉACTIVITÉ PERÇUE DU PARTENAIRE ---------------- */
+{
+  id: "pprs",
+  nom: "Réactivité de votre partenaire",
+  sigle: "PPRS (adaptation) · 12 items",
+  cat: "Couple",
+  duree: "2-3 min",
+  intro: "Voici le concept VALIDÉ qui se cache derrière l'intuition des « langages de l'amour » : la réactivité perçue du partenaire (Reis) — sentir que l'autre me comprend, me valide et prend soin de ce qui compte pour moi. C'est l'un des prédicteurs les plus robustes de la satisfaction et de la longévité du couple dans la littérature, précisément ce que la recherche recommande de cultiver à la place de l'appariement des « langages » (Impett et al., 2024).",
+  consigne: "Pour les personnes actuellement en couple. Chaque affirmation complète : « Mon/ma partenaire… ». Indiquez à quel point c'est vrai en ce moment.",
+  echelle: { labels: ["Pas du tout vrai", "Très peu vrai", "Plutôt pas vrai", "Moyennement vrai", "Plutôt vrai", "Largement vrai", "Tout à fait vrai"], valeurs: [1, 2, 3, 4, 5, 6, 7] },
+  items: [
+    { t: "…voit qui je suis vraiment", d: "RP" },
+    { t: "…me connaît bien", d: "RP" },
+    { t: "…m'estime, défauts compris", d: "RP" },
+    { t: "…comprend généralement ce que je ressens", d: "RP" },
+    { t: "…m'écoute vraiment quand je parle", d: "RP" },
+    { t: "…s'intéresse à ce que je pense et à ce que je ressens", d: "RP" },
+    { t: "…valorise mes capacités et mes opinions", d: "RP" },
+    { t: "…me soutient et m'encourage", d: "RP" },
+    { t: "…est là quand j'ai besoin de lui/d'elle", d: "RP" },
+    { t: "…répond à mes besoins", d: "RP" },
+    { t: "…me montre concrètement qu'il/elle tient à moi", d: "RP" },
+    { t: "…respecte l'ensemble de ce que je suis", d: "RP" }
+  ],
+  scoringNote: "Moyenne des 12 items, de 1 à 7. Pas de seuil clinique officiel ; dans les échantillons de couples, les moyennes se situent typiquement entre 5,5 et 6 — les repères ci-dessous sont indicatifs. Important : ce score mesure votre PERCEPTION, qui dépend aussi de votre humeur, de votre filtre du moment et de ce que vous exprimez (ou non) de vos besoins.",
+  dims: {
+    RP: {
+      nom: "Réactivité perçue (compréhension, validation, soin)", format: "moyenne", min: 1, max: 7, valence: true,
+      descriptif: "Sentiment que l'autre me comprend (il/elle sait qui je suis), me valide (il/elle respecte ce que je suis) et prend soin de moi (il/elle agit pour mon bien). C'est le mécanisme central de l'intimité dans le modèle de Reis & Shaver.",
+      bandes: [
+        { max: 3.9, label: "Faible", niveau: "attention", texte: "Vous vous sentez peu vu(e), compris(e) ou soutenu(e) en ce moment. Deux lectures possibles, souvent mêlées : un déficit réel de réactivité de l'autre, et/ou des besoins peu exprimés qui ne peuvent donc pas recevoir de réponse. Les axes ci-dessous travaillent les deux — et ce score mérite une vraie conversation à deux." },
+        { max: 5.5, label: "Moyenne", niveau: "ok", texte: "Votre partenaire vous semble globalement présent(e) et compréhensif(ve), avec des zones perfectibles. C'est le niveau typique des couples établis — et il monte avec des gestes précis, pas avec de grands principes." },
+        { max: 7, label: "Élevée", niveau: "ok", texte: "Vous vous sentez profondément compris(e) et soutenu(e) : c'est le meilleur prédicteur simple de la solidité d'un couple. Entretenez-le activement — la réactivité s'érode en silence quand on cesse de la pratiquer." }
+      ],
+      amelioration: {
+        intro: "Bonne nouvelle : la réactivité est un ensemble de comportements précis et entraînables, documentés par la recherche — pas un don.",
+        axes: [
+          { titre: "Valider avant de résoudre", texte: "Quand l'autre se confie, la séquence qui marche : reformuler ce qu'il/elle vit et le légitimer (« c'est normal que ça te pèse ») AVANT tout conseil. La solution donnée trop vite est vécue comme une non-écoute — c'est l'erreur n°1 documentée." },
+          { titre: "Répondre aux tentatives de connexion", texte: "Les micro-sollicitations du quotidien (« regarde ça », un soupir, une anecdote) sont des tests discrets du lien. Les recherches observationnelles montrent que le fait d'y répondre — même brièvement — distingue fortement les couples stables des couples qui se délitent." },
+          { titre: "Capitaliser sur les bonnes nouvelles", texte: "Réagir avec enthousiasme et questions quand l'autre partage une BONNE nouvelle (réponse « active-constructive », Gable et al., 2004) prédit la qualité du lien au moins autant que le soutien dans les coups durs. C'est le levier le plus simple de toute cette app." },
+          { titre: "Rendre vos besoins lisibles", texte: "La réactivité perçue dépend aussi de vous : un besoin jamais formulé ne peut pas être satisfait, puis devient un reproche. Une demande précise par semaine (« j'aimerais que tu me demandes comment s'est passé mon rendez-vous ») change la boucle." }
+        ],
+        objectif: "Pendant un mois : une validation sans conseil par jour, une réponse enthousiaste à chaque bonne nouvelle de l'autre, une demande précise par semaine. Refaites le test à 6 semaines — idéalement chacun de votre côté, puis comparez vos perceptions.",
+        ressources: [
+          "Reis, H. T., & Clark, M. S. (2013). Responsiveness. The Oxford Handbook of Close Relationships.",
+          "Crasta, D., Rogge, R. D., Maniaci, M. R., & Reis, H. T. (2021). Toward an optimized measure of perceived partner responsiveness. Psychological Assessment, 33(4).",
+          "Gable, S. L., Reis, H. T., Impett, E. A., & Asher, E. R. (2004). What do you do when things go right? Journal of Personality and Social Psychology, 87(2).",
+          "Gottman, J. & Silver, N. « Les couples heureux ont leurs secrets » (JC Lattès)."
+        ],
+        consulter: "Si vous êtes seul(e) à porter le lien depuis longtemps malgré des demandes claires, une thérapie de couple permet d'aborder le déséquilibre avec un tiers — c'est un motif de consultation très classique."
+      }
+    }
+  },
+  source: {
+    instrument: "Perceived Partner Responsiveness Scale (Reis et al.)",
+    statut: "Instrument de recherche librement utilisé dans la littérature. Adaptation française réalisée pour cette application d'après les items publiés.",
+    refs: [
+      "Reis, H. T., & Shaver, P. (1988). Intimacy as an interpersonal process. Handbook of Personal Relationships.",
+      "Crasta, D., Rogge, R. D., Maniaci, M. R., & Reis, H. T. (2021). Psychological Assessment, 33(4), 338-355.",
+      "Impett, E. A., Park, H. G., & Muise, A. (2024). Current Directions in Psychological Science, 33(2)."
+    ]
+  }
+},
+
+/* ---------------- 14. SATISFACTION DE COUPLE — CSI-4 ---------------- */
+{
+  id: "csi4",
+  nom: "Satisfaction de couple",
+  sigle: "CSI-4 · 4 items",
+  cat: "Couple",
+  duree: "1 min",
+  intro: "Le Couples Satisfaction Index (Funk & Rogge, 2007, université de Rochester) est l'instrument moderne de référence pour mesurer la satisfaction conjugale — développé par théorie de réponse à l'item pour être plus précis que les anciennes échelles, libre d'utilisation, avec un seuil de détresse publié. Sa version à 4 questions est idéale pour un suivi régulier.",
+  consigne: "Pour les personnes actuellement en couple. Répondez d'après votre relation telle qu'elle est ces derniers temps.",
+  echelle: { labels: ["Extrêmement malheureuse", "Assez malheureuse", "Un peu malheureuse", "Heureuse", "Très heureuse", "Extrêmement heureuse", "Parfaite"], valeurs: [0, 1, 2, 3, 4, 5, 6] },
+  echelles: [
+    { labels: ["Extrêmement malheureuse", "Assez malheureuse", "Un peu malheureuse", "Heureuse", "Très heureuse", "Extrêmement heureuse", "Parfaite"], valeurs: [0, 1, 2, 3, 4, 5, 6] },
+    { labels: ["Pas du tout", "Un peu", "Moyennement", "Beaucoup", "Presque complètement", "Complètement"], valeurs: [0, 1, 2, 3, 4, 5] }
+  ],
+  items: [
+    { t: "Tout bien considéré, indiquez le degré de bonheur de votre relation :", d: "SAT", e: 0 },
+    { t: "J'ai une relation chaleureuse et réconfortante avec mon/ma partenaire", d: "SAT", e: 1 },
+    { t: "À quel point votre relation avec votre partenaire est-elle gratifiante ?", d: "SAT", e: 1 },
+    { t: "De manière générale, à quel point êtes-vous satisfait(e) de votre relation ?", d: "SAT", e: 1 }
+  ],
+  scoringNote: "Somme des 4 items, de 0 à 21. Seuil publié (Funk & Rogge, 2007) : un score inférieur à 13,5 signale une détresse relationnelle probable. Au-dessus du seuil, les repères sont indicatifs.",
+  dims: {
+    SAT: {
+      nom: "Satisfaction conjugale", format: "somme", min: 0, max: 21, valence: true,
+      descriptif: "Évaluation globale de votre relation. La satisfaction fluctue naturellement (stress, enfants en bas âge, charge de travail) : une mesure basse isolée est une photo, pas un verdict — d'où l'intérêt du suivi.",
+      bandes: [
+        { max: 13, label: "Zone de détresse relationnelle", niveau: "alerte", texte: "Score sous le seuil publié (13,5) : votre insatisfaction est comparable à celle des couples qui consultent. Ce n'est pas une condamnation — c'est le signal qu'il faut agir méthodiquement : passez les tests « Réactivité » et « Conflits » pour localiser ce qui pèse, appliquez les axes, et sachez que la thérapie de couple a une efficacité démontrée, d'autant plus qu'elle est entreprise tôt." },
+        { max: 16, label: "Au-dessus du seuil, zone basse", niveau: "attention", texte: "Pas de détresse caractérisée, mais une marge nette de progression. C'est la zone où les efforts rapportent le plus : les axes ci-dessous, appliqués quelques semaines, déplacent réellement ce score." },
+        { max: 21, label: "Satisfaction bonne à élevée", niveau: "ok", texte: "Votre relation est une ressource. Les couples durablement heureux ne sont pas ceux qui n'ont pas de problèmes, mais ceux qui entretiennent activement le positif — continuez les rituels qui vous font du bien." }
+      ],
+      amelioration: {
+        intro: "La satisfaction conjugale est une des variables les mieux étudiées de la psychologie. Ce qui la déplace vraiment : la réactivité au quotidien, la façon de se disputer, et la dose d'expériences positives partagées.",
+        axes: [
+          { titre: "Localiser avant de réparer", texte: "« Ça ne va pas » est trop vague pour agir. Passez les tests « Réactivité de votre partenaire » et « Conflits » de cette app : ils pointent les deux mécanismes qui expliquent l'essentiel des variations de satisfaction." },
+          { titre: "Remonter la dose de positif", texte: "Dans les couples qui s'usent, le positif disparaît avant que le négatif n'explose. Réinstallez des rituels courts et réguliers : vraie question du soir (« quoi de mieux aujourd'hui ? »), appréciation exprimée par jour, sortie à deux protégée dans l'agenda." },
+          { titre: "Faire du nouveau ensemble", texte: "Les activités nouvelles et un peu stimulantes partagées à deux augmentent la satisfaction dans des essais contrôlés (Aron et al., 2000) — l'habituation est un érodeur silencieux. Une nouveauté par mois (lieu, activité, projet) est un objectif réaliste." },
+          { titre: "Consulter tôt, pas en dernier recours", texte: "Les couples attendent en moyenne des années avant de consulter — quand les schémas sont incrustés. Les thérapies de couple structurées (EFT, approches comportementales intégratives) ont une efficacité démontrée par essais contrôlés." }
+        ],
+        objectif: "Objectif chiffré : rester ou revenir durablement au-dessus de 13,5, puis viser 17+. Protocole 6 semaines : rituels positifs quotidiens + une nouveauté partagée + travail du conflit si le test « Conflits » est haut. Re-test toutes les 4 à 6 semaines, idéalement chacun de son côté.",
+        ressources: [
+          "Funk, J. L., & Rogge, R. D. (2007). Testing the ruler with item response theory: the Couples Satisfaction Index. Journal of Family Psychology, 21(4), 572-583.",
+          "Aron, A., Norman, C., Aron, E., McKenna, C., & Heyman, R. (2000). Couples' shared participation in novel and arousing activities. Journal of Personality and Social Psychology, 78(2).",
+          "Johnson, S. « Serre-moi fort » (EFT) · Gottman, J. & Silver, N. « Les couples heureux ont leurs secrets »."
+        ],
+        consulter: "Score < 13,5 persistant sur deux mesures, ou envie de partir/indifférence installée : thérapie de couple (annuaires : EFT francophone, thérapeutes familiaux). Si la relation comporte peur, contrôle ou violence, ce n'est plus une question de « satisfaction » : 3919 (anonyme et gratuit) ou arretonslesviolences.gouv.fr."
+      }
+    }
+  },
+  source: {
+    instrument: "Couples Satisfaction Index — version 4 items (CSI-4)",
+    statut: "Libre d'utilisation (Funk & Rogge, université de Rochester). Traduction française réalisée pour cette application.",
+    refs: [
+      "Funk, J. L., & Rogge, R. D. (2007). Journal of Family Psychology, 21(4), 572-583."
+    ]
+  }
+},
+
+/* ---------------- 15. CONFLITS & COMMUNICATION ---------------- */
+{
+  id: "conflits",
+  nom: "Conflits dans le couple",
+  sigle: "IAI + CPQ (adaptations) · 14 items",
+  cat: "Couple",
+  duree: "3 min",
+  intro: "Ce n'est pas la présence de conflits qui prédit la rupture — tous les couples se disputent — mais leur FORME. Ce test combine deux mesures issues de la recherche : l'efficacité de vos disputes (d'après l'Ineffective Arguing Inventory de Kurdek) et le schéma « exigence-retrait » (l'un pousse la discussion, l'autre se ferme — d'après le Communication Patterns Questionnaire de Christensen), l'un des patterns les plus destructeurs documentés.",
+  consigne: "Pour les personnes actuellement en couple. Répondez d'après vos désaccords et disputes des derniers mois.",
+  echelle: { labels: ["Pas du tout d'accord", "Plutôt pas d'accord", "Neutre", "Plutôt d'accord", "Tout à fait d'accord"], valeurs: [1, 2, 3, 4, 5] },
+  echelles: [
+    { labels: ["Pas du tout d'accord", "Plutôt pas d'accord", "Neutre", "Plutôt d'accord", "Tout à fait d'accord"], valeurs: [1, 2, 3, 4, 5] },
+    { labels: ["Jamais", "Rarement", "Parfois", "Souvent", "Très souvent"], valeurs: [1, 2, 3, 4, 5] }
+  ],
+  items: [
+    { t: "Nos disputes restent en suspens, sans vraie conclusion", d: "INEF", e: 0 },
+    { t: "Nous pouvons passer des jours sans régler un différend", d: "INEF", e: 0 },
+    { t: "Nos disputes se terminent souvent en impasse frustrante", d: "INEF", e: 0 },
+    { t: "Nous ressassons les mêmes sujets de dispute, encore et encore", d: "INEF", e: 0 },
+    { t: "Nos désaccords sont brefs et vite dépassés", d: "INEF", e: 0, r: true },
+    { t: "Quand nous nous disputons, nous dérivons loin du sujet initial", d: "INEF", e: 0 },
+    { t: "Nous devons sérieusement améliorer notre façon de régler nos désaccords", d: "INEF", e: 0 },
+    { t: "Après une dispute, nous savons nous réconcilier vraiment", d: "INEF", e: 0, r: true },
+    { t: "Quand un problème surgit, l'un de nous insiste pour en parler pendant que l'autre se ferme", d: "DR", e: 1 },
+    { t: "Je fais des reproches ou des demandes pendant que mon/ma partenaire se met en retrait", d: "DR", e: 1 },
+    { t: "Mon/ma partenaire fait des reproches ou des demandes pendant que je me mets en retrait", d: "DR", e: 1 },
+    { t: "Plus l'un de nous pousse la discussion, plus l'autre s'éloigne", d: "DR", e: 1 },
+    { t: "Nous évitons tous les deux d'aborder les sujets qui fâchent", d: "DR", e: 1 },
+    { t: "Le silence de l'un finit par faire exploser l'autre", d: "DR", e: 1 }
+  ],
+  scoringNote: "Deux scores en moyenne de 1 à 5 : « disputes inefficaces » (8 items, 2 inversés) et « exigence-retrait » (6 items). Pas de seuils cliniques officiels : repères indicatifs à 2,5 et 3,5. C'est surtout l'évolution et le contraste entre les deux scores qui informent.",
+  dims: {
+    INEF: {
+      nom: "Disputes inefficaces", format: "moyenne", min: 1, max: 5, valence: false,
+      descriptif: "Des conflits qui tournent en rond, dérivent, ne se concluent pas et reviennent — l'inverse de la dispute « utile » qui aboutit à une compréhension ou une décision.",
+      bandes: [
+        { max: 2.4, label: "Conflits plutôt constructifs", niveau: "ok", texte: "Vos désaccords se règlent et ne laissent pas de résidu durable. C'est l'un des meilleurs indicateurs de santé d'un couple — plus que la rareté des disputes." },
+        { max: 3.5, label: "Efficacité moyenne", niveau: "attention", texte: "Certaines disputes aboutissent, d'autres s'enkystent. Repérez ce qui distingue les deux (sujet ? fatigue ? manière de commencer ?) et appliquez les axes ci-dessous — le démarrage de la dispute est le levier n°1." },
+        { max: 5, label: "Schéma conflictuel installé", niveau: "alerte", texte: "Vos disputes tournent en boucle sans résolution : frustration, sujets récurrents, réconciliations incomplètes. Ce schéma prédit l'érosion de la satisfaction — mais il se désinstalle avec de la méthode, et vite quand les deux s'y mettent." }
+      ],
+      amelioration: {
+        intro: "La recherche observationnelle (notamment les travaux de Gottman) montre que l'issue d'une dispute se joue en grande partie dans ses trois premières minutes et dans la capacité à réparer en cours de route.",
+        axes: [
+          { titre: "Démarrage en douceur", texte: "Commencer par « je » + un fait + un besoin (« je me suis senti seul samedi, j'aimerais qu'on garde le samedi soir pour nous ») au lieu d'un jugement global (« tu ne penses qu'à toi »). Le ton des 3 premières minutes prédit l'issue de la conversation dans les études d'observation." },
+          { titre: "Pause physiologique avec heure de reprise", texte: "Au-delà d'un certain niveau d'activation (cœur qui s'emballe, envie de fuir ou d'attaquer), plus rien de constructif ne sort — c'est physiologique. Convenez d'un signal de pause de 20-30 minutes AVEC heure de reprise obligatoire : la pause sans reprise devient de l'évitement." },
+          { titre: "Un sujet à la fois, une décision à la fin", texte: "Interdisez-vous l'archéologie (« et puis d'ailleurs, en 2022… »). Terminez chaque discussion par une micro-décision écrite ou reformulée à deux — c'est ce qui empêche le sujet de revenir intact." },
+          { titre: "Accepter les problèmes perpétuels", texte: "Une grande partie des désaccords de couple sont PERPÉTUELS (valeurs, tempéraments) : l'objectif réaliste n'est pas de les résoudre mais d'en dialoguer sans blessure. Renoncer à « gagner » ces sujets-là est un soulagement, pas une défaite." }
+        ],
+        objectif: "Sur 6 semaines : appliquer démarrage en douceur + pause avec reprise sur chaque désaccord notable, et clôturer par une micro-décision. Re-test ensuite ; visez le passage sous 2,5. Si rien ne bouge alors que vous essayez réellement à deux, un(e) thérapeute de couple accélère considérablement les choses.",
+        ressources: [
+          "Kurdek, L. A. (1994). Ineffective Arguing Inventory. Journal of Marriage and the Family, 56.",
+          "Gottman, J., & Silver, N. « Les couples heureux ont leurs secrets » (JC Lattès) — vulgarisation par le chercheur lui-même.",
+          "Christensen, A., & Jacobson, N. « Reconcilable Differences » (Guilford) — l'approche par l'acceptation."
+        ]
+      }
+    },
+    DR: {
+      nom: "Schéma exigence-retrait", format: "moyenne", min: 1, max: 5, valence: false,
+      descriptif: "L'un poursuit (demandes, reproches, insistance), l'autre se dérobe (silence, fuite, fermeture) — et chacun renforce l'autre : plus je pousse, plus tu fuis ; plus tu fuis, plus je pousse. La méta-analyse de Schrodt (2014, 74 études) le lie fortement à l'insatisfaction des deux partenaires.",
+      bandes: [
+        { max: 2.4, label: "Peu présent", niveau: "ok", texte: "Vous parvenez généralement à aborder les problèmes à deux, sans poursuite ni fuite systématiques. Gardez cet équilibre précieux." },
+        { max: 3.5, label: "Présent par moments", niveau: "attention", texte: "Le cycle poursuite-fuite s'invite dans certains conflits. Bon moment pour le nommer ensemble, à froid — une fois repéré, il perd une grande partie de son pouvoir." },
+        { max: 5, label: "Cycle installé", niveau: "alerte", texte: "Le schéma exigence-retrait structure vos conflits. Point crucial : AUCUN des deux rôles n'est le « coupable » — c'est le cycle qui est le problème, et chacun y réagit à la menace à sa façon (protestation ou protection). C'est exactement ce que les thérapies de couple fondées sur l'attachement savent défaire." }
+      ],
+      amelioration: {
+        intro: "Le levier central, validé par les approches de couple les plus efficaces : faire du CYCLE l'ennemi commun, plutôt que l'un de l'autre.",
+        axes: [
+          { titre: "Nommer le cycle à froid", texte: "Hors conflit, décrivez-le ensemble sans accusation : « quand je sens X, je pousse ; quand tu sens Y, tu te fermes ; et ça s'auto-alimente ». Donnez-lui un nom. Au prochain épisode, dire « on est dans notre cycle » change immédiatement la dynamique." },
+          { titre: "Si vous poursuivez", texte: "Une demande précise et une seule, formulée doucement, puis accepter un délai de réponse. La poursuite vient souvent d'une peur légitime (ne pas compter) — dites la peur plutôt que le reproche : « quand tu te tais, j'ai l'impression de ne pas exister pour toi »." },
+          { titre: "Si vous vous retirez", texte: "Remplacer le silence par un retrait ANNONCÉ : « j'ai besoin de 30 minutes pour me poser, on reprend à 21h — promis ». Le retrait vient souvent d'une saturation réelle ; c'est le silence non annoncé qui affole l'autre, pas la pause." },
+          { titre: "Créneau hebdomadaire de régulation", texte: "Une « réunion de couple » de 30 minutes par semaine (ce qui va, ce qui coince, la logistique) évite l'accumulation qui nourrit la poursuite ET l'évitement. Ritualisée, elle désamorce la plupart des explosions du quotidien." }
+        ],
+        objectif: "Sur 6 semaines : cycle nommé ensemble + retraits annoncés avec reprise + une réunion hebdomadaire. Re-test ensuite, idéalement à deux. Cycle toujours installé malgré de vrais efforts → thérapie de couple (EFT notamment, conçue exactement pour ça).",
+        ressources: [
+          "Schrodt, P., Witt, P. L., & Shimkowski, J. R. (2014). A meta-analytical review of the demand/withdraw pattern. Communication Monographs, 81(1).",
+          "Christensen, A., & Sullaway, M. (1984). Communication Patterns Questionnaire. UCLA.",
+          "Johnson, S. « Serre-moi fort » (Les Éditions de l'Homme) — le protocole EFT pour sortir des cycles, avec exercices."
+        ],
+        consulter: "Attention : si les conflits comportent peur de l'autre, contrôle (argent, sorties, téléphone), humiliations ou violence physique, ce n'est plus un « problème de communication » et la thérapie de couple n'est pas le cadre adapté. 3919 (Violences Femmes Info, anonyme et gratuit, 24h/24), arretonslesviolences.gouv.fr, 17 en cas de danger immédiat. Les hommes victimes peuvent aussi appeler le 3919 ou le 116 006 (aide aux victimes)."
+      }
+    }
+  },
+  source: {
+    instrument: "Ineffective Arguing Inventory (Kurdek, 1994) + sous-échelle exigence-retrait d'après le Communication Patterns Questionnaire (Christensen & Sullaway, 1984)",
+    statut: "Instruments de recherche librement utilisés dans la littérature. Adaptations françaises réalisées pour cette application d'après les items publiés.",
+    refs: [
+      "Kurdek, L. A. (1994). Journal of Marriage and the Family, 56(3), 705-722.",
+      "Christensen, A., & Heavey, C. L. (1990). Gender and social structure in the demand/withdraw pattern. Journal of Personality and Social Psychology, 59(1).",
+      "Schrodt, P. et al. (2014). Communication Monographs, 81(1), 28-58."
+    ]
+  }
+},
+
+/* ---------------- 16. SATISFACTION INTIME — GMSEX ---------------- */
+{
+  id: "gmsex",
+  nom: "Satisfaction intime",
+  sigle: "GMSEX (adaptation) · 5 items",
+  cat: "Couple",
+  duree: "1 min",
+  avertissement: "Test optionnel et intime — comme tout le reste, vos réponses ne quittent pas votre appareil. Il concerne les personnes ayant une vie intime de couple ; passez-le si le sujet est pertinent pour vous en ce moment.",
+  intro: "La Global Measure of Sexual Satisfaction (Lawrance & Byers, 1995) est l'échelle brève de référence de la recherche sur la satisfaction sexuelle : cinq facettes de votre vie intime, évaluées globalement. La sexualité est un pilier documenté de la satisfaction conjugale — et le sujet le moins discuté des couples, alors que la communication est précisément son levier le plus puissant.",
+  consigne: "Pour les personnes actuellement en couple. Les 5 questions se ressemblent volontairement : chacune évalue une facette différente de votre vie intime, ces derniers mois.",
+  echelle: { labels: ["Très mauvaise", "Mauvaise", "Plutôt mauvaise", "Ni bonne ni mauvaise", "Plutôt bonne", "Bonne", "Très bonne"], valeurs: [1, 2, 3, 4, 5, 6, 7] },
+  echelles: [
+    { labels: ["Très mauvaise", "Mauvaise", "Plutôt mauvaise", "Ni bonne ni mauvaise", "Plutôt bonne", "Bonne", "Très bonne"], valeurs: [1, 2, 3, 4, 5, 6, 7] },
+    { labels: ["Très désagréables", "Désagréables", "Plutôt désagréables", "Neutres", "Plutôt agréables", "Agréables", "Très agréables"], valeurs: [1, 2, 3, 4, 5, 6, 7] },
+    { labels: ["Très négatif", "Négatif", "Plutôt négatif", "Neutre", "Plutôt positif", "Positif", "Très positif"], valeurs: [1, 2, 3, 4, 5, 6, 7] },
+    { labels: ["Très insatisfaisante", "Insatisfaisante", "Plutôt insatisfaisante", "Neutre", "Plutôt satisfaisante", "Satisfaisante", "Très satisfaisante"], valeurs: [1, 2, 3, 4, 5, 6, 7] },
+    { labels: ["Sans importance pour moi", "Peu importante", "Plutôt peu importante", "Neutre", "Plutôt précieuse", "Précieuse", "Très précieuse"], valeurs: [1, 2, 3, 4, 5, 6, 7] }
+  ],
+  items: [
+    { t: "Globalement, ma vie intime de couple est…", d: "SX", e: 0 },
+    { t: "Les moments intimes avec mon/ma partenaire sont…", d: "SX", e: 1 },
+    { t: "Ce que je ressens vis-à-vis de notre vie intime est…", d: "SX", e: 2 },
+    { t: "Sur le plan de la satisfaction, notre vie intime est…", d: "SX", e: 3 },
+    { t: "Notre vie intime, pour moi, est…", d: "SX", e: 4 }
+  ],
+  scoringNote: "Somme des 5 items, de 5 à 35. Pas de seuil clinique officiel ; dans les études de couples, les moyennes se situent autour de 28-30 (Byers, 2005). Repères indicatifs : ≤ 17 insatisfaction marquée · 18-27 zone moyenne · 28-35 satisfaction élevée.",
+  dims: {
+    SX: {
+      nom: "Satisfaction intime", format: "somme", min: 5, max: 35, valence: true,
+      descriptif: "Évaluation globale de votre vie intime de couple. À lire avec bienveillance : elle fluctue naturellement avec le stress, la fatigue, la santé, les saisons de la vie (jeunes enfants, charge de travail) — et elle se travaille, à deux.",
+      bandes: [
+        { max: 17, label: "Insatisfaction marquée", niveau: "attention", texte: "Votre vie intime est une source de frustration ou de tristesse en ce moment. Deux messages importants : c'est l'un des motifs de consultation les plus fréquents (vous êtes très loin d'être seul(e)), et c'est aussi l'un de ceux qui évoluent le mieux quand on ose en parler — à deux d'abord, avec un professionnel si besoin." },
+        { max: 27, label: "Zone moyenne", niveau: "ok", texte: "Vie intime correcte avec une marge d'amélioration. Le levier documenté n°1 est simple à énoncer et difficile à faire : en parler explicitement (voir les axes). La bonne nouvelle : les gains sont rapides quand le dialogue s'ouvre." },
+        { max: 35, label: "Satisfaction élevée", niveau: "ok", texte: "Votre vie intime nourrit votre couple. Entretenez le canal de communication qui va avec — c'est lui qui permet de traverser les inévitables variations sans les transformer en crise." }
+      ],
+      amelioration: {
+        intro: "La méta-analyse de référence (Mallory et al., 2019, 48 études) est sans ambiguïté : la communication sexuelle est le corrélat le plus fort de la satisfaction sexuelle — devant la fréquence. Le tabou est le vrai problème.",
+        axes: [
+          { titre: "Ouvrir le dialogue, hors chambre", texte: "Une conversation à froid, dans un moment détendu, en parlant de ce qui MARCHE d'abord (« j'aime quand… ») avant ce qui manque. Les demandes formulées comme des envies (« j'aimerais essayer… ») passent infiniment mieux que comme des bilans (« on ne… jamais »)." },
+          { titre: "Comprendre le désir réactif", texte: "Chez beaucoup de personnes, le désir ne précède pas l'intimité : il naît EN réponse au contexte et au contact (désir « réactif », bien décrit par la recherche). Attendre l'envie spontanée revient alors à attendre indéfiniment — créer le contexte n'est pas de l'artifice, c'est le mode d'emploi." },
+          { titre: "Écart de désir : négocier sans pression", texte: "Un écart de désir entre partenaires est la norme, pas une anomalie. Ce qui abîme : la pression d'un côté, la culpabilité de l'autre. Ce qui marche : en parler comme un problème COMMUN, protéger la tendresse non sexuelle (voir le test des langages), et définir ensemble un rythme acceptable pour les deux." },
+          { titre: "Vérifier le versant médical", texte: "Douleur pendant les rapports (jamais « normale », chez la femme comme chez l'homme), troubles de l'érection, chute de libido sous médicament (antidépresseurs notamment) ou après un accouchement : autant de motifs de consultation médicale simples, fréquents et pris en charge — médecin traitant, gynécologue, ou médecin sexologue." }
+        ],
+        objectif: "Sur 6 semaines : une conversation intime « à froid » par quinzaine + protection de moments de tendresse sans agenda + consultation si un frein médical est suspecté. Re-test ensuite — les scores bougent vite quand le dialogue s'installe.",
+        ressources: [
+          "Mallory, A. B., Stanton, A. M., & Handy, A. B. (2019). Couples' sexual communication and dimensions of sexual function: a meta-analysis. Journal of Sex Research, 56(7), 882-898.",
+          "Lawrance, K., & Byers, E. S. (1995). Sexual satisfaction in long-term heterosexual relationships. Personal Relationships, 2(4), 267-285.",
+          "Nagoski, E. « Come As You Are » (trad. fr. disponible) — synthèse grand public de la recherche, notamment sur le désir réactif.",
+          "Numéro national « Sexualités, contraception, IVG » : 0 800 08 11 11 (gratuit, anonyme) — questionsexualite.fr (site public officiel)."
+        ],
+        consulter: "Douleur, trouble persistant, ou détresse liée à la sexualité : médecin traitant ou consultation de sexologie (médecins sexologues, souvent en CHU). C'est une médecine comme une autre, sans jugement."
+      }
+    }
+  },
+  source: {
+    instrument: "Global Measure of Sexual Satisfaction (GMSEX)",
+    statut: "Instrument de recherche librement utilisé dans la littérature. Adaptation française réalisée pour cette application (échelle sémantique différentielle adaptée en libellés).",
+    refs: [
+      "Lawrance, K., & Byers, E. S. (1995). Personal Relationships, 2(4), 267-285.",
+      "Byers, E. S. (2005). Relationship satisfaction and sexual satisfaction: a longitudinal study. Journal of Sex Research, 42(2)."
+    ]
+  }
+}
+];
+
+TESTS = TESTS_1.concat(TESTS_2).concat(TESTS_3).concat(TESTS_4);
+/* ============================================================
+   NOYAU : stockage, scoring, graphiques SVG
+   ============================================================ */
+"use strict";
+
+function esc(s){ return String(s).replace(/[&<>"']/g, function(c){ return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]; }); }
+function byId(id){ return TESTS.find(function(t){ return t.id === id; }); }
+function fmtDate(iso){
+  try { return new Intl.DateTimeFormat("fr-FR", {day:"numeric", month:"short", year:"numeric"}).format(new Date(iso)); }
+  catch(e){ return iso.slice(0,10); }
+}
+function fmtDateH(iso){
+  try { return new Intl.DateTimeFormat("fr-FR", {day:"numeric", month:"short", year:"numeric", hour:"2-digit", minute:"2-digit"}).format(new Date(iso)); }
+  catch(e){ return iso.slice(0,16).replace("T"," "); }
+}
+
+/* ---------- Stockage (localStorage si disponible, sinon mémoire) ---------- */
+var Store = (function(){
+  var KEY = "reperes.v1";
+  var mem = null;
+  var persistent = true;
+  function blank(){ return { v: 1, results: {} }; }
+  function load(){
+    if (mem) return mem;
+    try {
+      var raw = window.localStorage.getItem(KEY);
+      mem = raw ? JSON.parse(raw) : blank();
+      if (!mem || typeof mem !== "object" || !mem.results) mem = blank();
+    } catch(e){ persistent = false; mem = blank(); }
+    return mem;
+  }
+  function save(){
+    try { window.localStorage.setItem(KEY, JSON.stringify(mem)); persistent = true; }
+    catch(e){ persistent = false; }
+  }
+  return {
+    data: load,
+    isPersistent: function(){ load(); return persistent; },
+    add: function(testId, rec){
+      var d = load();
+      if (!d.results[testId]) d.results[testId] = [];
+      d.results[testId].push(rec);
+      save();
+    },
+    hist: function(testId){ var d = load(); return (d.results[testId] || []).slice().sort(function(a,b){ return a.date < b.date ? -1 : 1; }); },
+    latest: function(testId){ var h = this.hist(testId); return h.length ? h[h.length-1] : null; },
+    previous: function(testId){ var h = this.hist(testId); return h.length > 1 ? h[h.length-2] : null; },
+    exportJSON: function(){ return JSON.stringify(load(), null, 2); },
+    importJSON: function(text){
+      var inc = JSON.parse(text);
+      if (!inc || !inc.results) throw new Error("format");
+      var d = load(); var n = 0;
+      Object.keys(inc.results).forEach(function(tid){
+        if (!d.results[tid]) d.results[tid] = [];
+        (inc.results[tid] || []).forEach(function(rec){
+          if (rec && rec.date && !d.results[tid].some(function(r){ return r.date === rec.date; })){ d.results[tid].push(rec); n++; }
+        });
+      });
+      save(); return n;
+    },
+    reset: function(){ mem = blank(); save(); }
+  };
+})();
+
+/* ---------- Scoring ---------- */
+function itemScale(test, it){
+  if (it && it.e !== undefined && test.echelles) return test.echelles[it.e];
+  return test.echelle;
+}
+function computeScores(test, answers){
+  var acc = {};
+  test.items.forEach(function(it, i){
+    var raw = answers[i];
+    var v = itemScale(test, it).valeurs;
+    var mn = Math.min.apply(null, v), mx = Math.max.apply(null, v);
+    var val = it.r ? (mn + mx - raw) : raw;
+    if (!acc[it.d]) acc[it.d] = [];
+    acc[it.d].push(val);
+  });
+  var scores = {};
+  Object.keys(test.dims).forEach(function(k){
+    var vals = acc[k] || [];
+    var sum = vals.reduce(function(a,b){ return a+b; }, 0);
+    var f = test.dims[k].format;
+    if (f === "moyenne") scores[k] = Math.round((sum / vals.length) * 100) / 100;
+    else if (f === "pct25") scores[k] = sum * 4;
+    else scores[k] = sum; /* somme */
+  });
+  var flags = {};
+  if (test.flagCrise && answers[test.flagCrise.itemIndex] >= test.flagCrise.seuil) flags.crise = true;
+  return { scores: scores, flags: flags };
+}
+function bandOf(dim, score){
+  for (var i = 0; i < dim.bandes.length; i++){
+    if (score <= dim.bandes[i].max + 1e-9) return dim.bandes[i];
+  }
+  return dim.bandes[dim.bandes.length - 1];
+}
+function fmtScore(dim, v){
+  if (dim.format === "moyenne" && dim.max <= 7) return String(Math.round(v*10)/10).replace(".", ",");
+  return String(Math.round(v));
+}
+function fmtOutOf(dim, v){
+  return '<span class="scorebig">' + fmtScore(dim, v) + '<small> / ' + dim.max + '</small></span>';
+}
+
+/* ---------- Jauge à bandes (SVG) ---------- */
+function gaugeSVG(dim, score){
+  var W = 340, H = 58, x0 = 8, x1 = W - 8, ty = 20, th = 13;
+  var span = dim.max - dim.min;
+  function X(v){ return x0 + (v - dim.min) / span * (x1 - x0); }
+  var cur = bandOf(dim, score);
+  var parts = [];
+  var prev = dim.min;
+  dim.bandes.forEach(function(b, i){
+    var xa = X(prev), xb = X(Math.min(b.max, dim.max));
+    var gap = i === 0 ? 0 : 1;               /* espace 2px entre segments */
+    var isCur = (b === cur);
+    var rx = 4;
+    parts.push('<rect class="seg ' + b.niveau + (isCur ? ' cur' : '') + '" x="' + (xa + gap) + '" y="' + ty + '" width="' + Math.max(1, xb - xa - gap*2) + '" height="' + th + '" rx="' + rx + '"/>');
+    prev = b.max;
+  });
+  /* graduations : bornes de bandes + extrémités */
+  var seen = {};
+  var ticks = [dim.min].concat(dim.bandes.map(function(b){ return b.max; }));
+  ticks.forEach(function(v){
+    if (v > dim.max) v = dim.max;
+    var key = String(Math.round(v*10));
+    if (seen[key]) return; seen[key] = 1;
+    var anchor = v <= dim.min ? "start" : (v >= dim.max ? "end" : "middle");
+    var label = (dim.format === "moyenne" && dim.max <= 7) ? String(v).replace(".", ",") : String(Math.round(v));
+    parts.push('<text class="tick" x="' + X(v) + '" y="' + (ty + th + 15) + '" text-anchor="' + anchor + '">' + label + '</text>');
+  });
+  /* marqueur */
+  parts.push('<circle class="mark" cx="' + X(Math.max(dim.min, Math.min(dim.max, score))) + '" cy="' + (ty + th/2) + '" r="7"/>');
+  return '<svg viewBox="0 0 ' + W + ' ' + H + '" width="100%" role="img" aria-label="Score ' + esc(fmtScore(dim, score)) + ' sur une échelle de ' + dim.min + ' à ' + dim.max + '">' + parts.join("") + '</svg>';
+}
+
+/* ---------- Courbe d'évolution (SVG) ---------- */
+function lineChartSVG(dim, entries){
+  var W = 340, H = 180, l = 34, r = 14, t = 14, b = 28;
+  var span = dim.max - dim.min;
+  function Y(v){ return t + (1 - (v - dim.min) / span) * (H - t - b); }
+  var n = entries.length;
+  function Xi(i){ return n === 1 ? (l + (W - l - r)/2) : l + i / (n - 1) * (W - l - r); }
+  var parts = [];
+  /* fond : bandes (repères de zones) */
+  var prev = dim.min;
+  dim.bandes.forEach(function(bd){
+    var ya = Y(Math.min(bd.max, dim.max)), yb = Y(prev);
+    parts.push('<rect class="seg ' + bd.niveau + '" opacity="0.55" x="' + l + '" y="' + ya + '" width="' + (W - l - r) + '" height="' + Math.max(0, yb - ya) + '"/>');
+    prev = bd.max;
+  });
+  /* grille horizontale : bornes de bandes, libellés à gauche */
+  var seen = {};
+  [dim.min].concat(dim.bandes.map(function(bd){ return Math.min(bd.max, dim.max); })).forEach(function(v){
+    var key = String(Math.round(v*10)); if (seen[key]) return; seen[key] = 1;
+    parts.push('<line class="gridln" x1="' + l + '" y1="' + Y(v) + '" x2="' + (W - r) + '" y2="' + Y(v) + '"/>');
+    var label = (dim.format === "moyenne" && dim.max <= 7) ? String(v).replace(".", ",") : String(Math.round(v));
+    parts.push('<text class="tick" x="' + (l - 5) + '" y="' + (Y(v) + 3.5) + '" text-anchor="end">' + label + '</text>');
+  });
+  parts.push('<line class="axisln" x1="' + l + '" y1="' + (H - b) + '" x2="' + (W - r) + '" y2="' + (H - b) + '"/>');
+  /* ligne + points */
+  if (n > 1){
+    var d = entries.map(function(e, i){ return (i ? "L" : "M") + Xi(i) + " " + Y(e.v); }).join(" ");
+    parts.push('<path class="ln" d="' + d + '"/>');
+  }
+  entries.forEach(function(e, i){
+    parts.push('<circle class="pt" cx="' + Xi(i) + '" cy="' + Y(e.v) + '" r="4.5"><title>' + esc(fmtDate(e.date)) + " : " + esc(fmtScore(dim, e.v)) + '</title></circle>');
+  });
+  /* étiquette directe : dernier point uniquement */
+  var last = entries[n-1];
+  var ly = Y(last.v) - 9; if (ly < t + 8) ly = Y(last.v) + 17;
+  parts.push('<text class="lbl" x="' + Math.min(Xi(n-1), W - r - 4) + '" y="' + ly + '" text-anchor="end">' + fmtScore(dim, last.v) + '</text>');
+  /* dates première / dernière */
+  parts.push('<text class="lblm" x="' + l + '" y="' + (H - 8) + '">' + esc(fmtDate(entries[0].date)) + '</text>');
+  if (n > 1) parts.push('<text class="lblm" x="' + (W - r) + '" y="' + (H - 8) + '" text-anchor="end">' + esc(fmtDate(last.date)) + '</text>');
+  return '<svg viewBox="0 0 ' + W + ' ' + H + '" width="100%" role="img" aria-label="Évolution du score">' + parts.join("") + '</svg>';
+}
+
+/* ---------- Sparkline ---------- */
+function sparkSVG(dim, entries){
+  var W = 92, H = 30, p = 4;
+  if (entries.length < 2) return "";
+  var span = dim.max - dim.min;
+  function Y(v){ return p + (1 - (v - dim.min) / span) * (H - 2*p); }
+  function X(i){ return p + i / (entries.length - 1) * (W - 2*p); }
+  var d = entries.map(function(e, i){ return (i ? "L" : "M") + X(i) + " " + Y(e.v); }).join(" ");
+  var lastX = X(entries.length-1), lastY = Y(entries[entries.length-1].v);
+  return '<svg viewBox="0 0 ' + W + ' ' + H + '" width="' + W + '" height="' + H + '" aria-hidden="true">' +
+    '<path class="ln" style="stroke-width:1.5" d="' + d + '"/>' +
+    '<circle class="pt" cx="' + lastX + '" cy="' + lastY + '" r="3"/></svg>';
+}
+
+/* ---------- Carte attachement (2 dimensions) ---------- */
+function ecrMapSVG(anx, evit){
+  var S = 240, p = 30;
+  function C(v){ return p + (v - 1) / 6 * (S - 2*p); }
+  var mid = C(4);
+  var parts = [];
+  parts.push('<rect x="' + p + '" y="' + p + '" width="' + (S-2*p) + '" height="' + (S-2*p) + '" fill="none" class="gridln" stroke-width="1"/>');
+  parts.push('<line class="axisln" x1="' + mid + '" y1="' + p + '" x2="' + mid + '" y2="' + (S-p) + '"/>');
+  parts.push('<line class="axisln" x1="' + p + '" y1="' + mid + '" x2="' + (S-p) + '" y2="' + mid + '"/>');
+  var lbl = function(x, y, txt, anchor){ return '<text class="lblm" x="' + x + '" y="' + y + '" text-anchor="' + (anchor||"middle") + '">' + txt + '</text>'; };
+  parts.push(lbl((p+mid)/2, p - 8, "Détaché-évitant"));
+  parts.push(lbl((mid+S-p)/2, p - 8, "Craintif-évitant"));
+  parts.push(lbl((p+mid)/2, S - p + 16, "Plutôt sécure"));
+  parts.push(lbl((mid+S-p)/2, S - p + 16, "Préoccupé"));
+  parts.push('<text class="lblm" transform="rotate(-90 12 ' + (S/2) + ')" x="12" y="' + (S/2) + '" text-anchor="middle">Évitement ↑</text>');
+  parts.push(lbl(S/2, S - 2, "Anxiété d'abandon →"));
+  parts.push('<circle class="pt" cx="' + C(anx) + '" cy="' + (S - (C(evit) - 0)) + '" r="7"><title>Anxiété ' + String(Math.round(anx*10)/10).replace(".", ",") + " · Évitement " + String(Math.round(evit*10)/10).replace(".", ",") + '</title></circle>');
+  return '<svg class="quad" viewBox="0 0 ' + S + ' ' + S + '" width="240" style="max-width:100%;margin:0 auto" role="img" aria-label="Position sur les deux dimensions de l\'attachement">' + parts.join("") + '</svg>';
+}
+
+/* ---------- Delta sémantique ---------- */
+function deltaHTML(dim, now, before){
+  if (before === null || before === undefined) return "";
+  var d = Math.round((now - before) * 10) / 10;
+  if (Math.abs(d) < 1e-9) return '<span class="delta-neu">→ stable</span>';
+  var up = d > 0;
+  var txt = (up ? "+" : "−") + String(Math.abs(d)).replace(".", ",");
+  if (dim.valence === null || dim.valence === undefined) return '<span class="delta-neu">' + (up ? "▲" : "▼") + " " + txt + "</span>";
+  var good = (dim.valence === true && up) || (dim.valence === false && !up);
+  return '<span class="' + (good ? "delta-good" : "delta-bad") + '">' + (up ? "▲" : "▼") + " " + txt + " " + (good ? "(mieux)" : "(moins bien)") + "</span>";
+}
+/* ============================================================
+   VUES & NAVIGATION
+   ============================================================ */
+"use strict";
+
+var $app = document.getElementById("app");
+var RUN = null;
+var CADENCE = { gad7:"2 semaines", phq9:"2 semaines", who5:"2 semaines", pss10:"2 à 3 semaines", cbi:"2 semaines", rosenberg:"4 à 6 semaines", erq:"6 semaines", ecr12:"6 à 8 semaines", ucla3:"4 semaines", bigfive:"3 à 6 mois", sd3:"3 à 6 mois", amour:"3 à 6 mois", pprs:"6 semaines", csi4:"4 à 6 semaines", conflits:"6 semaines", gmsex:"6 semaines" };
+var ORDRE_CATS = ["Clinique — repérage", "Stress & énergie", "Soi", "Émotions", "Couple", "Relations", "Personnalité"];
+
+function go(h){ location.hash = h; }
+function setNav(which){
+  ["home","bord","meth"].forEach(function(k){
+    var b = document.getElementById("nav-" + k);
+    if (b) b.className = (k === which) ? "on" : "";
+  });
+}
+function persistBanner(){
+  if (Store.isPersistent()) return "";
+  return '<div class="notice">Le stockage local n\'est pas disponible ici : vos résultats ne survivront pas à la fermeture de la page. Pensez à exporter (menu Méthode → Vos données).</div>';
+}
+function chipHTML(band){
+  return '<span class="chip"><span class="dot ' + band.niveau + '"></span>' + esc(band.label) + '</span>';
+}
+function urgenceHTML(){
+  var lis = URGENCES.liste.map(function(u){ return "<li><b>" + esc(u.nom) + "</b> — " + esc(u.detail) + "</li>"; }).join("");
+  return '<div class="urgence"><h3>' + esc(URGENCES.titre) + "</h3><p class=\"small\">" + esc(URGENCES.texte) + '</p><ul style="padding-left:18px;margin:6px 0">' + lis + "</ul></div>";
+}
+function footHTML(){
+  return '<div class="foot"><p>Auto-évaluation ≠ diagnostic. En cas de doute, parlez-en à un professionnel de santé.<br>Un moment très difficile ? <b>3114</b> (gratuit, 24h/24) — <a href="#/methode">Méthode &amp; ressources</a></p></div>';
+}
+
+/* ---------------- ACCUEIL ---------------- */
+function vHome(){
+  setNav("home");
+  var cats = {};
+  TESTS.forEach(function(t){ (cats[t.cat] = cats[t.cat] || []).push(t); });
+  var html = persistBanner() +
+    '<div class="hdr"><div class="brand">Repères <small>· auto-évaluations sérieuses</small></div></div>' +
+    "<h1>Des questionnaires validés par la recherche, pas des quizz de réseaux sociaux.</h1>" +
+    '<p class="small ink2">15 instruments issus de la recherche publiée + 1 classique de la pop-psychologie clairement étiqueté comme tel, avec les vrais barèmes, des axes d\'amélioration fondés sur des preuves, et un suivi dans le temps. Vos réponses restent sur votre appareil. <a href="#/methode">Pourquoi cette app →</a></p>';
+  var nDone = TESTS.filter(function(t){ return Store.latest(t.id); }).length;
+  if (nDone) html += '<button class="btn" onclick="go(\'#/bord\')">Voir mon tableau de bord (' + nDone + " test" + (nDone>1?"s":"") + " fait" + (nDone>1?"s":"") + ")</button>";
+  ORDRE_CATS.forEach(function(cat){
+    if (!cats[cat]) return;
+    html += '<div class="catlabel">' + esc(cat) + "</div>";
+    cats[cat].forEach(function(t){
+      var last = Store.latest(t.id);
+      var status = last ? '<span class="done">Fait le ' + esc(fmtDate(last.date)) + "</span>" : '<span class="muted small">Jamais fait</span>';
+      html += '<div class="card tap" onclick="go(\'#/test/' + t.id + '\')" role="button" tabindex="0">' +
+        "<b>" + esc(t.nom) + "</b>" +
+        '<div class="testmeta">' + esc(t.sigle) + " · " + esc(t.duree) + "</div>" +
+        '<div style="margin-top:4px">' + status + "</div></div>";
+    });
+  });
+  html += footHTML();
+  $app.innerHTML = html;
+  window.scrollTo(0, 0);
+}
+
+/* ---------------- INTRO D'UN TEST ---------------- */
+function vTestIntro(id){
+  setNav("home");
+  var t = byId(id); if (!t) return vHome();
+  var last = Store.latest(t.id);
+  var html = '<p class="small"><a href="#/">← Tous les tests</a></p>' +
+    '<span class="pill">' + esc(t.cat) + "</span>" +
+    "<h1>" + esc(t.nom) + "</h1>" +
+    '<p class="small muted">' + esc(t.sigle) + " · " + esc(t.duree) + " · " + t.items.length + " questions</p>" +
+    "<p>" + esc(t.intro) + "</p>";
+  if (t.avertissement) html += '<div class="avert"><b>À savoir avant de commencer.</b> ' + esc(t.avertissement) + "</div>";
+  html += '<div class="card"><b>Consigne.</b> <span class="ink2">' + esc(t.consigne) + "</span></div>" +
+    '<button class="btn" onclick="startTest(\'' + t.id + '\')">' + (last ? "Refaire le test" : "Commencer") + "</button>";
+  if (last) html += '<button class="btn ghost" onclick="go(\'#/res/' + t.id + '\')">Voir mon dernier résultat (' + esc(fmtDate(last.date)) + ")</button>";
+  html += sourceDetails(t) + footHTML();
+  $app.innerHTML = html;
+  window.scrollTo(0, 0);
+}
+function sourceDetails(t){
+  var refs = t.source.refs.map(function(r){ return "<li>" + esc(r) + "</li>"; }).join("");
+  return "<details><summary>Instrument &amp; références</summary>" +
+    "<p class=\"small\"><b>" + esc(t.source.instrument) + "</b></p>" +
+    '<p class="small ink2">' + esc(t.source.statut) + "</p>" +
+    '<ul class="reslist">' + refs + "</ul></details>";
+}
+
+/* ---------------- PASSATION ---------------- */
+function startTest(id){
+  var t = byId(id);
+  RUN = { test: t, answers: new Array(t.items.length), i: 0 };
+  renderRun();
+}
+function renderRun(){
+  var nv = document.querySelector("nav"); if (nv) nv.style.display = "none";
+  var t = RUN.test, i = RUN.i, n = t.items.length;
+  var it = t.items[i];
+  var ech = itemScale(t, it);
+  var opts = ech.labels.map(function(lab, k){
+    var v = ech.valeurs[k];
+    var sel = RUN.answers[i] === v ? " sel" : "";
+    return '<button class="opt' + sel + '" onclick="answer(' + v + ')">' + esc(lab) + "</button>";
+  }).join("");
+  $app.innerHTML =
+    '<div class="hdr"><b>' + esc(t.nom) + '</b><button class="linkbtn" onclick="quitRun()">Abandonner</button></div>' +
+    '<div class="progress"><i style="width:' + Math.round(i/n*100) + '%"></i></div>' +
+    '<div class="qcount">Question ' + (i+1) + " sur " + n + "</div>" +
+    '<div class="consigne">' + esc(t.consigne) + "</div>" +
+    '<div class="qtext">' + esc(it.t) + "</div>" + opts +
+    '<div class="runnav">' + (i > 0 ? '<button class="linkbtn" onclick="prevQ()">← Question précédente</button>' : "<span></span>") + "</div>";
+  window.scrollTo(0, 0);
+}
+function answer(v){
+  RUN.answers[RUN.i] = v;
+  if (RUN.i < RUN.test.items.length - 1){
+    RUN.i++;
+    setTimeout(renderRun, 120);
+  } else {
+    finalizeRun();
+  }
+}
+function prevQ(){ if (RUN && RUN.i > 0){ RUN.i--; renderRun(); } }
+function quitRun(){
+  if (confirm("Abandonner ce test ? Vos réponses en cours seront perdues.")){ RUN = null; go("#/"); vHome(); }
+}
+function finalizeRun(){
+  var t = RUN.test;
+  var res = computeScores(t, RUN.answers);
+  Store.add(t.id, { date: new Date().toISOString(), scores: res.scores, flags: res.flags });
+  RUN = null;
+  if (location.hash === "#/res/" + t.id) vRes(t.id); else go("#/res/" + t.id);
+}
+
+/* ---------------- RÉSULTATS ---------------- */
+function ameliorationHTML(dim){
+  var a = dim.amelioration; if (!a) return "";
+  var axes = (a.axes || []).map(function(x){ return '<div class="axe"><b>' + esc(x.titre) + "</b><p>" + esc(x.texte) + "</p></div>"; }).join("");
+  var html = "<details><summary>Axes d'amélioration &amp; comment y arriver</summary>";
+  if (a.intro) html += '<p class="small ink2">' + esc(a.intro) + "</p>";
+  html += axes;
+  if (a.objectif) html += '<div class="objectif"><b>Votre plan.</b> ' + esc(a.objectif) + "</div>";
+  if (a.consulter) html += '<div class="consult"><b>Quand consulter ?</b> ' + esc(a.consulter) + "</div>";
+  html += "</details>";
+  if (a.ressources && a.ressources.length){
+    html += "<details><summary>Ressources sérieuses</summary><ul class=\"reslist\">" +
+      a.ressources.map(function(r){ return "<li>" + esc(r) + "</li>"; }).join("") + "</ul></details>";
+  }
+  return html;
+}
+function ecrStyle(anx, evit){
+  var a = anx > 4, e = evit > 4;
+  if (!a && !e) return { nom: "plutôt sécure", txt: "Vos deux dimensions sont dans la zone basse : la proximité vous est accessible sans peur excessive de l'abandon. C'est le profil associé aux relations les plus stables — à entretenir, pas à tenir pour acquis." };
+  if (a && !e) return { nom: "plutôt préoccupé", txt: "Anxiété d'abandon marquée avec un évitement bas : vous recherchez la proximité mais la peur de la perdre génère inquiétude et besoin de réassurance. Axe prioritaire : les stratégies d'auto-apaisement et la demande directe (voir « Anxiété d'abandon »)." };
+  if (!a && e) return { nom: "plutôt détaché-évitant", txt: "Évitement marqué avec une anxiété basse : l'autonomie prime et la proximité émotionnelle vous coûte. Axe prioritaire : l'auto-dévoilement gradué (voir « Évitement de l'intimité »)." };
+  return { nom: "plutôt craintif-évitant", txt: "Les deux dimensions sont élevées : désir de lien ET peur du lien coexistent, ce qui est inconfortable et souvent épuisant. C'est le profil qui bénéficie le plus d'un accompagnement (thérapie individuelle ou de couple) — et il évolue réellement avec le travail." };
+}
+function vRes(id){
+  setNav("home");
+  var t = byId(id); if (!t) return vHome();
+  var rec = Store.latest(id);
+  if (!rec) return vTestIntro(id);
+  var prev = Store.previous(id);
+  var html = '<p class="small"><a href="#/">← Tous les tests</a></p><h1>' + esc(t.nom) + "</h1>" +
+    '<p class="small muted">Fait le ' + esc(fmtDateH(rec.date)) + (prev ? " · précédent : " + esc(fmtDate(prev.date)) : "") + "</p>";
+  if (rec.flags && rec.flags.crise) html += urgenceHTML();
+  if (t.avertissement) html += '<div class="avert">' + esc(t.avertissement) + "</div>";
+  Object.keys(t.dims).forEach(function(k){
+    var dim = t.dims[k];
+    var v = rec.scores[k];
+    var band = bandOf(dim, v);
+    var d = prev ? deltaHTML(dim, v, prev.scores[k]) : "";
+    html += '<div class="card dimblock"><h3 style="margin-top:0">' + esc(dim.nom) + "</h3>" +
+      '<div style="display:flex;align-items:baseline;gap:12px;flex-wrap:wrap">' + fmtOutOf(dim, v) + chipHTML(band) + (d ? '<span class="small">' + d + "</span>" : "") + "</div>" +
+      gaugeSVG(dim, v) +
+      "<p>" + esc(band.texte) + "</p>" +
+      '<p class="small muted">' + esc(dim.descriptif) + "</p>" +
+      ameliorationHTML(dim) + "</div>";
+  });
+  if (t.special === "amour"){
+    var ranked = Object.keys(t.dims).map(function(k){ return { k: k, dim: t.dims[k], v: rec.scores[k] }; })
+      .sort(function(a, b){ return b.v - a.v; });
+    var lis = ranked.map(function(r, i){
+      var band = bandOf(r.dim, r.v);
+      return '<p style="margin:6px 0"><b>' + (i+1) + ". " + esc(r.dim.nom) + "</b> — " + fmtScore(r.dim, r.v) + "/5 <span class=\"muted small\">(" + esc(band.label) + ")</span></p>";
+    }).join("");
+    var tete = ranked[0], second = ranked[1];
+    var phrase = "Votre canal le plus sensible : <b>" + esc(tete.dim.nom.toLowerCase()) + "</b>";
+    if (second && (tete.v - second.v) <= 0.3) phrase += ", avec « " + esc(second.dim.nom.toLowerCase()) + " » quasiment au même niveau";
+    phrase += ".";
+    html += '<div class="card"><h3 style="margin-top:0">Votre hiérarchie de préférences</h3>' + lis +
+      "<p>" + phrase + '</p><p class="small ink2">La partie utile — et réellement étayée : montrez ce classement à votre partenaire, demandez le sien, puis pratiquez la <b>réactivité perçue</b> : remarquer, comprendre et répondre à ce qui compte pour l\'autre. C\'est elle qui prédit la satisfaction du couple dans la recherche — pas l\'appariement des « langages » (Impett et al., 2024).</p></div>';
+  }
+  if (t.special === "ecr"){
+    var st = ecrStyle(rec.scores.ANX, rec.scores.EVIT);
+    html += '<div class="card"><h3 style="margin-top:0">Lecture combinée : style ' + esc(st.nom) + "</h3>" +
+      ecrMapSVG(rec.scores.ANX, rec.scores.EVIT) +
+      "<p>" + esc(st.txt) + '</p><p class="small muted">Les « styles » sont des repères de lecture aux croisements de deux dimensions continues — pas des cases définitives. Ils évoluent avec les expériences relationnelles et le travail personnel (« sécurité gagnée »).</p></div>';
+  }
+  var cad = CADENCE[t.id];
+  if (cad) html += '<div class="notice">Suivi : refaites ce test dans <b>' + cad + "</b> — c'est l'évolution de la courbe qui est informative, pas une mesure isolée.</div>";
+  html += '<button class="btn ghost" onclick="startTest(\'' + t.id + '\')">Refaire le test</button>' +
+    '<button class="btn ghost" onclick="go(\'#/hist/' + t.id + '\')">Historique &amp; évolution</button>' +
+    '<button class="btn" onclick="go(\'#/bord\')">Tableau de bord</button>' +
+    "<details><summary>Comment ce score est calculé</summary><p class=\"small ink2\">" + esc(t.scoringNote) + "</p></details>" +
+    sourceDetails(t) + footHTML();
+  $app.innerHTML = html;
+  window.scrollTo(0, 0);
+}
+
+/* ---------------- HISTORIQUE ---------------- */
+function vHist(id){
+  setNav("home");
+  var t = byId(id); if (!t) return vHome();
+  var hist = Store.hist(id);
+  if (!hist.length) return vTestIntro(id);
+  var html = '<p class="small"><a href="#/res/' + t.id + '">← Dernier résultat</a></p><h1>' + esc(t.nom) + " — évolution</h1>";
+  Object.keys(t.dims).forEach(function(k){
+    var dim = t.dims[k];
+    var entries = hist.map(function(r){ return { date: r.date, v: r.scores[k] }; });
+    html += '<div class="card"><h3 style="margin-top:0">' + esc(dim.nom) + "</h3>" + lineChartSVG(dim, entries) + "</div>";
+  });
+  var keys = Object.keys(t.dims);
+  var headCells = keys.map(function(k){ return "<th>" + esc(keys.length > 1 ? (t.dims[k].nom.length > 14 ? k : t.dims[k].nom) : "Score") + "</th>"; }).join("");
+  var rows = hist.slice().reverse().map(function(r){
+    var cells = keys.map(function(k){
+      var dim = t.dims[k], v = r.scores[k], band = bandOf(dim, v);
+      return "<td>" + fmtScore(dim, v) + ' <span class="muted small">(' + esc(band.label) + ")</span></td>";
+    }).join("");
+    return "<tr><td>" + esc(fmtDate(r.date)) + "</td>" + cells + "</tr>";
+  }).join("");
+  html += '<div class="card"><h3 style="margin-top:0">Toutes les mesures</h3><div style="overflow-x:auto"><table><tr><th>Date</th>' + headCells + "</tr>" + rows + "</table></div></div>";
+  html += '<button class="btn ghost" onclick="startTest(\'' + t.id + '\')">Refaire le test</button>' + footHTML();
+  $app.innerHTML = html;
+  window.scrollTo(0, 0);
+}
+
+/* ---------------- TABLEAU DE BORD ---------------- */
+function vBord(){
+  setNav("bord");
+  var taken = TESTS.map(function(t){ return { t: t, rec: Store.latest(t.id) }; }).filter(function(x){ return x.rec; });
+  var html = persistBanner() + "<h1>Tableau de bord</h1>";
+  if (!taken.length){
+    html += '<p class="ink2">Aucun test encore fait. Pour un premier état des lieux en 5 minutes, enchaînez ces trois-là :</p>' +
+      '<div class="card tap" onclick="go(\'#/test/who5\')"><b>Bien-être (WHO-5)</b><div class="testmeta">1 min — le thermomètre du moral</div></div>' +
+      '<div class="card tap" onclick="go(\'#/test/gad7\')"><b>Anxiété (GAD-7)</b><div class="testmeta">1-2 min — repérage validé</div></div>' +
+      '<div class="card tap" onclick="go(\'#/test/rosenberg\')"><b>Estime de soi (Rosenberg)</b><div class="testmeta">2 min — le classique</div></div>' + footHTML();
+    $app.innerHTML = html; window.scrollTo(0,0); return;
+  }
+  /* priorités */
+  var prios = [];
+  taken.forEach(function(x){
+    Object.keys(x.t.dims).forEach(function(k){
+      var dim = x.t.dims[k], v = x.rec.scores[k], band = bandOf(dim, v);
+      if (band.niveau === "alerte" || band.niveau === "attention"){
+        prios.push({ t: x.t, dim: dim, k: k, v: v, band: band,
+          poids: (band.niveau === "alerte" ? 0 : 10) + (x.t.cat === "Clinique — repérage" ? 0 : 1) });
+      }
+    });
+  });
+  prios.sort(function(a, b){ return a.poids - b.poids; });
+  html += '<div class="card"><h3 style="margin-top:0">Vos axes prioritaires</h3>';
+  if (!prios.length){
+    html += '<p class="ink2">Aucune zone d\'alerte dans vos derniers résultats. Continuez le suivi régulier — et si un domaine vous questionne, son test vous attend.</p>';
+  } else {
+    prios.slice(0, 6).forEach(function(p){
+      var axe1 = p.dim.amelioration && p.dim.amelioration.axes && p.dim.amelioration.axes.length ? p.dim.amelioration.axes[0].titre : "";
+      html += '<div class="prio"><span class="dot ' + p.band.niveau + '"></span><div>' +
+        "<b>" + esc(p.dim.nom) + "</b> — " + esc(p.band.label) + " (" + fmtScore(p.dim, p.v) + "/" + p.dim.max + ")" +
+        (axe1 ? '<div class="small ink2">Première action : ' + esc(axe1) + "</div>" : "") +
+        '<div class="small"><a href="#/res/' + p.t.id + '">Voir les axes détaillés →</a></div></div></div>';
+    });
+    if (prios.length > 6) html += '<p class="small muted">+ ' + (prios.length - 6) + " autre(s) point(s) d'attention — voir les résultats détaillés.</p>";
+  }
+  html += "</div>";
+  /* plan de suivi */
+  html += '<div class="card"><h3 style="margin-top:0">Plan de suivi</h3><p class="small ink2">Refaites régulièrement les tests pour transformer des points en courbes — c\'est le seul moyen fiable de mesurer une progression :</p>';
+  taken.forEach(function(x){
+    var cad = CADENCE[x.t.id] || "quelques semaines";
+    html += '<p class="small" style="margin:4px 0">· <b>' + esc(x.t.nom) + "</b> : tous les " + esc(cad) + " <span class=\"muted\">(dernier : " + esc(fmtDate(x.rec.date)) + ")</span></p>";
+  });
+  html += "</div>";
+  /* cartes par test */
+  taken.forEach(function(x){
+    var hist = Store.hist(x.t.id);
+    var prev = Store.previous(x.t.id);
+    var inner = "";
+    Object.keys(x.t.dims).forEach(function(k){
+      var dim = x.t.dims[k], v = x.rec.scores[k], band = bandOf(dim, v);
+      var entries = hist.map(function(r){ return { date: r.date, v: r.scores[k] }; });
+      inner += '<div class="sparkwrap">' + chipHTML(band) +
+        "<b>" + fmtScore(dim, v) + "</b>" +
+        (prev ? '<span class="small">' + deltaHTML(dim, v, prev.scores[k]) + "</span>" : "") +
+        '<span class="small muted">' + esc(dim.nom) + "</span>" +
+        '<span class="right">' + sparkSVG(dim, entries) + "</span></div>";
+    });
+    html += '<div class="card tap" onclick="go(\'#/res/' + x.t.id + '\')" role="button" tabindex="0"><b>' + esc(x.t.nom) + '</b> <span class="small muted">· ' + esc(fmtDate(x.rec.date)) + "</span>" + inner + "</div>";
+  });
+  var reste = TESTS.filter(function(t){ return !Store.latest(t.id); });
+  if (reste.length){
+    html += '<div class="catlabel">À explorer</div><p class="small ink2">' +
+      reste.map(function(t){ return '<a href="#/test/' + t.id + '">' + esc(t.nom) + "</a>"; }).join(" · ") + "</p>";
+  }
+  html += footHTML();
+  $app.innerHTML = html;
+  window.scrollTo(0, 0);
+}
+
+/* ---------------- MÉTHODE & DONNÉES ---------------- */
+function vMethode(){
+  setNav("meth");
+  var html = persistBanner() + "<h1>Méthode, références &amp; aide</h1><p class=\"ink2\">" + esc(METHODE.intro) + "</p>";
+  METHODE.sections.forEach(function(s){
+    html += "<h2>" + esc(s.t) + "</h2>" + s.p.map(function(p){ return "<p>" + esc(p) + "</p>"; }).join("");
+  });
+  html += urgenceHTML();
+  html += "<h2>Références générales</h2><ul class=\"reslist\">" + METHODE.refsGlobales.map(function(r){ return "<li>" + esc(r) + "</li>"; }).join("") + "</ul>";
+  html += '<h2>Vos données</h2><div class="card">' +
+    '<p class="small ink2">Tout est stocké localement sur cet appareil. Exportez régulièrement une sauvegarde (fichier JSON) que vous pourrez réimporter ici, par exemple après un changement de téléphone.</p>' +
+    '<button class="btn ghost slim" onclick="exportData()">Exporter mes résultats</button> ' +
+    '<button class="btn ghost slim" onclick="document.getElementById(\'impfile\').click()">Importer une sauvegarde</button> ' +
+    '<button class="btn ghost slim" onclick="resetData()">Tout effacer</button>' +
+    '<input type="file" id="impfile" accept=".json,application/json" style="display:none" onchange="importData(this)">' +
+    '<div id="dataMsg" class="small" style="margin-top:8px"></div></div>';
+  html += footHTML();
+  $app.innerHTML = html;
+  window.scrollTo(0, 0);
+}
+function exportData(){
+  var txt = Store.exportJSON();
+  var msg = document.getElementById("dataMsg");
+  try {
+    var blob = new Blob([txt], { type: "application/json" });
+    var a = document.createElement("a");
+    a.href = URL.createObjectURL(blob);
+    a.download = "reperes-sauvegarde-" + new Date().toISOString().slice(0,10) + ".json";
+    document.body.appendChild(a); a.click(); a.remove();
+    if (msg) msg.textContent = "Sauvegarde téléchargée.";
+  } catch(e){
+    if (msg) msg.textContent = "Téléchargement impossible ici — copiez le contenu ci-dessous :";
+    var ta = document.createElement("textarea");
+    ta.value = txt; ta.style.width = "100%"; ta.style.height = "120px";
+    msg.parentNode.appendChild(ta); ta.select();
+  }
+}
+function importData(input){
+  var f = input.files && input.files[0]; if (!f) return;
+  var reader = new FileReader();
+  reader.onload = function(){
+    var msg = document.getElementById("dataMsg");
+    try {
+      var n = Store.importJSON(String(reader.result));
+      if (msg) msg.textContent = n + " mesure(s) importée(s).";
+    } catch(e){ if (msg) msg.textContent = "Fichier non reconnu."; }
+  };
+  reader.readAsText(f);
+  input.value = "";
+}
+function resetData(){
+  if (confirm("Effacer TOUS vos résultats de cet appareil ?") && confirm("Vraiment tout effacer ? Cette action est définitive (pensez à exporter avant).")){
+    Store.reset();
+    var msg = document.getElementById("dataMsg");
+    if (msg) msg.textContent = "Données effacées.";
+  }
+}
+
+/* ---------------- ROUTEUR ---------------- */
+function render(){
+  RUN = null;
+  var nv = document.querySelector("nav"); if (nv) nv.style.display = "";
+  var h = location.hash || "#/";
+  var m;
+  if (h === "#/" || h === "") return vHome();
+  if (h === "#/bord") return vBord();
+  if (h === "#/methode") return vMethode();
+  if ((m = h.match(/^#\/test\/([a-z0-9]+)$/))) return vTestIntro(m[1]);
+  if ((m = h.match(/^#\/res\/([a-z0-9]+)$/))) return vRes(m[1]);
+  if ((m = h.match(/^#\/hist\/([a-z0-9]+)$/))) return vHist(m[1]);
+  vHome();
+}
+window.addEventListener("hashchange", render);
+render();
+</script>
+</body>
+</html>
