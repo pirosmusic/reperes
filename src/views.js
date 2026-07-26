@@ -9,6 +9,9 @@ var CADENCE = { gad7:"2 semaines", phq9:"2 semaines", who5:"2 semaines", pss10:"
 var ORDRE_CATS = ["Clinique — repérage", "Stress & énergie", "Soi", "Émotions", "Couple", "Relations", "Personnalité"];
 
 function go(h){ location.hash = h; }
+function cardKey(ev){
+  if (ev.key === "Enter" || ev.key === " "){ ev.preventDefault(); ev.currentTarget.click(); }
+}
 function setNav(which){
   ["home","bord","meth"].forEach(function(k){
     var b = document.getElementById("nav-" + k);
@@ -36,7 +39,7 @@ function vHome(){
   var cats = {};
   TESTS.forEach(function(t){ (cats[t.cat] = cats[t.cat] || []).push(t); });
   var html = persistBanner() +
-    '<div class="hdr"><div class="brand">Repères <small>· auto-évaluations sérieuses</small></div></div>' +
+    '<div class="hdr"><div class="brand">Iris <small>· auto-évaluations sérieuses</small></div></div>' +
     "<h1>Des questionnaires validés par la recherche, pas des quizz de réseaux sociaux.</h1>" +
     '<p class="small ink2">15 instruments issus de la recherche publiée + 1 classique de la pop-psychologie clairement étiqueté comme tel, avec les vrais barèmes, des axes d\'amélioration fondés sur des preuves, et un suivi dans le temps. Vos réponses restent sur votre appareil. <a href="#/methode">Pourquoi cette app →</a></p>';
   var nDone = TESTS.filter(function(t){ return Store.latest(t.id); }).length;
@@ -47,7 +50,7 @@ function vHome(){
     cats[cat].forEach(function(t){
       var last = Store.latest(t.id);
       var status = last ? '<span class="done">Fait le ' + esc(fmtDate(last.date)) + "</span>" : '<span class="muted small">Jamais fait</span>';
-      html += '<div class="card tap" onclick="go(\'#/test/' + t.id + '\')" role="button" tabindex="0">' +
+      html += '<div class="card tap" onclick="go(\'#/test/' + t.id + '\')" onkeydown="cardKey(event)" role="button" tabindex="0">' +
         "<b>" + esc(t.nom) + "</b>" +
         '<div class="testmeta">' + esc(t.sigle) + " · " + esc(t.duree) + "</div>" +
         '<div style="margin-top:4px">' + status + "</div></div>";
@@ -120,7 +123,10 @@ function answer(v){
 }
 function prevQ(){ if (RUN && RUN.i > 0){ RUN.i--; renderRun(); } }
 function quitRun(){
-  if (confirm("Abandonner ce test ? Vos réponses en cours seront perdues.")){ RUN = null; go("#/"); vHome(); }
+  if (confirm("Abandonner ce test ? Vos réponses en cours seront perdues.")){
+    RUN = null;
+    if (location.hash === "#/") vHome(); else go("#/");
+  }
 }
 function finalizeRun(){
   var t = RUN.test;
@@ -240,9 +246,9 @@ function vBord(){
   var html = persistBanner() + "<h1>Tableau de bord</h1>";
   if (!taken.length){
     html += '<p class="ink2">Aucun test encore fait. Pour un premier état des lieux en 5 minutes, enchaînez ces trois-là :</p>' +
-      '<div class="card tap" onclick="go(\'#/test/who5\')"><b>Bien-être (WHO-5)</b><div class="testmeta">1 min — le thermomètre du moral</div></div>' +
-      '<div class="card tap" onclick="go(\'#/test/gad7\')"><b>Anxiété (GAD-7)</b><div class="testmeta">1-2 min — repérage validé</div></div>' +
-      '<div class="card tap" onclick="go(\'#/test/rosenberg\')"><b>Estime de soi (Rosenberg)</b><div class="testmeta">2 min — le classique</div></div>' + footHTML();
+      '<div class="card tap" onclick="go(\'#/test/who5\')" onkeydown="cardKey(event)" role="button" tabindex="0"><b>Bien-être (WHO-5)</b><div class="testmeta">1 min — le thermomètre du moral</div></div>' +
+      '<div class="card tap" onclick="go(\'#/test/gad7\')" onkeydown="cardKey(event)" role="button" tabindex="0"><b>Anxiété (GAD-7)</b><div class="testmeta">1-2 min — repérage validé</div></div>' +
+      '<div class="card tap" onclick="go(\'#/test/rosenberg\')" onkeydown="cardKey(event)" role="button" tabindex="0"><b>Estime de soi (Rosenberg)</b><div class="testmeta">2 min — le classique</div></div>' + footHTML();
     $app.innerHTML = html; window.scrollTo(0,0); return;
   }
   /* priorités */
@@ -292,7 +298,7 @@ function vBord(){
         '<span class="small muted">' + esc(dim.nom) + "</span>" +
         '<span class="right">' + sparkSVG(dim, entries) + "</span></div>";
     });
-    html += '<div class="card tap" onclick="go(\'#/res/' + x.t.id + '\')" role="button" tabindex="0"><b>' + esc(x.t.nom) + '</b> <span class="small muted">· ' + esc(fmtDate(x.rec.date)) + "</span>" + inner + "</div>";
+    html += '<div class="card tap" onclick="go(\'#/res/' + x.t.id + '\')" onkeydown="cardKey(event)" role="button" tabindex="0"><b>' + esc(x.t.nom) + '</b> <span class="small muted">· ' + esc(fmtDate(x.rec.date)) + "</span>" + inner + "</div>";
   });
   var reste = TESTS.filter(function(t){ return !Store.latest(t.id); });
   if (reste.length){
@@ -330,9 +336,11 @@ function exportData(){
   try {
     var blob = new Blob([txt], { type: "application/json" });
     var a = document.createElement("a");
-    a.href = URL.createObjectURL(blob);
-    a.download = "reperes-sauvegarde-" + new Date().toISOString().slice(0,10) + ".json";
+    var url = URL.createObjectURL(blob);
+    a.href = url;
+    a.download = "iris-sauvegarde-" + new Date().toISOString().slice(0,10) + ".json";
     document.body.appendChild(a); a.click(); a.remove();
+    setTimeout(function(){ URL.revokeObjectURL(url); }, 1000);
     if (msg) msg.textContent = "Sauvegarde téléchargée.";
   } catch(e){
     if (msg) msg.textContent = "Téléchargement impossible ici — copiez le contenu ci-dessous :";

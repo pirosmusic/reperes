@@ -16,7 +16,7 @@ function fmtDateH(iso){
 
 /* ---------- Stockage (localStorage si disponible, sinon mémoire) ---------- */
 var Store = (function(){
-  var KEY = "reperes.v1";
+  var KEY = "iris.v1";
   var mem = null;
   var persistent = true;
   function blank(){ return { v: 1, results: {} }; }
@@ -42,7 +42,7 @@ var Store = (function(){
       d.results[testId].push(rec);
       save();
     },
-    hist: function(testId){ var d = load(); return (d.results[testId] || []).slice().sort(function(a,b){ return a.date < b.date ? -1 : 1; }); },
+    hist: function(testId){ var d = load(); return (d.results[testId] || []).slice().sort(function(a,b){ return a.date < b.date ? -1 : (a.date > b.date ? 1 : 0); }); },
     latest: function(testId){ var h = this.hist(testId); return h.length ? h[h.length-1] : null; },
     previous: function(testId){ var h = this.hist(testId); return h.length > 1 ? h[h.length-2] : null; },
     exportJSON: function(){ return JSON.stringify(load(), null, 2); },
@@ -208,7 +208,7 @@ function ecrMapSVG(anx, evit){
   parts.push(lbl((mid+S-p)/2, S - p + 16, "Préoccupé"));
   parts.push('<text class="lblm" transform="rotate(-90 12 ' + (S/2) + ')" x="12" y="' + (S/2) + '" text-anchor="middle">Évitement ↑</text>');
   parts.push(lbl(S/2, S - 2, "Anxiété d'abandon →"));
-  parts.push('<circle class="pt" cx="' + C(anx) + '" cy="' + (S - (C(evit) - 0)) + '" r="7"><title>Anxiété ' + String(Math.round(anx*10)/10).replace(".", ",") + " · Évitement " + String(Math.round(evit*10)/10).replace(".", ",") + '</title></circle>');
+  parts.push('<circle class="pt" cx="' + C(anx) + '" cy="' + (S - C(evit)) + '" r="7"><title>Anxiété ' + String(Math.round(anx*10)/10).replace(".", ",") + " · Évitement " + String(Math.round(evit*10)/10).replace(".", ",") + '</title></circle>');
   return '<svg class="quad" viewBox="0 0 ' + S + ' ' + S + '" width="240" style="max-width:100%;margin:0 auto" role="img" aria-label="Position sur les deux dimensions de l\'attachement">' + parts.join("") + '</svg>';
 }
 

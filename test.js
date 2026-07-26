@@ -1,6 +1,6 @@
 const { chromium } = require("playwright");
 const path = require("path");
-const URL = "file://" + path.resolve("reperes.html");
+const URL = "file://" + path.resolve("index.html");
 const OUT = "shots";
 let failures = [];
 
