@@ -38,10 +38,11 @@ function vHome(){
   setNav("home");
   var cats = {};
   TESTS.forEach(function(t){ (cats[t.cat] = cats[t.cat] || []).push(t); });
+  var nSerieux = TESTS.filter(function(t){ return t.id !== "amour"; }).length;
   var html = persistBanner() +
     '<div class="hdr"><div class="brand">Iris <small>· auto-évaluations sérieuses</small></div></div>' +
     "<h1>Des questionnaires validés par la recherche, pas des quizz de réseaux sociaux.</h1>" +
-    '<p class="small ink2">15 instruments issus de la recherche publiée + 1 classique de la pop-psychologie clairement étiqueté comme tel, avec les vrais barèmes, des axes d\'amélioration fondés sur des preuves, et un suivi dans le temps. Vos réponses restent sur votre appareil. <a href="#/methode">Pourquoi cette app →</a></p>';
+    '<p class="small ink2">' + nSerieux + ' instruments issus de la recherche publiée + 1 classique de la pop-psychologie clairement étiqueté comme tel, avec les vrais barèmes, des axes d\'amélioration fondés sur des preuves, et un suivi dans le temps. Vos réponses restent sur votre appareil. <a href="#/methode">Pourquoi cette app →</a></p>';
   var nDone = TESTS.filter(function(t){ return Store.latest(t.id); }).length;
   if (nDone) html += '<button class="btn" onclick="go(\'#/bord\')">Voir mon tableau de bord (' + nDone + " test" + (nDone>1?"s":"") + " fait" + (nDone>1?"s":"") + ")</button>";
   ORDRE_CATS.forEach(function(cat){
