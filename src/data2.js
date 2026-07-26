@@ -174,7 +174,7 @@ var TESTS_2 = [
           "Mikulincer, M., & Shaver, P. R. (2016). Attachment in Adulthood (2e éd.) — la somme scientifique de référence.",
           "Johnson, S. « Serre-moi fort » (édition française) — application de la théorie de l'attachement au couple (EFT).",
           "Guédeney, N. & A. « L'attachement : approche théorique et clinique » (Elsevier Masson) — référence francophone.",
-          "Brennan, K. A., Clark, C. L., & Shaver, P. R. (1998). Self-report measurement of adult attachment. Attachment Theory and Close Relationships."
+          "Brennan, K. A., Clark, C. L., & Shaver, P. R. (1998). Self-report measurement of adult attachment: An integrative overview. In J. A. Simpson & W. S. Rholes (Eds.), Attachment Theory and Close Relationships (pp. 46-76). Guilford Press."
         ]
       }
     },
@@ -205,7 +205,7 @@ var TESTS_2 = [
     instrument: "Experiences in Close Relationships — forme courte à 12 items (ECR-12)",
     statut: "Instrument de recherche librement utilisé dans la littérature. Adaptation française réalisée pour cette application d'après les items originaux ; une version francophone validée existe (Lafontaine et al., 2016).",
     refs: [
-      "Brennan, K. A., Clark, C. L., & Shaver, P. R. (1998). Self-report measurement of adult romantic attachment.",
+      "Brennan, K. A., Clark, C. L., & Shaver, P. R. (1998). Self-report measurement of adult attachment: An integrative overview. In J. A. Simpson & W. S. Rholes (Eds.), Attachment Theory and Close Relationships (pp. 46-76). Guilford Press.",
       "Lafontaine, M.-F., Brassard, A., Lussier, Y., Valois, P., Shaver, P. R., & Johnson, S. M. (2016). Selecting the best items for a short-form ECR. European Journal of Psychological Assessment, 32(2), 140-154.",
       "Fraley, R. C. — yourpersonality.net : ressources scientifiques sur l'attachement adulte."
     ]
@@ -325,7 +325,7 @@ var TESTS_2 = [
   },
   source: {
     instrument: "Short Dark Triad (SD3), 27 items",
-    statut: "Instrument de recherche librement utilisable à des fins non commerciales. Adaptation française réalisée pour cette application d'après les items originaux ; des validations francophones existent (Savard et al.).",
+    statut: "Instrument de recherche librement utilisable à des fins non commerciales. Adaptation française réalisée pour cette application d'après les items originaux.",
     refs: [
       "Jones, D. N., & Paulhus, D. L. (2014). Introducing the Short Dark Triad (SD3): a brief measure of dark personality traits. Assessment, 21(1), 28-41.",
       "Paulhus, D. L., & Williams, K. M. (2002). The Dark Triad of personality. Journal of Research in Personality, 36(6), 556-563.",
