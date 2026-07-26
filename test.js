@@ -33,7 +33,7 @@ async function runQuiz(page, testId, optIndex, n){
   // ---- Accueil
   await page.goto(URL);
   await page.waitForTimeout(300);
-  check("Accueil affiche 20 tests", (await page.locator(".card.tap").count()) === 20);
+  check("Accueil affiche 24 tests", (await page.locator(".card.tap").count()) === 24);
   await page.screenshot({ path: OUT + "/01-accueil.png", fullPage: false });
 
   // ---- WHO-5 : tout "Tout le temps" => 100

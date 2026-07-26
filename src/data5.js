@@ -462,6 +462,242 @@ var TESTS_5 = [
       "Funk, J. L., & Rogge, R. D. (2007). Testing the ruler with item response theory: increasing precision of measurement for relationship satisfaction with the Couples Satisfaction Index. Journal of Family Psychology, 21(4), 572-583."
     ]
   }
+},
+
+/* ---------------- 21. SOMMEIL — ISI ---------------- */
+{
+  id: "isi",
+  nom: "Qualité du sommeil",
+  sigle: "ISI · 7 items",
+  cat: "Stress & énergie",
+  duree: "2 min",
+  avertissement: "Instrument protégé par le droit d'auteur (C. M. Morin), distribué commercialement par Mapi Research Trust — utilisé ici dans un cadre strictement personnel et non commercial. Ce n'est pas un instrument « libre de droits » comme les autres tests de cette app ; c'est une exception assumée.",
+  intro: "L'Insomnia Severity Index (Morin, 1993) est l'instrument de repérage de l'insomnie le plus utilisé en médecine du sommeil. Il porte sur le dernier mois et couvre à la fois la sévérité des symptômes et leur retentissement sur la vie quotidienne.",
+  consigne: "Répondez en pensant au dernier mois.",
+  echelle: { labels: ["Aucune", "Légère", "Modérée", "Sévère", "Très sévère"], valeurs: [0, 1, 2, 3, 4] },
+  echelles: [
+    { labels: ["Aucune", "Légère", "Modérée", "Sévère", "Très sévère"], valeurs: [0, 1, 2, 3, 4] },
+    { labels: ["Très satisfait(e)", "Satisfait(e)", "Neutre", "Insatisfait(e)", "Très insatisfait(e)"], valeurs: [0, 1, 2, 3, 4] },
+    { labels: ["Pas du tout gênant", "Un peu gênant", "Assez gênant", "Très gênant", "Extrêmement gênant"], valeurs: [0, 1, 2, 3, 4] },
+    { labels: ["Pas du tout visible", "Un peu visible", "Assez visible", "Très visible", "Extrêmement visible"], valeurs: [0, 1, 2, 3, 4] },
+    { labels: ["Pas du tout", "Un peu", "Assez", "Beaucoup", "Énormément"], valeurs: [0, 1, 2, 3, 4] }
+  ],
+  items: [
+    { t: "Difficulté à vous endormir", d: "IN", e: 0 },
+    { t: "Difficulté à rester endormi(e)", d: "IN", e: 0 },
+    { t: "Problème de réveil trop précoce le matin", d: "IN", e: 0 },
+    { t: "Quel est votre degré de satisfaction vis-à-vis de votre sommeil actuel ?", d: "IN", e: 1 },
+    { t: "Dans quelle mesure votre problème de sommeil gêne-t-il votre fonctionnement quotidien (fatigue, travail, concentration, mémoire, humeur) ?", d: "IN", e: 2 },
+    { t: "À quel point votre problème de sommeil est-il visible pour les autres, en termes d'impact sur votre qualité de vie ?", d: "IN", e: 3 },
+    { t: "À quel point êtes-vous inquiet(ète) ou préoccupé(e) par votre problème de sommeil actuel ?", d: "IN", e: 4 }
+  ],
+  scoringNote: "Somme des 7 items, de 0 à 28. Seuils publiés : 0-7 pas d'insomnie cliniquement significative · 8-14 insomnie infraclinique · 15-21 insomnie clinique modérée · 22-28 insomnie clinique sévère.",
+  dims: {
+    IN: {
+      nom: "Sévérité de l'insomnie (dernier mois)", format: "somme", min: 0, max: 28, valence: false,
+      descriptif: "Intensité des difficultés de sommeil et de leur retentissement sur la vie quotidienne au cours du dernier mois. Une mauvaise nuit isolée n'a rien à voir avec l'insomnie chronique, qui se définit par la durée et le retentissement diurne.",
+      bandes: [
+        { max: 7, label: "Pas d'insomnie significative", niveau: "ok", texte: "Votre sommeil ne pose pas de problème notable actuellement. Entretenez les fondamentaux : horaires réguliers, lumière du jour le matin, écrans limités le soir." },
+        { max: 14, label: "Insomnie infraclinique", niveau: "attention", texte: "Des difficultés présentes mais qui ne constituent pas (encore) un trouble caractérisé. C'est le bon moment pour agir sur l'hygiène de sommeil avant que ça ne s'installe." },
+        { max: 21, label: "Insomnie clinique modérée", niveau: "alerte", texte: "Niveau qui justifie une prise en charge structurée. La thérapie cognitivo-comportementale de l'insomnie (TCC-I) est le traitement de première intention, plus efficace à long terme que les somnifères." },
+        { max: 28, label: "Insomnie clinique sévère", niveau: "alerte", texte: "Retentissement important sur votre vie quotidienne. Parlez-en à votre médecin traitant : l'insomnie sévère se traite bien, mais rarement toute seule." }
+      ],
+      amelioration: {
+        intro: "L'insomnie chronique se traite avec le plus de preuves via la TCC-I (thérapie cognitivo-comportementale de l'insomnie), au moins aussi efficace que les somnifères à court terme et bien plus durable — sans les effets secondaires ni le risque de dépendance.",
+        axes: [
+          { titre: "Contrôle du stimulus", texte: "Le lit sert au sommeil (et à l'intimité), pas à ruminer ou scroller. Si vous ne dormez pas après ~20 minutes, levez-vous, faites une activité calme sans écran, et ne retournez au lit qu'en ayant sommeil." },
+          { titre: "Régularité avant tout", texte: "Heure de lever fixe tous les jours, y compris le week-end — c'est le levier le plus puissant pour recaler l'horloge biologique, plus important que l'heure de coucher elle-même." },
+          { titre: "Restriction du temps au lit", texte: "Passer moins de temps au lit que de temps réellement dormi (temporairement) consolide le sommeil en creusant la pression de sommeil. Contre-intuitif mais c'est la technique la plus validée de la TCC-I — idéalement guidée par un professionnel." },
+          { titre: "Réduire les excitants et les écrans", texte: "Caféine après 14h, alcool en soirée (qui fragmente le sommeil malgré l'endormissement facilité) et lumière bleue des écrans au coucher sont des perturbateurs sous-estimés." }
+        ],
+        objectif: "4 semaines : heure de lever fixe + arrêt des écrans 30 min avant le coucher + sortie du lit en cas d'insomnie prolongée. Re-testez ensuite. Si le score reste ≥ 15 après ce protocole, ou en cas de retentissement sévère, une TCC-I structurée (parfois via des programmes en ligne validés) ou une consultation spécialisée sommeil sont recommandées.",
+        ressources: [
+          "Morin, C. M., & Espie, C. A. (2003). Insomnia: A Clinical Guide to Assessment and Treatment. Springer.",
+          "Réseau Morphée (reseau-morphee.fr) — information et annuaire de consultations du sommeil en France.",
+          "HAS — Prise en charge du patient adulte se plaignant d'insomnie (has-sante.fr)."
+        ],
+        consulter: "Score ≥ 15, ou insomnie installée depuis plus de 3 mois, ou somnolence dangereuse (conduite, travail) : médecin traitant ou consultation spécialisée du sommeil."
+      }
+    }
+  },
+  source: {
+    instrument: "Insomnia Severity Index (ISI), 7 items",
+    statut: "Instrument protégé par le droit d'auteur (Charles M. Morin), distribué commercialement via Mapi Research Trust/ePROVIDE (licence et frais requis pour un usage encadré). Utilisé ici dans un cadre strictement personnel et non commercial, en dérogation à la règle habituelle de cette application (instruments libres de droits) — choix assumé par l'auteur de l'app. Traduction française réalisée pour cette application à partir des items originaux.",
+    refs: [
+      "Morin, C. M. (1993). Insomnia: Psychological Assessment and Management. Guilford Press.",
+      "Bastien, C. H., Vallières, A., & Morin, C. M. (2001). Validation of the Insomnia Severity Index as an outcome measure for insomnia research. Sleep Medicine, 2(4), 297-307."
+    ]
+  }
+},
+
+/* ---------------- 22. AUTO-COMPASSION — SCS-SF ---------------- */
+{
+  id: "scssf",
+  nom: "Auto-compassion",
+  sigle: "SCS-SF · 12 items",
+  cat: "Soi",
+  duree: "3 min",
+  intro: "L'auto-compassion — se traiter avec la même bienveillance qu'on offrirait à un(e) ami(e) en difficulté — est un concept distinct de l'estime de soi, développé par Kristin Neff. Elle prédit mieux le bien-être et la résilience émotionnelle que l'estime de soi classique, sans ses effets secondaires (comparaison sociale, dépendance à la réussite).",
+  consigne: "Indiquez à quelle fréquence vous agissez de la façon décrite, dans les moments difficiles.",
+  echelle: ECH_ACCORD5,
+  items: [
+    { t: "Quand j'échoue dans quelque chose d'important pour moi, je suis envahi(e) par un sentiment de ne pas être à la hauteur", d: "SC", r: true },
+    { t: "J'essaie d'être compréhensif(ve) et patient(e) envers les aspects de ma personnalité que je n'aime pas", d: "SC" },
+    { t: "Quand quelque chose de douloureux m'arrive, j'essaie d'avoir une vision équilibrée de la situation", d: "SC" },
+    { t: "Quand je me sens mal, j'ai tendance à penser que la plupart des gens sont probablement plus heureux que moi", d: "SC", r: true },
+    { t: "J'essaie de voir mes échecs comme faisant partie de la condition humaine", d: "SC" },
+    { t: "Dans les moments très difficiles, je m'accorde la tendresse et les soins dont j'ai besoin", d: "SC" },
+    { t: "Quand quelque chose me contrarie, j'essaie de garder mes émotions en équilibre", d: "SC" },
+    { t: "Quand j'échoue dans quelque chose d'important pour moi, j'ai tendance à me sentir seul(e) dans mon échec", d: "SC", r: true },
+    { t: "Quand je me sens mal, j'ai tendance à ressasser et à me focaliser sur tout ce qui ne va pas", d: "SC", r: true },
+    { t: "Quand je me sens pas à la hauteur d'une manière ou d'une autre, j'essaie de me rappeler que ce sentiment est partagé par la plupart des gens", d: "SC" },
+    { t: "Je suis dur(e) et sévère envers mes propres défauts et insuffisances", d: "SC", r: true },
+    { t: "Je suis intolérant(e) et impatient(e) envers les aspects de ma personnalité que je n'aime pas", d: "SC", r: true }
+  ],
+  scoringNote: "Moyenne des 12 items (items inversés recodés), de 1 à 5. Le score total est ce qui est le plus utilisé en pratique — les 6 sous-échelles (auto-gentillesse, auto-jugement, humanité commune, isolement, pleine conscience, sur-identification) ont trop peu d'items chacune pour être interprétées isolément avec fiabilité.",
+  dims: {
+    SC: {
+      nom: "Auto-compassion", format: "moyenne", min: 1, max: 5, valence: true,
+      descriptif: "Capacité à se traiter avec bienveillance en cas d'échec ou de souffrance, à reconnaître l'imperfection comme partagée par tous, et à garder une juste distance avec ses émotions négatives plutôt que de s'y noyer.",
+      bandes: [
+        { max: 2.5, label: "Auto-compassion faible", niveau: "attention", texte: "Vous êtes probablement votre pire critique : autocritique sévère, isolement dans l'échec, ruminations. C'est un axe qui se travaille très efficacement, avec des effets rapides sur le bien-être." },
+        { max: 3.5, label: "Auto-compassion moyenne", niveau: "neutre", texte: "Vous alternez entre bienveillance et dureté envers vous-même selon les situations. Marge de progression réelle sur les moments les plus difficiles." },
+        { max: 5, label: "Auto-compassion élevée", niveau: "ok", texte: "Vous savez vous traiter avec bienveillance dans l'échec, sans pour autant vous complaire ni éviter vos responsabilités — c'est exactement la nuance que l'auto-compassion, bien comprise, préserve." }
+      ],
+      amelioration: {
+        intro: "Contrairement à une idée reçue, l'auto-compassion n'est pas de l'auto-complaisance ni un renoncement à l'exigence : la recherche montre qu'elle est associée à PLUS de motivation à s'améliorer après un échec, pas moins, car elle réduit la peur de l'échec qui pousse à l'évitement.",
+        axes: [
+          { titre: "La pause auto-compassion", texte: "Exercice de Neff, bien étudié : dans un moment difficile, poser la main sur le cœur et se dire successivement « c'est un moment de souffrance », « la souffrance fait partie de la vie », « puis-je être bienveillant(e) envers moi-même maintenant ». Trois phrases, 30 secondes." },
+          { titre: "Écrire comme à un(e) ami(e)", texte: "Face à un échec, écrivez ce que vous vous dites, puis réécrivez-le comme vous le diriez à la personne que vous aimez le plus au monde si elle vivait la même chose. L'écart entre les deux textes est souvent la meilleure preuve du problème." },
+          { titre: "Distinguer auto-compassion et auto-complaisance", texte: "L'auto-compassion n'empêche pas de se fixer des objectifs exigeants : elle change la voix intérieure qui accompagne l'échec, pas le niveau d'exigence lui-même." }
+        ],
+        objectif: "3 semaines : une pause auto-compassion à chaque contrariété + un exercice d'écriture par semaine face à un échec réel, même mineur. Refaites le test ensuite.",
+        ressources: [
+          "Neff, K. « S'aimer : comment se réconcilier avec soi-même » (Belfond).",
+          "self-compassion.org — ressources et exercices audio guidés par Kristin Neff (en anglais).",
+          "Neff, K. D., & Germer, C. K. (2013). A pilot study and randomized controlled trial of the Mindful Self-Compassion program. Journal of Clinical Psychology, 69(1), 28-44."
+        ]
+      }
+    }
+  },
+  source: {
+    instrument: "Self-Compassion Scale — Short Form (SCS-SF), 12 items",
+    statut: "Libre d'utilisation pour la recherche, la pratique clinique et l'enseignement, avec attribution (self-compassion.org, Kristin Neff). Traduction française réalisée pour cette application à partir des items originaux.",
+    refs: [
+      "Raes, F., Pommier, E., Neff, K. D., & Van Gucht, D. (2011). Construction and factorial validation of a short form of the Self-Compassion Scale. Clinical Psychology & Psychotherapy, 18(3), 250-255."
+    ]
+  }
+},
+
+/* ---------------- 23. RÉSILIENCE — BRS ---------------- */
+{
+  id: "brs",
+  nom: "Résilience",
+  sigle: "BRS · 6 items",
+  cat: "Stress & énergie",
+  duree: "1 min",
+  intro: "La Brief Resilience Scale (Smith et al., 2008) mesure la résilience au sens le plus simple et le mieux étudié : la capacité à « rebondir » après un événement stressant ou difficile, pas à ne jamais être affecté(e).",
+  consigne: "Indiquez à quel point vous êtes en accord avec chaque affirmation.",
+  echelle: ECH_ACCORD5,
+  items: [
+    { t: "J'ai tendance à rebondir rapidement après les moments difficiles", d: "R" },
+    { t: "J'ai du mal à traverser les événements stressants", d: "R", r: true },
+    { t: "Il ne me faut pas longtemps pour me remettre d'un événement stressant", d: "R" },
+    { t: "J'ai du mal à me relever quand quelque chose de grave m'arrive", d: "R", r: true },
+    { t: "En général, je traverse les moments difficiles sans trop de mal", d: "R" },
+    { t: "J'ai tendance à mettre longtemps à me remettre des revers de la vie", d: "R", r: true }
+  ],
+  scoringNote: "Moyenne des 6 items (items inversés recodés), de 1 à 5. Repères issus des échantillons de validation : 1,00-2,99 résilience faible · 3,00-4,30 résilience normale · 4,31-5,00 résilience élevée.",
+  dims: {
+    R: {
+      nom: "Résilience (capacité à rebondir)", format: "moyenne", min: 1, max: 5, valence: true,
+      descriptif: "Vitesse et facilité avec lesquelles vous vous remettez d'un stress ou d'une épreuve. Ce n'est pas l'absence de difficulté qui définit la résilience, mais la capacité à s'en relever.",
+      bandes: [
+        { max: 2.99, label: "Résilience faible", niveau: "attention", texte: "Les épreuves vous marquent longtemps et le rebond est difficile. C'est un axe qui se travaille, notamment via les mêmes leviers que la régulation du stress et l'auto-compassion." },
+        { max: 4.3, label: "Résilience normale", niveau: "ok", texte: "Vous vous remettez des difficultés dans les mêmes délais que la majorité des gens — ni fragilité particulière, ni endurcissement excessif." },
+        { max: 5, label: "Résilience élevée", niveau: "ok", texte: "Vous rebondissez vite après les épreuves. Attention simplement à ne pas confondre rebond rapide et refoulement : traverser vraiment une difficulté n'est pas l'éviter." }
+      ],
+      amelioration: {
+        intro: "La résilience n'est pas un trait figé : les revues de la littérature montrent qu'elle se renforce par l'expérience maîtrisée de difficultés modérées (pas leur évitement), le soutien social, et des routines de récupération physiologique (sommeil, activité physique).",
+        axes: [
+          { titre: "Petites expositions maîtrisées", texte: "S'entraîner sur des difficultés modestes (parler en public, une conversation inconfortable) construit une confiance transférable aux épreuves plus lourdes — la résilience se muscle comme une compétence." },
+          { titre: "Réseau de soutien activable", texte: "Le facteur le mieux documenté de la résilience n'est pas individuel : c'est d'avoir des personnes vers qui se tourner. Identifiez à l'avance 2-3 personnes que vous pourriez appeler en cas de coup dur." },
+          { titre: "Récupération physiologique", texte: "Sommeil régulier et activité physique améliorent directement la capacité de récupération émotionnelle après un stress (voir les tests Sommeil et Stress perçu de cette app)." },
+          { titre: "Sens et perspective", texte: "Les personnes résilientes relient souvent l'épreuve à un sens ou un apprentissage, sans pour autant nier la difficulté sur le moment — c'est un exercice de recul, pas de déni immédiat." }
+        ],
+        objectif: "6 semaines : à chaque épreuve, notez ce qui vous a aidé à vous en remettre. Complétez avec les tests Stress perçu et Auto-compassion, souvent liés. Refaites le test ensuite.",
+        ressources: [
+          "Smith, B. W., Dalen, J., Wiggins, K., Tooley, E., Christopher, P., & Bernard, J. (2008). The brief resilience scale: assessing the ability to bounce back. International Journal of Behavioral Medicine, 15(3), 194-200.",
+          "Ionescu, S. « Le résilience : de la recherche à la pratique » (revue de synthèse francophone)."
+        ]
+      }
+    }
+  },
+  source: {
+    instrument: "Brief Resilience Scale (BRS), 6 items",
+    statut: "Libre d'utilisation en recherche et en pratique clinique, sans frais ni permission requise. Traduction française réalisée pour cette application à partir des items originaux.",
+    refs: [
+      "Smith, B. W. et al. (2008). International Journal of Behavioral Medicine, 15(3), 194-200."
+    ]
+  }
+},
+
+/* ---------------- 24. IMAGE CORPORELLE — BAS-2 ---------------- */
+{
+  id: "bas2",
+  nom: "Image corporelle",
+  sigle: "BAS-2 · 10 items",
+  cat: "Soi",
+  duree: "2 min",
+  intro: "La Body Appreciation Scale-2 (Tylka & Wood-Barcalow, 2015) mesure le rapport POSITIF au corps — respect, acceptation, attention à ses besoins — plutôt que les troubles de l'image corporelle. C'est une mesure de ressource, pas de pathologie : elle ne remplace pas un dépistage de troubles du comportement alimentaire.",
+  consigne: "Indiquez à quelle fréquence chaque affirmation est vraie pour vous.",
+  echelle: { labels: ["Jamais", "Rarement", "Parfois", "Souvent", "Toujours"], valeurs: [1, 2, 3, 4, 5] },
+  items: [
+    { t: "Je respecte mon corps", d: "BA" },
+    { t: "Je me sens bien dans mon corps", d: "BA" },
+    { t: "Je considère que mon corps a au moins quelques bonnes qualités", d: "BA" },
+    { t: "J'ai une attitude positive envers mon corps", d: "BA" },
+    { t: "Je suis attentif(ve) aux besoins de mon corps", d: "BA" },
+    { t: "J'éprouve de l'affection pour mon corps", d: "BA" },
+    { t: "J'apprécie les caractéristiques uniques de mon corps", d: "BA" },
+    { t: "Mon comportement reflète mon attitude positive envers mon corps ; par exemple, je marche la tête haute et le sourire aux lèvres", d: "BA" },
+    { t: "Je suis à l'aise dans mon corps", d: "BA" },
+    { t: "Je me sens beau/belle même si je suis différent(e) des images médiatiques de personnes considérées attirantes (mannequins, acteurs/actrices)", d: "BA" }
+  ],
+  scoringNote: "Moyenne des 10 items, de 1 à 5. Aucun item inversé — tous formulés positivement.",
+  dims: {
+    BA: {
+      nom: "Appréciation corporelle", format: "moyenne", min: 1, max: 5, valence: true,
+      descriptif: "Rapport d'ensemble à votre corps : respect, acceptation, attention à ses besoins, indépendamment des standards esthétiques dominants. C'est un facteur protecteur documenté contre les troubles du comportement alimentaire.",
+      bandes: [
+        { max: 2.5, label: "Image corporelle plutôt négative", niveau: "attention", texte: "Votre rapport à votre corps est actuellement plutôt critique ou distant. Si cela s'accompagne de restrictions alimentaires importantes, de rituels de contrôle du poids ou d'une détresse marquée, un dépistage des troubles du comportement alimentaire est recommandé plutôt qu'un simple travail sur l'image corporelle." },
+        { max: 3.5, label: "Image corporelle moyenne", niveau: "neutre", texte: "Un rapport à votre corps ni franchement positif ni négatif, avec sans doute des variations selon le contexte ou la période." },
+        { max: 5, label: "Image corporelle positive", niveau: "ok", texte: "Vous entretenez un rapport globalement respectueux et bienveillant avec votre corps — un facteur protecteur solide pour la santé mentale et le rapport à l'alimentation." }
+      ],
+      amelioration: {
+        intro: "L'appréciation corporelle se travaille surtout en réduisant l'exposition aux comparaisons et en recentrant l'attention sur ce que le corps PERMET de faire plutôt que sur son apparence.",
+        axes: [
+          { titre: "Faire le tri dans son exposition visuelle", texte: "Les réseaux sociaux centrés sur l'apparence sont associés de façon assez robuste à une moins bonne image corporelle. Un nettoyage ciblé (désabonnements, réduction du temps passé) a un effet mesurable en quelques semaines." },
+          { titre: "Fonctionnalité plutôt qu'apparence", texte: "Tenir un court journal de ce que votre corps vous a permis de FAIRE dans la journée (marcher, porter, serrer quelqu'un dans les bras, rire) déplace progressivement l'attention de l'apparence vers la fonction — approche bien étayée en recherche." },
+          { titre: "Gratitude corporelle ciblée", texte: "Chaque soir, une chose concrète pour laquelle vous êtes reconnaissant(e) envers votre corps — pas « je suis beau/belle », mais des faits (« mes jambes m'ont porté(e) 8 km aujourd'hui »)." }
+        ],
+        objectif: "4 semaines : un nettoyage de son fil social + un journal de gratitude fonctionnelle 3 fois/semaine. Refaites le test ensuite.",
+        ressources: [
+          "Tylka, T. L., & Wood-Barcalow, N. L. (2015). The Body Appreciation Scale-2: item refinement and psychometric evaluation. Body Image, 12, 53-67.",
+          "Association Française pour le Développement des Approches Spécialisées des Troubles du Comportement Alimentaire (AFDAS-TCA) — afdas-tca.fr.",
+          "Fédération Française Anorexie Boulimie (FFAB) — ffab.fr, pour un dépistage si nécessaire."
+        ],
+        consulter: "Si votre rapport au corps s'accompagne de restrictions alimentaires sévères, de vomissements provoqués, de crises de boulimie ou d'une détresse importante liée au poids ou à l'alimentation : ce n'est plus un enjeu d'« image corporelle » seule — parlez-en à votre médecin traitant ou à un(e) spécialiste des TCA."
+      }
+    }
+  },
+  source: {
+    instrument: "Body Appreciation Scale-2 (BAS-2), 10 items",
+    statut: "Libre d'utilisation en recherche, en clinique et en enseignement, avec attribution aux auteures. Traduction française réalisée pour cette application à partir des items originaux.",
+    refs: [
+      "Tylka, T. L., & Wood-Barcalow, N. L. (2015). The Body Appreciation Scale-2: item refinement and psychometric evaluation. Body Image, 12, 53-67."
+    ]
+  }
 }
 
 ];
