@@ -125,6 +125,55 @@ async function runQuiz(page, testId, optIndex, n){
   body = await page.textContent("body");
   check("GMSEX 35/35 élevée", /35\s*\/\s*35/.test(body.replace(/\s+/g, " ")) && body.includes("Satisfaction élevée"));
 
+  // ---- Big Five complet (IPIP-50) : tout "Neutre" => 3,0 partout, 5 dimensions
+  await runQuiz(page, "bigfive50", 2, 50);
+  body = await page.textContent("body");
+  check("Big Five complet 5 dimensions affichées", (await page.locator(".dimblock").count()) === 5);
+  check("Big Five complet score 3 affiché", body.includes("3"));
+
+  // ---- ECR-R complet (36 items) : tout "En accord" (idx5=valeur6)
+  // ANX (2 inversés/18) = (16*6 + 2*(1+7-6))/18 = 5,56 ; EVIT (12 inversés/18) = (6*6 + 12*(1+7-6))/18 = 3,33
+  await runQuiz(page, "ecrr36", 5, 36);
+  body = await page.textContent("body");
+  check("ECR-R complet carte des styles affichée", (await page.locator("svg.quad").count()) === 1);
+  check("ECR-R complet ANX 5,6", body.includes("5,6"));
+  check("ECR-R complet EVIT 3,3", body.includes("3,3"));
+
+  // ---- UCLA-20 : tout "Souvent" (idx3=valeur4) => 9 inversés (1)+11 directs(4) = 53
+  await runQuiz(page, "ucla20", 3, 20);
+  body = await page.textContent("body");
+  check("UCLA-20 score 53/80", /53\s*\/\s*80/.test(body.replace(/\s+/g, " ")));
+
+  // ---- CSI-32 : reponse "la plus satisfaite" sur chaque item (formats de reponse
+  // mixtes selon le groupe d'items) => score maximal 161/161
+  const csi32MaxIdx = [6,0,0,0,0,5,5,5,5,0,5,5,5,5,0,5,5,5,5,5,5,5,5,5,5,0,5,0,5,0,5,0];
+  await runQuiz(page, "csi32", i => csi32MaxIdx[i], 32);
+  body = await page.textContent("body");
+  check("CSI-32 score 161/161", /161\s*\/\s*161/.test(body.replace(/\s+/g, " ")));
+  check("CSI-32 satisfaction bonne à élevée", body.includes("Satisfaction bonne à élevée"));
+
+  // ---- ISI (sommeil) : meilleure reponse partout (idx0) sur toutes les echelles => 0/28
+  await runQuiz(page, "isi", 0, 7);
+  body = await page.textContent("body");
+  check("ISI score 0/28 pas d'insomnie", /0\s*\/\s*28/.test(body.replace(/\s+/g, " ")) && body.includes("Pas d'insomnie significative"));
+
+  // ---- Auto-compassion (SCS-SF) : tout "Tout à fait d'accord" (idx4=valeur5)
+  // items inverses (1,4,8,9,11,12) recodes a 1 => moyenne (6*5+6*1)/12 = 3
+  await runQuiz(page, "scssf", 4, 12);
+  body = await page.textContent("body");
+  check("SCS-SF score 3/5", /3\s*\/\s*5/.test(body.replace(/\s+/g, " ")));
+
+  // ---- Résilience (BRS) : tout "Tout à fait d'accord" (idx4=valeur5)
+  // items inverses (2,4,6) recodes a 1 => moyenne (3*5+3*1)/6 = 3
+  await runQuiz(page, "brs", 4, 6);
+  body = await page.textContent("body");
+  check("BRS score 3/5 normale", /3\s*\/\s*5/.test(body.replace(/\s+/g, " ")) && body.includes("Résilience normale"));
+
+  // ---- Image corporelle (BAS-2) : tout "Toujours" (idx4=valeur5), aucun item inverse => 5
+  await runQuiz(page, "bas2", 4, 10);
+  body = await page.textContent("body");
+  check("BAS-2 score 5/5 positive", /5\s*\/\s*5/.test(body.replace(/\s+/g, " ")) && body.includes("Image corporelle positive"));
+
   // ---- passation UI screenshot
   await page.goto(URL + "#/test/sd3"); await page.waitForTimeout(150);
   await page.locator(".btn").first().click();

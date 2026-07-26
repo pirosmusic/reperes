@@ -81,7 +81,7 @@ Chaque test dans `TESTS` a la forme :
 
 Le moteur (`computeScores` dans `core.js`) gère automatiquement les items inversés et les échelles multiples par item. Rien à coder côté scoring pour ajouter un test standard — juste remplir cette structure.
 
-## Les 16 tests actuellement inclus
+## Les 24 tests actuellement inclus
 
 | id | Nom | Catégorie |
 |---|---|---|
@@ -101,44 +101,59 @@ Le moteur (`computeScores` dans `core.js`) gère automatiquement les items inver
 | ucla3 | Solitude ressentie (UCLA-3) | Relations |
 | bigfive | Personnalité : les Big Five (Mini-IPIP) | Personnalité |
 | sd3 | Triade sombre (SD3) | Personnalité |
+| bigfive50 | Personnalité : les Big Five, version complète (IPIP-50) | Personnalité |
+| ecrr36 | Attachement dans les relations, version complète (ECR-R) | Couple |
+| csi32 | Satisfaction de couple, version complète (CSI-32) | Couple |
+| ucla20 | Solitude ressentie, version complète (UCLA-20) | Relations |
+| isi | Qualité du sommeil (ISI) | Stress & énergie *(seul instrument non libre de droits, usage perso assumé)* |
+| scssf | Auto-compassion (SCS-SF) | Soi |
+| brs | Résilience (BRS) | Stress & énergie |
+| bas2 | Image corporelle (BAS-2) | Soi |
 
-Tous les instruments sont libres de droits ou d'usage libre en recherche ; les items français sont soit des traductions validées existantes (Rosenberg via Vallières & Vallerand, ERQ via Christophe et al.), soit des adaptations réalisées pour cette app à partir des items originaux publiés (référencées dans `source.refs` de chaque test).
+Tous les instruments sont libres de droits ou d'usage libre, **à une exception près et assumée** : l'ISI (sommeil) est protégé par le droit d'auteur (Morin / Mapi Research Trust) et utilisé ici dans un cadre strictement personnel non commercial — voir `source.statut` du test `isi` dans `data5.js`, et ne jamais présenter cet instrument comme « libre de droits » comme les autres. Les items français sont soit des traductions validées existantes (Rosenberg via Vallières & Vallerand, ERQ via Christophe et al.), soit des adaptations réalisées pour cette app à partir des items originaux publiés (référencées dans `source.refs` de chaque test).
+
+## Validation structurelle (`tools/validate-data.js`)
+
+Script Node pur (aucun navigateur, aucune dépendance) qui vérifie les données elles-mêmes plutôt que le rendu : bornes min/max des dimensions recalculées à partir des items réels, monotonie et couverture complète des bandes, catégories toutes présentes dans `ORDRE_CATS` (sinon un test devient invisible sur l'accueil sans aucune erreur visible), `CADENCE` complète, sources non vides, aucune chaîne provisoire oubliée. À lancer après toute modification de `src/data*.js`, avant même de reconstruire `index.html` :
+```bash
+node tools/validate-data.js
+```
+Sortie 0 = rien à signaler, sortie 1 = problèmes listés.
 
 ## Suite de tests (`test.js`)
 
-Tests end-to-end avec Playwright (Chromium, déjà installé dans l'environnement à `/opt/pw-browsers`). Vérifie :
-- rendu de l'accueil (16 cartes de test)
-- calcul de score exact pour plusieurs tests (réponses connues → score attendu, avec la formule officielle)
+Tests end-to-end avec Playwright (Chromium). Vérifie :
+- rendu de l'accueil (24 cartes de test)
+- calcul de score exact pour de nombreux tests, y compris les versions longues et les formats de réponse mixtes du CSI-32 (réponses connues → score attendu, avec la formule officielle)
 - bandes d'interprétation correctes
 - delta « mieux/moins bien » entre deux passations
 - historique (table + courbe SVG)
-- carte 2D attachement, hiérarchie langages de l'amour
+- carte 2D attachement (courte et longue), hiérarchie langages de l'amour
 - bloc urgence PHQ-9 (item suicidaire) et ressource 3919 (conflits)
 - masquage de la nav pendant la passation
 - tableau de bord (axes prioritaires, plan de suivi)
 - persistance localStorage après reload
 - mode sombre
 
-Lancer :
+Lancer (nécessite `npm install playwright` au préalable, jamais commité — voir `.gitignore`) :
 ```bash
 mkdir -p shots
 node test.js
 ```
-35 vérifications passent actuellement (`PASS`/`FAIL` dans stdout + `shots/*.png` pour inspection visuelle).
+43 vérifications passent actuellement (`PASS`/`FAIL` dans stdout + `shots/*.png` pour inspection visuelle).
 
-**⚠️ Si WebKit est disponible dans le futur environnement**, il serait utile d'ajouter une passe Safari/WebKit en plus de Chromium, pour confirmer le rendu iOS (non testé jusqu'ici faute de binaire WebKit dans ce sandbox — voir section Déploiement).
+**⚠️ WebKit non testé** faute de binaire WebKit dans les environnements utilisés jusqu'ici — à ajouter en complément de Chromium si disponible un jour, pour confirmer le rendu iOS.
 
 ## Déploiement — état actuel
 
 - Dépôt GitHub : **`pirosmusic/reperes`** (public, requis pour GitHub Pages gratuit).
-- Le contenu de `reperes.html` a été poussé en tant que `index.html` sur la branche `main` via `git push` (auth par Personal Access Token fine-grained, scope Contents:read/write sur ce seul dépôt — le token n'est plus utilisé/stocké nulle part après le push, et Fabien a été invité à le révoquer).
-- **Reste à faire côté utilisateur** (impossible depuis ce sandbox : l'API `api.github.com` y est bloquée par un proxy réseau Anthropic, y compris en lecture authentifiée sur `/pages`) : activer GitHub Pages dans `github.com/pirosmusic/reperes/settings/pages` → Build and deployment → Source: *Deploy from a branch* → Branch: `main` / `(root)` → Save.
-- URL finale attendue : **`https://pirosmusic.github.io/reperes/`**.
-- **À vérifier** dès que Pages est actif : que le site se charge bien (fetch simple), et idéalement un test Playwright pointé sur l'URL publique plutôt que sur `file://`.
+- App renommée **Iris** (ex-Repères) — titre, en-tête, clé `localStorage` (`iris.v1`) et nom du fichier de sauvegarde exportée reflètent ce nom ; le mot commun « repères » reste utilisé tel quel dans les textes de scoring, ça n'a rien à voir avec le nom de l'app.
+- **Domaine personnalisé actif : `https://iris.rosely.fr/`** — GitHub Pages avec domaine personnalisé configuré (`CNAME` committé automatiquement par GitHub), DNS chez Cloudflare (zone `rosely.fr`, enregistrement `iris` en CNAME vers `pirosmusic.github.io`, **DNS only**, sans conflit avec les enregistrements mail existants du domaine). **Enforce HTTPS activé.**
+- `git push` fonctionne de façon autonome depuis ce dépôt local (`D:\Claude\Projects\Reperes_clone`) via `gh auth login` déjà configuré sur la machine de Fabien — pas de token à ressaisir.
+- L'ancienne URL `https://pirosmusic.github.io/reperes/` reste techniquement valide mais n'est plus l'adresse à communiquer.
 
 ## Prochaines pistes possibles (non demandées explicitement, à confirmer avec Fabien avant de coder)
 
-- Mettre en place un flux de mise à jour propre : garder `src/` comme source de vérité, un script `build.sh` qui régénère `index.html`/`reperes.html`, et un commit/push vers `main` à chaque évolution.
 - Éventuellement un `README.md` public sur le dépôt (actuellement absent) expliquant le projet, avec le même ton « anti-bullshit, sources sérieuses » que l'app elle-même.
 - Icône / manifest PWA (`manifest.json`, meta tags `apple-mobile-web-app-*`) pour une meilleure expérience « ajouter à l'écran d'accueil » sur iOS, vu que c'est le mode d'usage principal évoqué (partage WhatsApp).
 - Vérification WebKit réelle (Safari iOS) dès qu'un environnement avec le binaire est disponible.
