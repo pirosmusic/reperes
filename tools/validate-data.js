@@ -18,7 +18,7 @@ var vm = require("vm");
 var path = require("path");
 
 var SRC = path.join(__dirname, "..", "src");
-var DATA_FILES = ["data1.js", "data2.js", "data3.js", "data4.js", "data5.js", "data6.js", "data7.js"];
+var DATA_FILES = ["data1.js", "data2.js", "data3.js", "data4.js", "data5.js", "data6.js", "data7.js", "data8.js", "data9.js"];
 
 var code = DATA_FILES.map(function(f){ return fs.readFileSync(path.join(SRC, f), "utf8"); }).join("\n");
 var sandbox = {};

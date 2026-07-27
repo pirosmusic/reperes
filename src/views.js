@@ -5,7 +5,7 @@
 
 var $app = document.getElementById("app");
 var RUN = null;
-var CADENCE = { gad7:"2 semaines", phq9:"2 semaines", who5:"2 semaines", pss10:"2 à 3 semaines", cbi:"2 semaines", rosenberg:"4 à 6 semaines", erq:"6 semaines", ecr12:"6 à 8 semaines", ucla3:"4 semaines", bigfive:"3 à 6 mois", sd3:"3 à 6 mois", amour:"3 à 6 mois", pprs:"6 semaines", csi4:"4 à 6 semaines", conflits:"6 semaines", gmsex:"6 semaines", bigfive50:"3 à 6 mois", ecrr36:"6 à 8 semaines", csi32:"4 à 6 semaines", ucla20:"4 semaines", isi:"2 à 4 semaines", scssf:"6 semaines", brs:"2 à 3 mois", bas2:"6 semaines", swls:"2 à 3 mois", flourish:"2 à 3 mois", gq6:"6 semaines", auditc:"4 à 6 semaines", carte2:"2 à 3 mois", confiance2:"2 mois", rituels2:"6 semaines" };
+var CADENCE = { gad7:"2 semaines", phq9:"2 semaines", who5:"2 semaines", pss10:"2 à 3 semaines", cbi:"2 semaines", rosenberg:"4 à 6 semaines", erq:"6 semaines", ecr12:"6 à 8 semaines", ucla3:"4 semaines", bigfive:"3 à 6 mois", sd3:"3 à 6 mois", amour:"3 à 6 mois", pprs:"6 semaines", csi4:"4 à 6 semaines", conflits:"6 semaines", gmsex:"6 semaines", bigfive50:"3 à 6 mois", ecrr36:"6 à 8 semaines", csi32:"4 à 6 semaines", ucla20:"4 semaines", isi:"2 à 4 semaines", scssf:"6 semaines", brs:"2 à 3 mois", bas2:"6 semaines", swls:"2 à 3 mois", flourish:"2 à 3 mois", gq6:"6 semaines", auditc:"4 à 6 semaines", carte2:"2 à 3 mois", confiance2:"2 mois", rituels2:"6 semaines", souvenirs2:"3 mois", projets2:"3 mois", rires2:"2 mois", admiration2:"2 mois", curiosite2:"2 mois", equipe2:"2 mois", tendresse2:"6 semaines", aventure2:"2 mois" };
 var ORDRE_CATS = ["Clinique — repérage", "Stress & énergie", "Soi", "Émotions", "Couple", "À deux", "Relations", "Vie & sens", "Personnalité"];
 /* Sous-titres des rubriques sur l'accueil — le nom seul ne suffit pas pour s'orienter */
 var CAT_TAG = {
@@ -20,7 +20,7 @@ var CAT_TAG = {
   "Personnalité": "Vos traits stables — ni bons ni mauvais, juste vous."
 };
 /* Contenus non validés scientifiquement, assumés comme tels (étiquetés dans l'app) */
-var QUIZ_MAISON = ["amour", "carte2", "confiance2", "rituels2"];
+var QUIZ_MAISON = ["amour", "carte2", "confiance2", "rituels2", "souvenirs2", "projets2", "rires2", "admiration2", "curiosite2", "equipe2", "tendresse2", "aventure2"];
 
 function go(h){ location.hash = h; }
 function cardKey(ev){
