@@ -21,6 +21,8 @@ var CAT_TAG = {
 };
 /* Contenus non validés scientifiquement, assumés comme tels (étiquetés dans l'app) */
 var QUIZ_MAISON = ["amour", "carte2", "confiance2", "rituels2", "souvenirs2", "projets2", "rires2", "admiration2", "curiosite2", "equipe2", "tendresse2", "aventure2"];
+/* Tests dont les résultats renvoient vers la boîte à outils TCC (#/tcc) */
+var TCC_IDS = ["gad7", "phq9", "pss10", "cbi", "rosenberg", "erq", "ecr12", "ecrr36", "sd3", "ucla3", "ucla20", "isi", "scssf", "brs", "bigfive", "bigfive50"];
 
 function go(h){ location.hash = h; }
 function cardKey(ev){
@@ -264,6 +266,9 @@ function vRes(id){
       ecrMapSVG(rec.scores.ANX, rec.scores.EVIT) +
       "<p>" + esc(st.txt) + '</p><p class="small muted">Les « styles » sont des repères de lecture aux croisements de deux dimensions continues — pas des cases définitives. Ils évoluent avec les expériences relationnelles et le travail personnel (« sécurité gagnée »).</p></div>';
   }
+  if (TCC_IDS.indexOf(t.id) !== -1){
+    html += '<div class="notice">Journal des pensées, exposition graduée, activation comportementale… Le mode d\'emploi pas à pas des techniques citées dans les axes est dans la <a href="#/tcc"><b>boîte à outils TCC</b></a>.</div>';
+  }
   var cad = CADENCE[t.id];
   if (cad) html += '<div class="notice">Suivi : refaites ce test dans <b>' + cad + "</b> — c'est l'évolution de la courbe qui est informative, pas une mesure isolée.</div>";
   html += '<button class="btn ghost" onclick="startTest(\'' + t.id + '\')">Refaire le test</button>' +
@@ -377,9 +382,30 @@ function vBord(){
 }
 
 /* ---------------- MÉTHODE & DONNÉES ---------------- */
+function vTcc(){
+  setNav("meth");
+  var html = '<p class="small"><a href="#/methode">← Aide &amp; méthode</a></p>' +
+    "<h1>" + esc(TCC_OUTILS.titre) + "</h1>" +
+    '<p class="ink2">' + esc(TCC_OUTILS.intro) + "</p>" +
+    '<div class="avert">' + esc(TCC_OUTILS.avert) + "</div>";
+  TCC_OUTILS.outils.forEach(function(o){
+    var steps = o.etapes.map(function(s){ return "<li>" + esc(s) + "</li>"; }).join("");
+    html += '<div class="card"><h3 style="margin-top:0">' + esc(o.nom) + "</h3>" +
+      '<p class="small ink2"><b>Utile quand :</b> ' + esc(o.quand) + "</p>" +
+      '<ol style="padding-left:20px;margin:8px 0">' + steps.replace(/<li>/g, '<li style="margin:7px 0">') + "</ol>" +
+      '<div class="objectif">' + esc(o.astuce) + "</div></div>";
+  });
+  html += "<details><summary>Sources de cette page</summary><ul class=\"reslist\">" +
+    TCC_OUTILS.sources.map(function(r){ return "<li>" + esc(r) + "</li>"; }).join("") + "</ul></details>";
+  html += footHTML();
+  $app.innerHTML = html;
+  window.scrollTo(0, 0);
+}
 function vMethode(){
   setNav("meth");
   var html = persistBanner() + "<h1>Méthode, références &amp; aide</h1><p class=\"ink2\">" + esc(METHODE.intro) + "</p>";
+  html += '<div class="card tap" onclick="go(\'#/tcc\')" onkeydown="cardKey(event)" role="button" tabindex="0"><b>Boîte à outils TCC</b>' +
+    '<div class="testmeta">8 techniques concrètes, pas à pas : journal des pensées, exposition graduée, activation comportementale, sommeil…</div></div>';
   METHODE.sections.forEach(function(s){
     html += "<h2>" + esc(s.t) + "</h2>" + s.p.map(function(p){ return "<p>" + esc(p) + "</p>"; }).join("");
   });
@@ -463,6 +489,7 @@ function render(){
   if (h === "#/duo") return vDuo();
   if (h === "#/bord") return vBord();
   if (h === "#/methode") return vMethode();
+  if (h === "#/tcc") return vTcc();
   if ((m = h.match(/^#\/test\/([a-z0-9]+)$/))) return vTestIntro(m[1]);
   if ((m = h.match(/^#\/res\/([a-z0-9]+)$/))) return vRes(m[1]);
   if ((m = h.match(/^#\/hist\/([a-z0-9]+)$/))) return vHist(m[1]);

@@ -415,4 +415,120 @@ var METHODE = {
   ]
 };
 
+/* ============================================================
+   BOÎTE À OUTILS TCC — techniques concrètes, transverses aux tests.
+   Affichée sur #/tcc, reliée depuis l'Aide et les résultats des
+   tests où la TCC est pertinente (TCC_IDS dans views.js).
+   ============================================================ */
+var TCC_OUTILS = {
+  titre: "Boîte à outils TCC",
+  intro: "Partout dans cette application, on vous dit que « ça se travaille en TCC ». Voici concrètement comment. Les thérapies cognitivo-comportementales reposent sur des techniques précises, documentées, que l'on peut commencer à pratiquer seul(e) — c'est même l'une des rares approches dont les versions d'auto-aide ont été testées en essais cliniques. Chaque outil ci-dessous se pratique en quelques minutes par jour, pendant plusieurs semaines : c'est la répétition qui produit l'effet, pas la compréhension intellectuelle.",
+  avert: "Ces outils sont un excellent début et un bon complément — pas un substitut à une prise en charge quand un score clinique s'allume (anxiété ou humeur au-dessus des seuils, idées noires). Dans ce cas : médecin traitant, « Mon soutien psy » (accès direct, séances remboursées) ou un(e) thérapeute TCC (annuaire aftcc.org). Un(e) professionnel(le) fait exactement ce qui suit, mais calibré pour vous, avec un regard extérieur.",
+  outils: [
+    {
+      nom: "Le journal des pensées (restructuration cognitive)",
+      quand: "Anxiété, ruminations, autocritique, réactivité émotionnelle, jalousie ou lecture anxieuse des relations.",
+      etapes: [
+        "Quand une émotion forte monte, notez la SITUATION en une phrase factuelle (« mon message est resté sans réponse 4 heures »), sans interprétation.",
+        "Notez l'ÉMOTION et son intensité de 0 à 100 (« inquiétude 70 »).",
+        "Notez la PENSÉE AUTOMATIQUE, mot pour mot, telle qu'elle vous est venue (« il/elle se détache de moi »).",
+        "Cherchez les PREUVES : qu'est-ce qui soutient concrètement cette pensée ? Qu'est-ce qui la contredit ? Que diriez-vous à un(e) ami(e) qui aurait cette pensée ?",
+        "Formulez une PENSÉE ALTERNATIVE réaliste — pas de la pensée positive forcée, juste la lecture la plus honnête des faits (« il/elle est probablement en réunion ; rien d'autre n'indique un problème »).",
+        "Ré-évaluez l'intensité de l'émotion. Elle baisse rarement à zéro — une baisse de 20-30 points est déjà le mécanisme qui, répété, change tout."
+      ],
+      astuce: "10 minutes par jour pendant 4 à 8 semaines. Sur papier ou dans les notes du téléphone — l'écrit est nettement plus efficace que « dans la tête », car il ralentit et met à distance."
+    },
+    {
+      nom: "L'exposition graduée",
+      quand: "Évitements qui rétrécissent la vie : anxiété sociale, peur de déranger, évitement de l'intimité, situations fuies depuis longtemps.",
+      etapes: [
+        "Listez les situations évitées, puis classez-les de 0 à 100 selon l'anxiété qu'elles déclenchent (votre « hiérarchie d'exposition »).",
+        "Commencez par une marche à 30-40 (inconfortable mais faisable) — jamais par le sommet.",
+        "Restez dans la situation JUSQU'À CE QUE l'anxiété redescende d'elle-même (elle le fait toujours, en général en 20-40 minutes) — partir au pic renforce la peur, rester l'éteint.",
+        "Répétez la même marche plusieurs fois dans la semaine, jusqu'à ce qu'elle devienne banale. Puis montez d'une marche.",
+        "Traquez les « évitements subtils » qui annulent l'effet : y aller mais accompagné(e), téléphone en main, en préparant sa sortie…"
+      ],
+      astuce: "L'exposition est LE traitement le plus efficace des troubles anxieux — et le plus contre-intuitif. Le principe tient en une phrase : l'anxiété diminue quand on lui prouve, par l'expérience répétée, qu'elle se trompe."
+    },
+    {
+      nom: "L'activation comportementale",
+      quand: "Humeur basse, perte d'élan et d'intérêt, retrait progressif, épuisement qui pousse à tout annuler.",
+      etapes: [
+        "Le piège de l'humeur basse : attendre l'envie pour agir. Or l'envie revient APRÈS l'action, pas avant — c'est le cœur du mécanisme.",
+        "Listez ce qui vous faisait du bien avant : activités de PLAISIR (musique, marche, ami…) et de MAÎTRISE (cuisiner, réparer, ranger, finir quelque chose).",
+        "Planifiez-en une ou deux par jour, à heure fixe, en version minuscule (10 minutes de marche, pas « me remettre au sport »). Notez-les dans l'agenda comme des rendez-vous.",
+        "Faites-les MÊME SANS ENVIE — surtout sans envie : c'est précisément là que ça agit. Cochez après coup et notez l'humeur avant/après (0-10).",
+        "Augmentez très progressivement. Les jours ratés ne comptent pas : on reprend le lendemain, sans procès."
+      ],
+      astuce: "Contre les symptômes dépressifs légers à modérés, l'activation comportementale seule fait aussi bien que des protocoles bien plus lourds dans les essais. Simple ne veut pas dire faible."
+    },
+    {
+      nom: "Le temps d'inquiétude programmé",
+      quand: "Inquiétudes en boucle, ruminations du soir, esprit qui « mouline » sans arrêt.",
+      etapes: [
+        "Fixez un rendez-vous quotidien de 15-20 minutes avec vos inquiétudes (par ex. 18 h, jamais au lit).",
+        "Dans la journée, quand une inquiétude surgit : notez-la en trois mots sur une liste, et dites-vous « rendez-vous à 18 h ». Ne l'interdisez pas — reportez-la.",
+        "Au rendez-vous, prenez la liste. Pour chaque inquiétude : est-elle ACTIONNABLE ? Si oui → décidez la première petite action concrète et quand vous la ferez. Si non (hypothétique, hors de votre contrôle) → journal des pensées, ou constat simple qu'elle ne dépend pas de vous.",
+        "Beaucoup d'inquiétudes notées le matin semblent éteintes le soir : c'est le résultat attendu, pas un hasard."
+      ],
+      astuce: "On ne peut pas « arrêter de penser » sur commande — mais on peut apprendre au cerveau que les inquiétudes ont un lieu et une heure. En quelques semaines, elles interrompent beaucoup moins la journée."
+    },
+    {
+      nom: "L'apaisement physiologique",
+      quand: "Montées d'anxiété ou de colère, tension physique, avant une situation redoutée, disputes qui s'emballent.",
+      etapes: [
+        "Respiration lente : inspirez 4-5 secondes par le nez, expirez 5-6 secondes par la bouche (l'expiration LONGUE est ce qui freine le système d'alarme). 5 minutes, 2 à 3 fois par jour — pas seulement en crise.",
+        "Relaxation musculaire progressive : contractez fort un groupe musculaire 5 secondes (poings, épaules, mâchoire…), relâchez d'un coup 15 secondes, sentez la différence. Parcourez le corps en 10 minutes.",
+        "En cas de colère qui monte : quittez la pièce AVANT le point de non-retour (annoncez que vous revenez), 20 minutes minimum — c'est le temps physiologique réel de redescente — puis revenez traiter le sujet.",
+        "Ancrage d'urgence « 5-4-3-2-1 » : nommez 5 choses que vous voyez, 4 que vous touchez, 3 que vous entendez, 2 que vous sentez, 1 que vous goûtez. Ramène au présent en une minute."
+      ],
+      astuce: "Ces techniques ne « résolvent » rien — elles rendent le cerveau réfléchi de nouveau disponible. C'est l'étape 1 obligée : on ne restructure pas une pensée à 90 d'intensité émotionnelle."
+    },
+    {
+      nom: "La résolution de problème structurée",
+      quand: "Stress lié à de vrais problèmes concrets (argent, travail, logistique, conflit précis) — quand l'inquiétude EST actionnable.",
+      etapes: [
+        "Définissez LE problème en une phrase précise et neutre (« le découvert revient chaque fin de mois », pas « je suis nul(le) avec l'argent »).",
+        "Brainstorm sans censure : listez toutes les solutions possibles, même mauvaises — la censure tue la recherche.",
+        "Évaluez rapidement chaque option (efficacité probable / coût réel), choisissez-en UNE — pas la parfaite, la raisonnable.",
+        "Découpez-la en première action de moins de 15 minutes, planifiée à un moment précis.",
+        "Après coup, évaluez : résolu ? Partiellement ? On ajuste et on recommence. Un problème traité en 5 étapes cesse d'être une rumination."
+      ],
+      astuce: "La rumination tourne en rond parce qu'elle mélange 50 problèmes à moitié formulés. La résolution structurée n'en traite qu'un — mais jusqu'au bout."
+    },
+    {
+      nom: "L'affirmation de soi (méthode DESC)",
+      quand: "Difficulté à dire non, à formuler une demande ou un désaccord — au travail, en couple, en famille.",
+      etapes: [
+        "D — Décrivez les FAITS, sans jugement (« la réunion a été déplacée trois fois cette semaine »).",
+        "E — Exprimez votre ressenti en « je » (« je me retrouve à réorganiser mes journées et ça me pèse »).",
+        "S — Spécifiez votre demande, concrète et précise (« j'aimerais qu'on fixe un créneau stable le mardi »).",
+        "C — Conséquences positives si accord (« comme ça je peux garantir d'être disponible et préparé(e) »).",
+        "Entraînez-vous d'abord sur des situations à faible enjeu (renvoyer un plat, refuser un démarchage), puis montez. Formulez à voix haute avant, seul(e) : la phrase prête change tout."
+      ],
+      astuce: "Ni paillasson ni hérisson : l'assertivité est la troisième voie, et c'est une compétence motrice — elle vient en pratiquant, pas en lisant."
+    },
+    {
+      nom: "Les bases comportementales du sommeil (TCC de l'insomnie)",
+      quand: "Endormissement difficile, réveils nocturnes, lit devenu « lieu de bataille ».",
+      etapes: [
+        "Lever à HEURE FIXE tous les jours, week-end compris — c'est le levier n°1, avant l'heure du coucher.",
+        "Le lit ne sert qu'à dormir (et à l'intimité) : pas d'écrans, pas de travail, pas de ruminations organisées au lit.",
+        "Si vous ne dormez pas au bout de ~20 minutes : levez-vous, activité calme en lumière faible, retour au lit quand le sommeil revient. Rester à « essayer de dormir » entraîne le cerveau à associer lit et éveil.",
+        "Pas de sieste après 15 h, pas d'alcool comme somnifère (il fragmente le sommeil), écrans en baisse la dernière heure.",
+        "Tenez un agenda du sommeil une semaine avant de juger : on dort souvent plus qu'on ne le croit, et l'anxiété de performance (« il FAUT que je dorme ») est elle-même un insomniant."
+      ],
+      astuce: "La TCC de l'insomnie fait mieux que les somnifères à moyen terme dans les essais — c'est le traitement de référence recommandé en première intention. Le test « Qualité du sommeil (ISI) » de l'app permet de suivre l'effet."
+    }
+  ],
+  sources: [
+    "Beck, J. S. « Cognitive Behavior Therapy: Basics and Beyond » (Guilford Press) — le manuel de référence des techniques ci-dessus.",
+    "Cuijpers, P., et al. (2016). How effective are cognitive behavior therapies for major depression and anxiety disorders? A meta-analytic update of the evidence. World Psychiatry, 15(3), 245-258.",
+    "Trauer, J. M., et al. (2015). Cognitive behavioral therapy for chronic insomnia: A systematic review and meta-analysis. Annals of Internal Medicine, 163(3), 191-204.",
+    "Burns, D. « Être bien dans sa peau » — auto-aide TCC dont l'efficacité a été testée en essais cliniques.",
+    "Fanget, F. « Affirmez-vous ! » (Odile Jacob) — référence francophone de l'affirmation de soi.",
+    "Annuaire des thérapeutes TCC : aftcc.org · « Mon soutien psy » : monsoutienpsy.ameli.fr (accès direct, sans ordonnance)."
+  ]
+};
+
 var TESTS = TESTS_1.concat(TESTS_2).concat(TESTS_3);

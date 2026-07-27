@@ -222,6 +222,18 @@ async function runQuiz(page, testId, optIndex, n){
   check("Confirmation demandée avant de quitter une passation", dlgMsg.includes("test est en cours"));
   check("Nav réaffichée après passation", await page.locator("nav").evaluate(n => getComputedStyle(n).display !== "none"));
 
+  // ---- Boîte à outils TCC
+  await page.goto(URL + "#/tcc"); await page.waitForTimeout(250);
+  body = await page.textContent("body");
+  check("TCC : page boîte à outils présente", body.includes("Boîte à outils TCC") && body.includes("journal des pensées") || body.includes("Le journal des pensées"));
+  check("TCC : 8 outils affichés", (await page.locator(".card h3").count()) === 8);
+  check("TCC : garde-fou consultation présent", body.includes("aftcc.org"));
+  await page.screenshot({ path: OUT + "/14-boite-tcc.png", fullPage: true });
+  // le résultat GAD-7 (déjà passé plus haut) renvoie vers la boîte à outils
+  await page.goto(URL + "#/res/gad7"); await page.waitForTimeout(250);
+  body = await page.textContent("body");
+  check("TCC : renvoi depuis un résultat clinique", body.includes("boîte à outils TCC"));
+
   // ---- Tableau de bord
   await page.goto(URL + "#/bord"); await page.waitForTimeout(300);
   body = await page.textContent("body");

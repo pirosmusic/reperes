@@ -12,7 +12,8 @@
 
 - **Zéro framework.** HTML + CSS + JavaScript vanilla (ES5-ish, pas de build step, pas de bundler).
 - **Stockage** : `localStorage` du navigateur uniquement. Pas de backend, pas de compte, pas d'authentification. Chaque appareil a ses propres données, cloisonnées.
-- **Routeur** : hash-based (`#/`, `#/test/:id`, `#/res/:id`, `#/hist/:id`, `#/bord`, `#/methode`).
+- **Routeur** : hash-based (`#/`, `#/test/:id`, `#/res/:id`, `#/hist/:id`, `#/duo`, `#/bord`, `#/methode`, `#/tcc`).
+- **Boîte à outils TCC** (`#/tcc`) : 8 techniques pas à pas (`TCC_OUTILS` dans data3.js, vue `vTcc`), reliée depuis l'Aide et depuis les résultats des tests listés dans `TCC_IDS` (views.js) — à maintenir si on ajoute un test où la TCC est pertinente.
 - **Graphiques** : SVG générés à la main (jauges à bandes, courbes d'évolution, sparklines, carte 2D pour l'attachement), construits en suivant le skill `dataviz` du repo Claude (palette validée color-blind-safe, voir `references/palette.md` de ce skill si besoin de le refaire).
 - **Mode sombre** : `prefers-color-scheme`, variables CSS.
 - **Responsive** : mobile-first, testé à 393×851 (iPhone/Android standard).
