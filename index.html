@@ -2764,6 +2764,514 @@ var TESTS_7 = [
 
 TESTS = TESTS.concat(TESTS_7);
 /* ============================================================
+   DONNÉES — PARTIE 8 : rubrique « À deux » (suite)
+   Quiz maison créés pour cette application, à faire EN COUPLE
+   (chacun son tour sur le même téléphone, ou chacun sur son
+   appareil, puis on compare). NON validés scientifiquement —
+   et c'est assumé (avertissement sur chaque quiz, comme en
+   data7). Les concepts sous-jacents, eux, viennent de la
+   recherche citée dans source.refs.
+   ============================================================ */
+
+var TESTS_8 = [
+
+/* ---------------- LE JEU DES SOUVENIRS ---------------- */
+{
+  id: "souvenirs2",
+  nom: "Le jeu des souvenirs",
+  sigle: "Quiz duo · 12 items",
+  cat: "À deux",
+  duree: "3-4 min",
+  avertissement: "Étiquette honnête — ceci est un quiz maison créé pour cette application, pas un instrument validé scientifiquement. Prenez-le comme un jeu de mémoire à deux, pas comme une note sur votre passé. Les concepts sous-jacents, eux, viennent de la recherche : la façon dont un couple raconte son histoire prédit sa trajectoire (Buehlman, Gottman & Katz, 1992), et la nostalgie partagée nourrit le lien (Evans et al., 2022).",
+  intro: "Vous souvenez-vous du premier regard, de la première maladresse, du fou rire fondateur ? Les chercheurs qui ont écouté des couples raconter leur histoire ont découvert quelque chose d'étonnant : la FAÇON de raconter — avec tendresse, avec détails, avec fierté — en dit plus long sur l'avenir du couple que le contenu lui-même. Et la nostalgie à deux n'est pas un repli passéiste : c'est un carburant. Ce quiz est un jeu de mémoire heureuse : chaque question est une invitation à replonger — et la règle du jeu vous y oblige.",
+  consigne: "Pour chaque phrase, demandez-vous : est-ce que ça nous ressemble ? Répondez chacun votre tour (même téléphone) ou chacun sur son appareil. RÈGLE DU JEU non négociable : à chaque question où vous comparez vos réponses, l'un des deux raconte UN souvenir précis qui va avec — pas un résumé, une vraie scène, avec les détails.",
+  echelle: { labels: ["Pas du tout nous", "Pas vraiment nous", "Un peu nous", "Plutôt nous", "Complètement nous"], valeurs: [1, 2, 3, 4, 5] },
+  items: [
+    { t: "Nous pouvons raconter notre première rencontre dans le détail — le lieu, la lumière, qui a parlé en premier", d: "SOUV" },
+    { t: "Nous avons des anecdotes qui nous font encore rire à la dixième redite", d: "SOUV" },
+    { t: "Il nous arrive de nous dire « tu te souviens quand… ? » juste pour le plaisir", d: "SOUV" },
+    { t: "Nous re-regardons parfois de vieilles photos ou vidéos de nous deux", d: "SOUV" },
+    { t: "Nous avons des objets fétiches qui racontent notre histoire (billet, caillou, ticket de concert…)", d: "SOUV" },
+    { t: "Quand nous racontons nos débuts à d'autres, on se coupe la parole pour ajouter des détails", d: "SOUV" },
+    { t: "Nous nous rappelons nos galères passées comme des aventures plutôt que comme des mauvais moments", d: "SOUV" },
+    { t: "Chacun de nous connaît le moment où l'autre s'est dit « c'est lui/c'est elle »", d: "SOUV" },
+    { t: "Certains lieux sont « à nous » — y repasser nous fait toujours quelque chose", d: "SOUV" },
+    { t: "Nous avons une chanson, un film ou un plat qui nous ramène instantanément à une époque de nous deux", d: "SOUV" },
+    { t: "Nous continuons à fabriquer des souvenirs racontables (pas juste des semaines qui se ressemblent)", d: "SOUV" },
+    { t: "Repenser à nos débuts nous donne plutôt envie de sourire que de soupirer", d: "SOUV" }
+  ],
+  scoringNote: "Moyenne de 1 à 5 sur les 12 phrases. Aucune norme n'existe (quiz maison) : ce score dit seulement à quel point votre mémoire de couple est vivante et sollicitée. Comparez vos deux scores — et surtout, appliquez la règle du jeu : un souvenir raconté par question comparée.",
+  dims: {
+    SOUV: {
+      nom: "Mémoire heureuse du couple", format: "moyenne", min: 1, max: 5, valence: true,
+      descriptif: "La vitalité de votre histoire commune : les anecdotes qu'on redit, les photos qu'on ressort, les lieux et objets qui racontent « nous ». Une mémoire qui se cultive — chaque redite la rend plus vivante.",
+      bandes: [
+        { max: 2.5, label: "Album à rouvrir", niveau: "attention", texte: "Belle marge de progression : votre mémoire de couple est en sommeil — ce qui arrive à tous les couples happés par le présent, et qui n'efface rien de ce que vous avez vécu. La bonne nouvelle : les souvenirs sont toujours là, il suffit de rouvrir l'album. Ce soir, une seule question : « c'est quoi ton tout premier souvenir de nous deux ? » — et laissez la conversation faire le reste." },
+        { max: 3.8, label: "Album feuilleté", niveau: "neutre", texte: "Votre histoire est vivante par endroits, en jachère ailleurs — c'est le profil le plus courant. Comparez vos réponses : les items où vous divergez révèlent souvent que l'un garde des trésors que l'autre a oubliés. Échangez-les : un souvenir raconté par l'un réveille presque toujours un souvenir chez l'autre." },
+        { max: 5, label: "Album vivant", niveau: "ok", texte: "Votre histoire est un feu qu'on entretient : anecdotes qui resservent, lieux fétiches, fous rires d'archive — exactement ce que les chercheurs entendent chez les couples qui durent. Célébrez-le : ce soir, chacun raconte à l'autre UN souvenir que vous n'avez jamais re-raconté. Et continuez d'en fabriquer : le plus beau chapitre est celui qu'on n'a pas encore vécu." }
+      ],
+      amelioration: {
+        intro: "La mémoire de couple s'entretient comme un feu : par petites bûches régulières. Trois jeux à essayer cette semaine — le rire est non seulement autorisé, il est probable.",
+        axes: [
+          { titre: "La soirée archives", texte: "Défi de la semaine : une soirée (ou juste vingt minutes) à ressortir photos, vidéos ou messages de vos débuts. Règle du jeu : chacun choisit UNE image et raconte ce que l'autre ne sait pas — ce qu'il/elle pensait vraiment à ce moment-là. Les révélations tardives sont les meilleures." },
+          { titre: "Le concours de la meilleure anecdote", texte: "Chacun raconte SA version d'un même souvenir (la rencontre, le pire voyage, la gaffe mémorable) — sans corriger l'autre pendant qu'il/elle parle. Les différences entre vos deux versions ne sont pas des erreurs : c'est là que se cache le meilleur du jeu." },
+          { titre: "Fabriquer du racontable", texte: "Un souvenir, ça se prépare : planifiez dans la semaine UNE micro-aventure inédite — un lieu où vous n'êtes jamais allés, un plat jamais tenté, un chemin jamais pris. Le critère : que ce soit racontable dans un an. Les couples qui durent ne font pas que relire leur album, ils ajoutent des pages." }
+        ],
+        objectif: "Défi de couple : d'ici la fin du mois, une soirée archives, un concours d'anecdotes, et UNE page neuve ajoutée à l'album (photo à l'appui). Puis refaites le quiz dans trois mois : la mémoire, ça se muscle.",
+        ressources: [
+          "Gottman, J., & Silver, N. (1999). The Seven Principles for Making Marriage Work. Harmony Books (trad. fr. « Les couples heureux ont leurs secrets », JC Lattès) — chapitre sur la tendresse et l'admiration, nourries par l'histoire partagée.",
+          "Buehlman, K. T., Gottman, J. M., & Katz, L. F. (1992). How a couple views their past predicts their future: Predicting divorce from an oral history interview. Journal of Family Psychology, 5(3-4), 295-318.",
+          "Evans, N. D., Juhl, J., Hepper, E. G., Wildschut, T., Sedikides, C., & Fetterman, A. K. (2022). Romantic nostalgia as a resource for healthy relationships. Journal of Social and Personal Relationships, 39(7), 2181-2206."
+        ]
+      }
+    }
+  },
+  source: {
+    instrument: "Quiz maison Iris — Le jeu des souvenirs",
+    statut: "Quiz créé pour cette application, non validé scientifiquement — conçu comme un jeu de mémoire à deux et un support de dialogue, pas comme une mesure. Les concepts sous-jacents (la manière dont un couple raconte son passé comme prédicteur de sa trajectoire ; la nostalgie romantique comme ressource du lien) viennent de la recherche citée.",
+    refs: [
+      "Buehlman, K. T., Gottman, J. M., & Katz, L. F. (1992). How a couple views their past predicts their future: Predicting divorce from an oral history interview. Journal of Family Psychology, 5(3-4), 295-318.",
+      "Evans, N. D., Juhl, J., Hepper, E. G., Wildschut, T., Sedikides, C., & Fetterman, A. K. (2022). Romantic nostalgia as a resource for healthy relationships. Journal of Social and Personal Relationships, 39(7), 2181-2206."
+    ]
+  }
+},
+
+/* ---------------- RÊVES & PROJETS À DEUX ---------------- */
+{
+  id: "projets2",
+  nom: "Rêves & projets à deux",
+  sigle: "Quiz duo · 11 items",
+  cat: "À deux",
+  duree: "3 min",
+  avertissement: "Étiquette honnête — ceci est un quiz maison créé pour cette application, pas un instrument validé scientifiquement. Utilisez-le comme un support de dialogue à deux, pas comme un audit de votre couple. Les concepts sous-jacents, eux, viennent de la recherche : le « système de sens partagé » de Gottman & Silver, et l'auto-expansion — faire du neuf ensemble nourrit la relation (Aron et al., 2000).",
+  intro: "Un couple, ce n'est pas seulement deux personnes qui s'aiment : c'est aussi une petite entreprise de rêves — un « nous » qui veut des choses que ni l'un ni l'autre ne voudrait seul. Du potager au tour du monde, de la tradition du réveillon au projet fou dont on ne parle qu'à voix basse : la recherche montre que les couples qui construisent un sens partagé — et qui font du NEUF ensemble — nourrissent leur lien bien plus qu'ils ne le croient. Ce quiz vous propose de faire le point sur votre atelier à rêves. Attention : il donne envie de faire des projets.",
+  consigne: "Indiquez votre degré d'accord avec chaque affirmation, en pensant à votre couple tel qu'il est aujourd'hui — pas tel qu'il était ni tel qu'il devrait être. Répondez chacun votre tour (même téléphone) ou chacun sur son appareil, sans vous concerter. Puis comparez : chaque écart est un projet de conversation — et peut-être un projet tout court.",
+  echelle: { labels: ["Pas du tout d'accord", "Plutôt pas d'accord", "Mitigé(e)", "Plutôt d'accord", "Tout à fait d'accord"], valeurs: [1, 2, 3, 4, 5] },
+  items: [
+    { t: "Je sais ce dont mon/ma partenaire rêve pour dans cinq ans", d: "PROJ" },
+    { t: "Nous avons au moins un projet rien qu'à nous en cours (du potager au tour du monde, la taille ne compte pas)", d: "PROJ" },
+    { t: "Il nous arrive de rêver tout haut ensemble, même à des choses irréalistes", d: "PROJ" },
+    { t: "Les grandes décisions (logement, travail, famille) se prennent vraiment à deux chez nous", d: "PROJ" },
+    { t: "Nous avons des traditions à nous — ou nous sommes en train d'en inventer", d: "PROJ" },
+    { t: "Nous essayons régulièrement des choses nouvelles ensemble (lieu, activité, cuisine…)", d: "PROJ" },
+    { t: "Je connais le rêve que mon/ma partenaire n'a pas encore osé mettre en route", d: "PROJ" },
+    { t: "Quand l'un de nous a une envie folle, l'autre commence par dire « raconte » plutôt que « ça coûte combien ? »", d: "PROJ" },
+    { t: "Nous avons une idée de l'endroit (ou du genre de vie) où nous nous voyons plus tard", d: "PROJ" },
+    { t: "Nos projets individuels ont leur place : chacun soutient les rêves de l'autre, même ceux qui ne le concernent pas", d: "PROJ" },
+    { t: "Si on nous offrait un week-end surprise à organiser à deux, nous saurions tout de suite quoi en faire", d: "PROJ" }
+  ],
+  scoringNote: "Moyenne de 1 à 5 sur les 11 affirmations. Aucune norme n'existe (quiz maison) : le score photographie l'état de votre atelier à rêves aujourd'hui. Le plus instructif est ailleurs : comparez vos réponses item par item — un écart d'au moins un point signale un rêve dont vous n'avez pas encore assez parlé.",
+  dims: {
+    PROJ: {
+      nom: "Sens & projets partagés", format: "moyenne", min: 1, max: 5, valence: true,
+      descriptif: "Votre capacité à rêver et construire à deux : connaître les rêves de l'autre, avoir des projets communs, décider ensemble, inventer vos traditions. Le « nous » comme aventure en cours, pas comme acquis.",
+      bandes: [
+        { max: 2.5, label: "Atelier à rouvrir", niveau: "attention", texte: "Belle marge de progression : les rêves à deux sont en veilleuse — ce qui arrive dès que le quotidien prend toute la place, et qui ne dit rien de votre attachement. La bonne nouvelle : rêver ne coûte rien et peut commencer ce soir. Une seule question pour rallumer l'atelier : « si on avait une année libre et sans contrainte, on en ferait quoi ? ». Interdiction de parler budget pendant dix minutes." },
+        { max: 3.8, label: "Atelier ouvert", niveau: "neutre", texte: "Vous rêvez et construisez ensemble par endroits, avec des zones en friche — profil très répandu. Comparez vos réponses : là où vous divergez, l'un des deux porte peut-être un rêve en silence. Et choisissez ensemble l'item le plus bas qui vous tente le plus : c'est votre prochain chantier — le plus petit projet mis en route vaut mieux que le plus beau projet remis à plus tard." },
+        { max: 5, label: "Atelier en pleine production", niveau: "ok", texte: "Vous êtes une vraie fabrique à projets : rêves connus, décisions à deux, traditions en cours d'invention — exactement ce que Gottman appelle un système de sens partagé. Célébrez-le en vous offrant un cran de plus : chacun révèle à l'autre UN rêve jamais dit à voix haute. Même les couples qui rêvent beaucoup gardent des tiroirs fermés — c'est le moment d'en ouvrir un." }
+      ],
+      amelioration: {
+        intro: "Les rêves à deux ne demandent ni budget ni permission : ils demandent un moment protégé et deux imaginations. Trois défis joyeux pour la semaine.",
+        axes: [
+          { titre: "La soirée des cinq ans", texte: "Défi de la semaine : vingt minutes, deux feuilles, un minuteur. Chacun écrit sa vie rêvée dans cinq ans (lieu, rythme, projets — sans se censurer), puis on échange les feuilles. Règle d'or : on commence par ce qui se ressemble dans les deux copies, pas par ce qui coince. Les convergences d'abord, toujours." },
+          { titre: "Le projet à 10 euros", texte: "Lancez cette semaine un micro-projet commun qui coûte moins de 10 euros et se termine en un mois : trois plants de tomates, apprendre une chanson à deux voix, un album photo du mois. L'effet « on a fait ça ensemble » ne dépend pas de la taille du projet — c'est la recherche sur l'auto-expansion qui le dit : c'est la nouveauté partagée qui nourrit, pas le budget." },
+          { titre: "Inventer une tradition", texte: "Choisissez une date (même anodine : le premier dimanche du mois, le jour des crêpes) et décrétez-la vôtre, avec un rituel à vous. Une tradition ne se juge pas à sa solennité mais à sa fidélité — et les plus absurdes sont souvent celles qu'on défend le plus férocement dans dix ans." }
+        ],
+        objectif: "Défi de couple : d'ici un mois — une soirée des cinq ans, un projet à 10 euros lancé, une tradition décrétée. Puis refaites le quiz chacun de votre côté et comparez : ce sont vos DEUX courbes qui racontent où va le « nous ».",
+        ressources: [
+          "Gottman, J., & Silver, N. (1999). The Seven Principles for Making Marriage Work. Harmony Books (trad. fr. « Les couples heureux ont leurs secrets », JC Lattès) — septième principe : créer un sens partagé.",
+          "Aron, A., Norman, C. C., Aron, E. N., McKenna, C., & Heyman, R. E. (2000). Couples' shared participation in novel and arousing activities and experienced relationship quality. Journal of Personality and Social Psychology, 78(2), 273-284.",
+          "Greater Good in Action (Berkeley) — fiche pratique « Exciting Activities for Couples » (ggia.berkeley.edu, en anglais)."
+        ]
+      }
+    }
+  },
+  source: {
+    instrument: "Quiz maison Iris — Rêves & projets à deux",
+    statut: "Quiz créé pour cette application, non validé scientifiquement — conçu comme un support de dialogue à deux, pas comme une mesure. Les concepts sous-jacents (le « système de sens partagé » : rêves, rôles et rituels construits à deux ; l'auto-expansion : les activités nouvelles partagées comme nourriture du lien) viennent de la recherche citée.",
+    refs: [
+      "Gottman, J., & Silver, N. (1999). The Seven Principles for Making Marriage Work. Harmony Books (trad. fr. « Les couples heureux ont leurs secrets », JC Lattès).",
+      "Aron, A., Norman, C. C., Aron, E. N., McKenna, C., & Heyman, R. E. (2000). Couples' shared participation in novel and arousing activities and experienced relationship quality. Journal of Personality and Social Psychology, 78(2), 273-284."
+    ]
+  }
+},
+
+/* ---------------- RIRE & COMPLICITÉ ---------------- */
+{
+  id: "rires2",
+  nom: "Rire & complicité",
+  sigle: "Quiz duo · 11 items",
+  cat: "À deux",
+  duree: "2-3 min",
+  avertissement: "Étiquette honnête — ceci est un quiz maison créé pour cette application, pas un instrument validé scientifiquement. Prenez-le comme un inventaire joyeux, pas comme un examen d'humour. Le concept sous-jacent, lui, est documenté : le rire PARTAGÉ (rire ensemble, en même temps) est un marqueur observable de la qualité du lien (Kurtz & Algoe, 2015).",
+  intro: "Des chercheurs ont filmé des couples en train de raconter leur rencontre, puis ont chronométré quelque chose d'inattendu : le temps passé à rire EN MÊME TEMPS. Résultat : ce rire simultané — pas le rire poli, pas le rire de l'un pendant que l'autre soupire — va de pair avec des couples plus proches, plus satisfaits, plus soutenants. Private jokes, surnoms secrets, imitations interdites en public : votre patrimoine comique est un vrai capital de couple. Ce quiz vous propose d'en faire l'inventaire — essayez de le finir sans sourire, pour voir.",
+  consigne: "Pour chaque situation, indiquez sa fréquence réelle dans votre couple — pas celle du couple idéal des publicités. Répondez chacun votre tour (même téléphone) ou chacun sur son appareil, puis comparez. Si un item vous fait rire tous les deux au moment d'y répondre, comptez-le d'office comme « Tout le temps ».",
+  echelle: { labels: ["Presque jamais", "Rarement", "De temps en temps", "Souvent", "Tout le temps"], valeurs: [1, 2, 3, 4, 5] },
+  items: [
+    { t: "Nous avons des private jokes que personne d'autre ne peut comprendre", d: "RIRE" },
+    { t: "Il nous arrive de rire ensemble jusqu'à en avoir mal aux joues", d: "RIRE" },
+    { t: "Un seul mot ou un seul regard peut nous faire pouffer dans une situation sérieuse", d: "RIRE" },
+    { t: "Nous avons des surnoms (avouables ou non) qui ne sortent jamais de la maison", d: "RIRE" },
+    { t: "L'un de nous sait dérider l'autre un jour de grisaille", d: "RIRE" },
+    { t: "Nous rions ENSEMBLE — pas l'un DE l'autre (la nuance fait toute la différence)", d: "RIRE" },
+    { t: "Nous avons des imitations maison (l'autre, le voisin, le chat…) qui font mouche à tous les coups", d: "RIRE" },
+    { t: "Une mésaventure (train raté, plat carbonisé) finit chez nous en fou rire plutôt qu'en procès", d: "RIRE" },
+    { t: "Nous nous envoyons des bêtises juste pour faire rire l'autre à distance", d: "RIRE" },
+    { t: "Même pendant une dispute, il arrive qu'une bêtise nous désarme tous les deux", d: "RIRE" },
+    { t: "Nous avons des répliques cultes (de films, de proches, de nous-mêmes) qui resservent depuis des années", d: "RIRE" }
+  ],
+  scoringNote: "Moyenne de 1 à 5 sur les 11 situations. Aucune norme n'existe (quiz maison) : certains couples très unis rient discrètement, d'autres en fanfare — c'est le PARTAGE du rire qui compte, pas son volume. Comparez vos deux scores et, surtout, vos réponses : un écart signale souvent un rire que l'un croit partagé et que l'autre subit poliment.",
+  dims: {
+    RIRE: {
+      nom: "Rire partagé", format: "moyenne", min: 1, max: 5, valence: true,
+      descriptif: "Votre patrimoine comique commun : private jokes, surnoms, imitations, fous rires — et la capacité à rire ensemble, y compris des jours où rien ne s'y prête. Un ciment discret mais mesurable du lien.",
+      bandes: [
+        { max: 2.5, label: "Rires en réserve", niveau: "attention", texte: "Belle marge de progression : le rire à deux s'est fait discret — ce qui arrive quand la charge mentale monte, et qui ne dit rien de votre humour ni de votre amour. La bonne nouvelle : le rire partagé revient vite dès qu'on lui rouvre la porte. Ce soir, mission simple : retrouver ensemble UNE private joke d'avant, ou en fabriquer une neuve. Une seule suffit pour relancer la machine." },
+        { max: 3.8, label: "Rires au rendez-vous", niveau: "neutre", texte: "Vous riez ensemble, avec des hauts et des creux — profil très courant. Comparez vos réponses : les écarts sont souvent hilarants en eux-mêmes (« comment ça, tu n'aimes pas mon imitation ?! »). Repérez l'item le plus bas qui vous tente : c'est votre prochain terrain de jeu — et rappelez-vous la nuance qui compte : rire ENSEMBLE, jamais l'un de l'autre." },
+        { max: 5, label: "Duo comique confirmé", niveau: "ok", texte: "Votre couple est une scène ouverte permanente : private jokes, répliques cultes, fous rires en pleine dispute — exactement le rire simultané que les chercheurs observent chez les couples les plus proches. Célébrez ce trésor : élisez ensemble votre private joke de l'année, et racontez-vous l'histoire de sa naissance. Puis demandez-vous : quelle sera la prochaine ?" }
+      ],
+      amelioration: {
+        intro: "Le rire partagé ne se force pas, mais il se cultive : il suffit de multiplier les occasions et de les laisser prendre. Trois défis à tenter dans la semaine — échec autorisé, fou rire probable.",
+        axes: [
+          { titre: "Le musée des private jokes", texte: "Défi de la semaine : listez ensemble vos private jokes, surnoms et répliques cultes — par écrit, comme un vrai inventaire de musée. Deux effets garantis : vous allez rire en le faisant, et vous allez en redécouvrir que vous aviez oubliées. Bonus : chacun raconte l'origine de sa préférée." },
+          { titre: "La minute de bêtise quotidienne", texte: "Une fois par jour, l'un des deux tente de faire rire l'autre — message absurde, imitation, grimace à contretemps. Pas besoin de réussir à tous les coups : c'est la tentative qui compte, et les fours mémorables deviennent eux-mêmes des private jokes. Le rire appelle le rire." },
+          { titre: "Rire ensemble, jamais contre", texte: "Cette semaine, un micro-audit à deux : y a-t-il une taquinerie récurrente qui fait rire l'un et grincer l'autre ? Posez la question franchement — et si oui, remplacez-la par une cible extérieure au couple (le mode d'emploi du meuble suédois est une victime toute désignée). Le rire qui unit vise toujours vers le dehors, pas vers l'autre." }
+        ],
+        objectif: "Défi de couple : une semaine de minute de bêtise quotidienne + le musée des private jokes complété. Puis refaites le quiz chacun de votre côté dans un mois : si votre score n'a pas bougé mais que vous avez ri en le refaisant, c'est gagné quand même.",
+        ressources: [
+          "Kurtz, L. E., & Algoe, S. B. (2015). Putting laughter in context: Shared laughter as behavioral indicator of relationship well-being. Personal Relationships, 22(4), 573-590.",
+          "Gottman, J., & Silver, N. (1999). The Seven Principles for Making Marriage Work. Harmony Books (trad. fr. « Les couples heureux ont leurs secrets », JC Lattès) — sur l'humour comme outil d'apaisement dans le conflit."
+        ]
+      }
+    }
+  },
+  source: {
+    instrument: "Quiz maison Iris — Rire & complicité",
+    statut: "Quiz créé pour cette application, non validé scientifiquement — conçu comme un inventaire joyeux à deux et un support de dialogue, pas comme une mesure. Le concept sous-jacent (le rire partagé — simultané — comme indicateur comportemental de la qualité de la relation) vient de la recherche citée.",
+    refs: [
+      "Kurtz, L. E., & Algoe, S. B. (2015). Putting laughter in context: Shared laughter as behavioral indicator of relationship well-being. Personal Relationships, 22(4), 573-590."
+    ]
+  }
+},
+
+/* ---------------- CE QUE J'ADMIRE CHEZ TOI ---------------- */
+{
+  id: "admiration2",
+  nom: "Ce que j'admire chez toi",
+  sigle: "Quiz duo · 11 items",
+  cat: "À deux",
+  duree: "3 min",
+  avertissement: "Étiquette honnête — ceci est un quiz maison créé pour cette application, pas un instrument validé scientifiquement. Prenez-le comme un exercice de regard à deux, pas comme une note d'admiration. Les concepts sous-jacents, eux, viennent de la recherche : le système « tendresse et admiration » de Gottman, et la gratitude exprimée comme « piqûre de rappel » du lien (Algoe, Gable & Maisel, 2010).",
+  intro: "Tomber amoureux, c'est facile : on ne voit que les qualités. Rester amoureux, c'est un sport : il faut continuer à VOIR ces qualités sous la pile de linge et les agacements du quotidien — et, surtout, le DIRE. La recherche est frappante là-dessus : la gratitude exprimée pour les petites choses agit comme une piqûre de rappel du lien, et l'admiration entretenue est l'un des meilleurs antidotes au mépris, le pire poison des couples selon Gottman. Ce quiz vous propose de mesurer votre regard positif — et il se termine par un gage. Un beau gage.",
+  consigne: "Indiquez votre degré d'accord avec chaque affirmation, en pensant aux dernières semaines. Répondez chacun votre tour (même téléphone) ou chacun sur son appareil, puis comparez. RÈGLE DU JEU non négociable : à la fin, chacun dit à l'autre, à voix haute et en le regardant, UNE chose qu'il/elle admire chez lui/elle. Pas « merci pour tout » — une vraie chose, précise.",
+  echelle: { labels: ["Pas du tout d'accord", "Plutôt pas d'accord", "Mitigé(e)", "Plutôt d'accord", "Tout à fait d'accord"], valeurs: [1, 2, 3, 4, 5] },
+  items: [
+    { t: "Je peux citer, là, tout de suite, trois qualités de mon/ma partenaire qui m'épatent", d: "ADMI" },
+    { t: "Je le/la complimente à voix haute — pas seulement dans ma tête", d: "ADMI" },
+    { t: "Je remarque ses efforts invisibles (les trucs faits sans bruit que personne ne félicite jamais)", d: "ADMI" },
+    { t: "En public, je parle de lui/d'elle avec fierté — jamais en le/la rabaissant « pour rire »", d: "ADMI" },
+    { t: "Je lui dis merci pour des choses précises, pas juste un « merci » automatique", d: "ADMI" },
+    { t: "Quand il/elle réussit quelque chose, je suis son premier supporter — avant même qu'il/elle y croie", d: "ADMI" },
+    { t: "Je sais ce qui est difficile pour lui/elle dans son quotidien, et je le reconnais à voix haute", d: "ADMI" },
+    { t: "Il m'arrive encore de le/la regarder faire quelque chose et de me dire « quand même, chapeau »", d: "ADMI" },
+    { t: "Quand on me demande ce que je lui trouve, la réponse vient vite et longue", d: "ADMI" },
+    { t: "Je remarque plus souvent ce qu'il/elle fait bien que ce qu'il/elle oublie", d: "ADMI" },
+    { t: "Mon/ma partenaire pourrait citer le dernier compliment précis que je lui ai fait (parce qu'il est récent)", d: "ADMI" }
+  ],
+  scoringNote: "Moyenne de 1 à 5 sur les 11 affirmations. Aucune norme n'existe (quiz maison) : le score reflète votre regard positif déclaré — la vraie mesure, c'est ce que l'autre en perçoit. D'où l'intérêt de comparer : si vous vous donnez 4,5 et que l'autre n'a rien remarqué, il y a un tuyau d'expression à déboucher quelque part.",
+  dims: {
+    ADMI: {
+      nom: "Regard positif exprimé", format: "moyenne", min: 1, max: 5, valence: true,
+      descriptif: "Votre capacité à voir les qualités et les efforts de l'autre — et surtout à le lui dire : compliments précis, mercis ciblés, fierté affichée. L'admiration qui reste dans la tête ne compte qu'à moitié.",
+      bandes: [
+        { max: 2.5, label: "Regard à raviver", niveau: "attention", texte: "Belle marge de progression : le regard positif s'est un peu voilé — ce qui arrive dans tous les couples où le quotidien use, et qui se ravive étonnamment vite. La recherche le montre : un seul merci précis par jour change déjà la météo d'une relation. Commencez ce soir par le gage du quiz : UNE chose que vous admirez, dite en face. Vous verrez sa tête — ça vaut le détour." },
+        { max: 3.8, label: "Regard présent", niveau: "neutre", texte: "Vous voyez les qualités de l'autre et vous le dites — parfois. Le gisement inexploité est souvent là : l'admiration ressentie mais non dite. Comparez vos réponses : les écarts entre ce que l'un croit exprimer et ce que l'autre reçoit sont la partie la plus instructive du jeu. Et n'oubliez pas le gage final — c'est lui, le vrai quiz." },
+        { max: 5, label: "Supporter officiel", niveau: "ok", texte: "Compliments précis, mercis ciblés, fierté publique : vous êtes le supporter officiel de votre partenaire — exactement ce que Gottman décrit comme l'antidote au mépris, et ce que la recherche sur la gratitude associe aux couples qui se renforcent jour après jour. Célébrez : faites le gage final en version longue — pas une chose admirée, mais trois. Et demandez à l'autre laquelle lui fait le plus d'effet : la réponse surprend souvent." }
+      ],
+      amelioration: {
+        intro: "L'admiration est un muscle qui travaille en deux temps : voir, puis dire. Trois défis pour la semaine — le deuxième temps est le plus important, et le plus négligé.",
+        axes: [
+          { titre: "Le merci ciblé quotidien", texte: "Défi de la semaine : un merci PRÉCIS par jour — pas « merci pour tout » mais « merci d'avoir géré le rendez-vous du petit, je sais que tu détestes téléphoner ». C'est exactement le geste que la recherche d'Algoe et ses collègues associe à plus de connexion dès le lendemain. Sept jours, sept mercis, et observez ce que ça change — chez l'autre et chez vous." },
+          { titre: "La chasse aux efforts invisibles", texte: "Pendant trois jours, jouez au détective : repérez tout ce que l'autre fait sans bruit et sans médaille (la lessive pliée, le plein d'essence, l'appel aux parents). Puis restituez votre butin à voix haute. Effet garanti : être VU dans ses efforts invisibles est l'un des plus beaux cadeaux du quotidien — et il est gratuit." },
+          { titre: "Le compliment en public", texte: "Cette semaine, une fois, dites du bien de votre partenaire devant d'autres — en sa présence, sans ironie, sans « mais ». Un vrai : « c'est elle qui a eu l'idée », « il est incroyable pour ça ». Le compliment public compte double : il dit « je t'admire » ET « je veux que ça se sache »." }
+        ],
+        objectif: "Défi de couple : sept mercis ciblés, une chasse aux efforts invisibles restituée, un compliment public — en une semaine. Puis refaites le quiz chacun de votre côté dans un mois, et posez-vous LA question : l'autre a-t-il/elle senti la différence ? C'est sa réponse, votre vrai score.",
+        ressources: [
+          "Algoe, S. B., Gable, S. L., & Maisel, N. C. (2010). It's the little things: Everyday gratitude as a booster shot for romantic relationships. Personal Relationships, 17(2), 217-233.",
+          "Gottman, J., & Silver, N. (1999). The Seven Principles for Making Marriage Work. Harmony Books (trad. fr. « Les couples heureux ont leurs secrets », JC Lattès) — deuxième principe : cultiver la tendresse et l'admiration.",
+          "Le test « Gratitude (GQ-6) » de la rubrique « Vie & sens » de cette app, pour explorer votre gratitude en général (celui-là est validé)."
+        ]
+      }
+    }
+  },
+  source: {
+    instrument: "Quiz maison Iris — Ce que j'admire chez toi",
+    statut: "Quiz créé pour cette application, non validé scientifiquement — conçu comme un exercice de regard à deux et un support de dialogue, pas comme une mesure. Les concepts sous-jacents (le système « tendresse et admiration » comme antidote au mépris ; la gratitude exprimée pour les petites attentions comme renfort quotidien du lien) viennent de la recherche citée.",
+    refs: [
+      "Algoe, S. B., Gable, S. L., & Maisel, N. C. (2010). It's the little things: Everyday gratitude as a booster shot for romantic relationships. Personal Relationships, 17(2), 217-233.",
+      "Gottman, J., & Silver, N. (1999). The Seven Principles for Making Marriage Work. Harmony Books (trad. fr. « Les couples heureux ont leurs secrets », JC Lattès)."
+    ]
+  }
+}
+
+];
+
+TESTS = TESTS.concat(TESTS_8);
+/* ============================================================
+   DONNÉES — PARTIE 9 : rubrique « À deux » (suite)
+   Quiz maison créés pour cette application, à faire EN COUPLE
+   (chacun son tour sur le même téléphone, ou chacun sur son
+   appareil, puis on compare). NON validés scientifiquement —
+   et c'est assumé (avertissement sur chaque quiz, comme le test
+   « amour »). Les concepts sous-jacents, eux, viennent de la
+   recherche citée dans source.refs.
+   ============================================================ */
+
+var TESTS_9 = [
+
+/* ---------------- CURIOSITÉ — toujours curieux l'un de l'autre ? ---------------- */
+{
+  id: "curiosite2",
+  nom: "Toujours curieux l'un de l'autre ?",
+  sigle: "Quiz duo · 11 items",
+  cat: "À deux",
+  duree: "2-3 min",
+  avertissement: "Étiquette honnête — ceci est un quiz maison créé pour cette application, pas un instrument validé scientifiquement. Prenez-le comme un jeu à deux, pas comme une note de couple. Les concepts sous-jacents, eux, viennent de la recherche : les questions qui créent de la proximité (les fameuses « 36 questions » d'Aron et al., 1997) et l'écoute réactive — se sentir vraiment écouté et compris (Reis et al.).",
+  intro: "Au début, on se posait mille questions. Et maintenant ? Un couple qui dure n'est pas un couple qui sait tout de l'autre — c'est un couple qui continue de demander. La recherche a même montré qu'on peut créer de la proximité entre deux inconnus en 45 minutes de vraies questions (Aron et al., 1997) ; imaginez ce que ça donne entre deux personnes qui s'aiment déjà. Ce quiz fait l'inventaire de votre curiosité l'un pour l'autre : posez-vous encore de vraies questions, écoutez-vous les réponses jusqu'au bout, vous laissez-vous encore surprendre ?",
+  consigne: "Pour chaque situation, indiquez sa fréquence réelle dans votre couple aujourd'hui — pas celle du début, pas celle qu'on aimerait. Répondez chacun votre tour (même téléphone) ou chacun sur son appareil, puis comparez. Et pour finir en beauté, le jeu : chacun pose à l'autre UNE question qu'il ne lui a JAMAIS posée. Oui, il en reste — c'est promis.",
+  echelle: { labels: ["Jamais ou presque", "Rarement", "De temps en temps", "Souvent", "Très souvent"], valeurs: [1, 2, 3, 4, 5] },
+  items: [
+    { t: "Je pose à mon/ma partenaire une vraie question sur ce qu'il/elle pense ou ressent (pas « t'as pris le pain ? »)", d: "CURIO" },
+    { t: "Quand il/elle me répond, j'écoute jusqu'au bout avant de parler de moi", d: "CURIO" },
+    { t: "Je lui demande son avis avant de prendre une décision qui nous concerne", d: "CURIO" },
+    { t: "J'apprends encore des choses sur lui/elle que je ne savais pas", d: "CURIO" },
+    { t: "Je lui demande des nouvelles de ce qui compte pour lui/elle (son projet, sa famille, son tracas du moment)", d: "CURIO" },
+    { t: "Quand il/elle raconte quelque chose, je pose une question de plus au lieu de passer à autre chose", d: "CURIO" },
+    { t: "Je m'intéresse sincèrement à une de ses passions, même quand ce n'est pas la mienne", d: "CURIO" },
+    { t: "Il m'arrive de lui demander « et toi, tu en penses quoi, au fond ? » sur un sujet sérieux", d: "CURIO" },
+    { t: "Je remarque quand quelque chose a changé chez lui/elle (humeur, envie, opinion) et je lui en parle", d: "CURIO" },
+    { t: "Nos conversations partent parfois dans des sujets inattendus, juste pour le plaisir", d: "CURIO" },
+    { t: "Il/elle me surprend encore — et ça me plaît", d: "CURIO" }
+  ],
+  scoringNote: "Moyenne de 1 à 5 sur les 11 situations. Aucune norme n'existe (quiz maison) : le score compte moins que la comparaison de vos deux résultats — et que la question inédite que vous allez vous poser juste après. C'est elle, le vrai résultat du quiz.",
+  dims: {
+    CURIO: {
+      nom: "Curiosité l'un pour l'autre", format: "moyenne", min: 1, max: 5, valence: true,
+      descriptif: "La curiosité qui reste vivante : poser de vraies questions, écouter les réponses jusqu'au bout, demander l'avis de l'autre, se laisser surprendre. L'autre change tout le temps — la curiosité, c'est refuser de le/la ranger dans un dossier « déjà lu ».",
+      bandes: [
+        { max: 2.5, label: "Curiosité en veilleuse", niveau: "attention", texte: "Belle marge de progression : la curiosité s'est mise en veilleuse — ce qui arrive à tous les couples dont le quotidien tourne à plein régime, et qui se rallume étonnamment vite. La bonne nouvelle : votre partenaire est plein(e) de choses que vous ne savez pas encore, et la recherche montre que quelques vraies questions suffisent à raviver la proximité. Commencez ce soir : une question jamais posée, une vraie écoute. Une seule." },
+        { max: 3.8, label: "Curiosité vivante", niveau: "neutre", texte: "Vous vous posez encore de vraies questions, avec des moments plus mécaniques — c'est le profil le plus courant. Comparez vos réponses : là où vous ne cochez pas pareil, l'un de vous a peut-être soif de plus de questions que l'autre ne le croit. Et jouez le jeu de la question inédite : c'est souvent là que la conversation décolle." },
+        { max: 5, label: "Explorateurs l'un de l'autre", niveau: "ok", texte: "Vous continuez de vous explorer — questions, écoute, surprises : exactement ce que la recherche associe à la proximité qui dure. Célébrez-le, puis relevez le défi quand même : la question jamais posée. Si vous n'en trouvez pas, demandez « quelle question aimerais-tu que je te pose plus souvent ? » — celle-là marche à tous les coups." }
+      ],
+      amelioration: {
+        intro: "La curiosité est un muscle, pas un trait : elle revient dès qu'on la sollicite. Trois jeux à essayer à deux cette semaine.",
+        axes: [
+          { titre: "La question jamais posée", texte: "Défi du soir : chacun pose à l'autre une question qu'il ne lui a jamais posée. Besoin d'inspiration ? Piochez dans l'esprit des « 36 questions » d'Aron : « pour quoi aimerais-tu être connu(e) ? », « c'est quoi, ton souvenir le plus précieux ? », « qu'est-ce que tu n'as jamais osé essayer ? ». À rejouer chaque semaine : le stock est inépuisable." },
+          { titre: "L'écoute qui va au bout", texte: "Une semaine, une règle : quand l'autre raconte quelque chose, poser UNE question de plus avant de parler de soi ou de passer à autre chose. « Et ça t'a fait quoi ? » suffit. C'est le cœur de l'écoute réactive : ce qui crée la proximité, ce n'est pas de tout savoir, c'est que l'autre se sente vraiment écouté." },
+          { titre: "L'interview croisée", texte: "Un soir, jouez au journaliste : dix minutes chacun pour interviewer l'autre sur UN sujet (son enfance, son travail rêvé, son année idéale) — l'interviewé a le droit de passer, l'intervieweur n'a pas le droit de parler de lui. Puis on échange les rôles. Fous rires et découvertes garantis." }
+        ],
+        objectif: "Défi de couple : une question inédite par semaine pendant un mois, chacun son tour. Puis refaites le quiz chacun de votre côté et comparez avec aujourd'hui — le but n'est pas le score, c'est de ne plus jamais se croire « déjà lu » l'un l'autre.",
+        ressources: [
+          "Aron, A., Melinat, E., Aron, E. N., Vallone, R. D., & Bator, R. J. (1997). The experimental generation of interpersonal closeness: A procedure and some preliminary findings. Personality and Social Psychology Bulletin, 23(4), 363-377.",
+          "Reis, H. T., Clark, M. S., & Holmes, J. G. (2004). Perceived partner responsiveness as an organizing construct in the study of intimacy and closeness. In D. Mashek & A. Aron (Eds.), Handbook of Closeness and Intimacy (pp. 201-225). Lawrence Erlbaum.",
+          "Les « 36 questions » originales sont en libre accès dans l'annexe de l'article d'Aron et al. (1997) — et largement reprises en français en ligne."
+        ]
+      }
+    }
+  },
+  source: {
+    instrument: "Quiz maison Iris — Toujours curieux l'un de l'autre ?",
+    statut: "Quiz créé pour cette application, non validé scientifiquement — conçu comme un support de dialogue à deux, pas comme une mesure. Les concepts sous-jacents (le questionnement mutuel progressif comme générateur de proximité ; l'écoute réactive — se sentir écouté, compris et valorisé — comme organisateur de l'intimité) viennent de la recherche citée.",
+    refs: [
+      "Aron, A., Melinat, E., Aron, E. N., Vallone, R. D., & Bator, R. J. (1997). The experimental generation of interpersonal closeness: A procedure and some preliminary findings. Personality and Social Psychology Bulletin, 23(4), 363-377.",
+      "Reis, H. T., Clark, M. S., & Holmes, J. G. (2004). Perceived partner responsiveness as an organizing construct in the study of intimacy and closeness. In D. Mashek & A. Aron (Eds.), Handbook of Closeness and Intimacy (pp. 201-225). Lawrence Erlbaum."
+    ]
+  }
+},
+
+/* ---------------- ESPRIT D'ÉQUIPE ---------------- */
+{
+  id: "equipe2",
+  nom: "Votre esprit d'équipe",
+  sigle: "Quiz duo · 11 items",
+  cat: "À deux",
+  duree: "2-3 min",
+  avertissement: "Étiquette honnête — ceci est un quiz maison créé pour cette application, pas un instrument validé scientifiquement. Utilisez-le comme un support de dialogue à deux, pas comme un audit de votre couple. Les concepts sous-jacents, eux, viennent de la recherche : la charge mentale et l'équité perçue dans le couple (Haicault, 1984) et le « nous » dans la façon de parler, associé au bon fonctionnement des couples (Karan et al., 2019).",
+  intro: "Un couple, c'est aussi une équipe : deux personnes qui gèrent ensemble une maison, des décisions, des imprévus, parfois des enfants — et qui se couvrent mutuellement quand l'un flanche. La recherche montre d'ailleurs que les couples qui disent « nous » plus souvent que « je » vont mieux, et que ce qui compte n'est pas un partage à 50/50 exact, mais le sentiment que c'est JUSTE. Ce quiz fait le tour de votre esprit d'équipe : répartition, décisions, débriefs, solidarité dans la tempête. Répondez chacun, comparez — les écarts de perception sont souvent la découverte la plus utile.",
+  consigne: "Indiquez votre degré d'accord avec chaque affirmation, en pensant à votre couple tel qu'il fonctionne aujourd'hui. Répondez chacun votre tour (même téléphone) ou chacun sur son appareil, sans vous concerter — c'est justement la comparaison de vos deux visions de l'équipe qui fait tout l'intérêt du jeu.",
+  echelle: { labels: ["Pas du tout d'accord", "Plutôt pas d'accord", "Mitigé(e)", "Plutôt d'accord", "Tout à fait d'accord"], valeurs: [1, 2, 3, 4, 5] },
+  items: [
+    { t: "La répartition des tâches chez nous me semble juste — pas forcément 50/50, mais juste", d: "EQUIPE" },
+    { t: "Penser à ce qu'il faut faire (rendez-vous, courses, papiers) ne repose pas toujours sur la même tête", d: "EQUIPE" },
+    { t: "Les décisions qui nous concernent tous les deux, nous les prenons vraiment à deux", d: "EQUIPE" },
+    { t: "Quand l'un de nous flanche (maladie, coup de mou, semaine noire), l'autre assure le relais sans faire payer l'addition", d: "EQUIPE" },
+    { t: "En racontant notre vie, je dis spontanément « nous » plutôt que « moi de mon côté »", d: "EQUIPE" },
+    { t: "Après une galère (imprévu, dispute logistique, week-end raté), nous débriefons pour faire mieux la prochaine fois", d: "EQUIPE" },
+    { t: "Chacun de nous peut dire « je suis débordé(e), aide-moi » sans que ce soit un aveu de faiblesse", d: "EQUIPE" },
+    { t: "Devant les autres (famille, amis, enfants), nous faisons front commun", d: "EQUIPE" },
+    { t: "Ce que fait l'autre pour l'équipe est vu et remercié — pas considéré comme un dû invisible", d: "EQUIPE" },
+    { t: "Quand un problème surgit, notre réflexe est « comment ON règle ça » plutôt que « à qui la faute »", d: "EQUIPE" },
+    { t: "Nous célébrons nos victoires d'équipe, même petites (déménagement survécu, mois compliqué bouclé)", d: "EQUIPE" }
+  ],
+  scoringNote: "Moyenne de 1 à 5 sur les 11 affirmations. Aucune norme n'existe (quiz maison) : la valeur du résultat est dans la comparaison de vos deux scores — et surtout, item par item, dans les endroits où l'un coche « tout à fait d'accord » et l'autre « mitigé(e) ». Chacun de ces écarts est une réunion d'équipe toute trouvée.",
+  dims: {
+    EQUIPE: {
+      nom: "Esprit d'équipe", format: "moyenne", min: 1, max: 5, valence: true,
+      descriptif: "Le couple comme équipe : une répartition ressentie comme juste, des décisions prises à deux, un relais quand l'un flanche, un « nous » qui vient naturellement, des débriefs après les galères. Ce n'est pas la comptabilité qui compte — c'est le sentiment d'être deux sur le même bateau.",
+      bandes: [
+        { max: 2.5, label: "Équipe à souder", niveau: "attention", texte: "Belle marge de progression : l'équipe joue parfois en solo — ce qui arrive très naturellement quand chacun pare au plus pressé, et qui se rééquilibre dès qu'on en parle. Le fait de faire ce quiz à deux est déjà un acte d'équipe. Commencez petit : choisissez ensemble UN item où vos réponses divergent le plus et demandez-vous « qu'est-ce qui ferait monter ça d'un cran ? ». Pas tout réorganiser — un cran." },
+        { max: 3.8, label: "Équipe qui tourne", niveau: "neutre", texte: "L'équipe fonctionne sur l'essentiel, avec des postes moins bien couverts — profil très courant. Comparez vos réponses item par item : la charge invisible (penser aux choses, pas seulement les faire) est souvent l'endroit où les perceptions divergent le plus, et c'est une conversation qui vaut de l'or quand on la prend comme un réglage d'équipe, pas comme un procès. Quel est votre prochain petit réglage ?" },
+        { max: 5, label: "Équipe soudée", niveau: "ok", texte: "Vous décrivez une vraie équipe : répartition ressentie comme juste, décisions à deux, relais quand ça tangue — et un « nous » qui vient tout seul, ce que la recherche associe aux couples qui fonctionnent bien. Célébrez-le comme une victoire d'équipe, justement. Puis posez-vous la question des champions : quel est le poste où l'on pourrait encore mieux se couvrir l'un l'autre ?" }
+      ],
+      amelioration: {
+        intro: "Une équipe ne se décrète pas : elle se règle par petites réunions et petits gestes. Trois défis à tenter ensemble cette semaine — dans la bonne humeur, c'est la règle.",
+        axes: [
+          { titre: "La réunion d'équipe de 15 minutes", texte: "Défi de la semaine : un rendez-vous de 15 minutes, boisson chaude obligatoire, pour passer en revue la semaine qui vient — qui fait quoi, qui pense à quoi, qui risque d'être débordé quand. Le critère de réussite n'est pas un tableau Excel : c'est que chacun reparte en se sentant moins seul avec sa liste." },
+          { titre: "Rendre visible l'invisible", texte: "Un soir, chacun liste tout ce qu'il « gère de tête » pour le foyer (penser aux cadeaux, surveiller le frigo, anticiper les rendez-vous…). Puis on compare les listes. L'objectif n'est pas de compter les points : c'est que la charge invisible devienne visible — c'est exactement ça, la charge mentale, et on ne peut rééquilibrer que ce qu'on voit." },
+          { titre: "Le débrief d'après-galère", texte: "Après la prochaine galère, offrez-vous un débrief de 5 minutes, comme une équipe sportive : qu'est-ce qui a bien marché ? Qu'est-ce qu'on fait autrement la prochaine fois ? Interdiction de chercher un coupable — on cherche un réglage. Et on termine par ce qui a bien marché, toujours." }
+        ],
+        objectif: "Défi de couple : un mois de réunions d'équipe hebdomadaires de 15 minutes. Puis refaites le quiz chacun de votre côté et comparez avec aujourd'hui — si vos deux visions de l'équipe se sont rapprochées, c'est gagné, quel que soit le score.",
+        ressources: [
+          "Haicault, M. (1984). La gestion ordinaire de la vie en deux. Sociologie du travail, 26(3), 268-277 — l'article fondateur de la notion de charge mentale, en libre accès sur Persée.",
+          "Karan, A., Rosenthal, R., & Robbins, M. L. (2019). Meta-analytic evidence that we-talk predicts relationship and personal functioning in romantic couples. Journal of Social and Personal Relationships, 36(9), 2624-2651.",
+          "La BD « Fallait demander » d'Emma (2017) — la vulgarisation de la charge mentale la plus efficace pour lancer la conversation, en libre accès en ligne."
+        ]
+      }
+    }
+  },
+  source: {
+    instrument: "Quiz maison Iris — Votre esprit d'équipe",
+    statut: "Quiz créé pour cette application, non validé scientifiquement — conçu comme un support de dialogue à deux, pas comme une mesure. Les concepts sous-jacents (la charge mentale — penser aux tâches, pas seulement les faire — et l'équité perçue plutôt que l'égalité comptable ; le « nous » dans le langage comme marqueur d'interdépendance associé au bon fonctionnement du couple) viennent de la recherche citée.",
+    refs: [
+      "Haicault, M. (1984). La gestion ordinaire de la vie en deux. Sociologie du travail, 26(3), 268-277.",
+      "Karan, A., Rosenthal, R., & Robbins, M. L. (2019). Meta-analytic evidence that we-talk predicts relationship and personal functioning in romantic couples. Journal of Social and Personal Relationships, 36(9), 2624-2651."
+    ]
+  }
+},
+
+/* ---------------- TENDRESSE AU QUOTIDIEN ---------------- */
+{
+  id: "tendresse2",
+  nom: "Tendresse au quotidien",
+  sigle: "Quiz duo · 10 items",
+  cat: "À deux",
+  duree: "2-3 min",
+  avertissement: "Étiquette honnête — ceci est un quiz maison créé pour cette application, pas un instrument validé scientifiquement. Prenez-le comme un inventaire tendre à faire à deux, pas comme une norme à atteindre : le besoin de contact varie légitimement d'une personne à l'autre, et aucun niveau n'est « le bon ». Le concept sous-jacent, lui, est solidement documenté : le toucher affectif et ses bénéfices relationnels et physiologiques (Jakubiak & Feeney, 2017).",
+  intro: "Une main prise dans la rue, un vrai câlin en rentrant, une épaule frôlée en passant dans la cuisine : le toucher affectif est un langage à part entière — et la recherche montre qu'il apaise le stress, renforce le sentiment de sécurité et nourrit le lien, indépendamment de la sexualité. Ce quiz fait l'inventaire de la tendresse physique dans votre quotidien. Important : il n'y a pas de « bonne dose » universelle — certains sont très tactiles, d'autres moins, et les deux vont très bien. Ce qui compte, c'est de trouver VOTRE accordage à deux.",
+  consigne: "Pour chaque geste, indiquez sa fréquence réelle dans votre couple aujourd'hui, sans tricher ni dans un sens ni dans l'autre. Répondez chacun votre tour (même téléphone) ou chacun sur son appareil, puis comparez — l'écart entre vos deux perceptions, et entre vos deux envies, est le vrai sujet de conversation.",
+  echelle: { labels: ["Jamais ou presque", "Rarement", "De temps en temps", "Souvent", "Tous les jours ou presque"], valeurs: [1, 2, 3, 4, 5] },
+  items: [
+    { t: "Nous nous prenons la main (dans la rue, sur le canapé, en voiture)", d: "TENDRE" },
+    { t: "Nous nous faisons un vrai câlin — celui où on prend le temps, pas l'accolade express", d: "TENDRE" },
+    { t: "En passant l'un près de l'autre à la maison, il y a un geste — une main sur l'épaule, une caresse au passage", d: "TENDRE" },
+    { t: "Nous nous embrassons pour de vrai, pas seulement par réflexe de départ ou d'arrivée", d: "TENDRE" },
+    { t: "Nous nous endormons ou traînons au lit proches l'un de l'autre (blottis, jambes mêlées, main posée)", d: "TENDRE" },
+    { t: "L'un de nous masse ou caresse l'autre (épaules, tête, dos) sans qu'on ait eu besoin de le demander", d: "TENDRE" },
+    { t: "Devant un film ou dans le canapé, nous sommes en contact (tête sur l'épaule, pieds sur les genoux…)", d: "TENDRE" },
+    { t: "Quand l'un de nous est stressé ou triste, l'autre le prend dans ses bras", d: "TENDRE" },
+    { t: "Il nous arrive des gestes tendres en public (main dans le dos, baiser volé) — à notre façon et dans notre style", d: "TENDRE" },
+    { t: "Après une tension, un geste physique nous aide à nous retrouver (une main tendue, un câlin de réconciliation)", d: "TENDRE" }
+  ],
+  scoringNote: "Moyenne de 1 à 5 sur les 10 gestes. Aucune norme n'existe (quiz maison) — et pour ce sujet-là, encore moins qu'ailleurs : le bon niveau de tendresse physique est celui qui convient à VOUS DEUX. Comparez vos scores et, surtout, demandez-vous chacun : est-ce que ce niveau me va ? C'est la seule question qui compte.",
+  dims: {
+    TENDRE: {
+      nom: "Tendresse physique", format: "moyenne", min: 1, max: 5, valence: true,
+      descriptif: "Le toucher affectif hors sexualité : mains prises, câlins, gestes au passage, proximité du soir. Un langage du lien à part entière — dont la « bonne dose » n'existe pas dans l'absolu : elle se règle à deux, entre vos deux besoins, qui peuvent légitimement différer.",
+      bandes: [
+        { max: 2.5, label: "Tendresse discrète", niveau: "attention", texte: "Belle marge de progression — si et seulement si l'un de vous en a envie : certains couples sont peu tactiles et parfaitement heureux ainsi, et ce quiz n'est pas là pour vous normer. La vraie question à vous poser chacun : « est-ce que ce niveau me convient, à moi ? ». Si l'un de vous répond non, la bonne nouvelle est que la tendresse revient par gestes minuscules — un seul geste de plus par jour, celui qui vous tente le plus dans la liste, et on voit ce que ça fait." },
+        { max: 3.8, label: "Tendresse présente", niveau: "neutre", texte: "La tendresse est là, plus dense à certains endroits qu'à d'autres — profil très courant. Comparez vos réponses : les écarts de perception (« mais si, je te touche tout le temps ! » — « ah bon ? ») sont fréquents et instructifs, car un geste donné n'est pas toujours un geste reçu. Demandez-vous chacun quel geste de la liste vous ferait le plus plaisir en plus — les réponses ne coïncident pas toujours, et c'est exactement ça, l'accordage." },
+        { max: 5, label: "Couple tactile", niveau: "ok", texte: "Le toucher fait pleinement partie de votre langage — et la recherche associe ce contact affectif régulier à moins de stress et plus de sécurité ressentie. Si ce niveau convient à vos deux tempéraments, célébrez-le : dites-vous mutuellement le geste qui vous fait le plus de bien (les réponses surprennent parfois). Et vérifiez à l'occasion que chacun y trouve son compte — l'accordage n'est jamais acquis une fois pour toutes." }
+      ],
+      amelioration: {
+        intro: "La tendresse ne s'impose pas, elle s'invite — et chacun a le droit d'en vouloir plus, ou moins, ou autrement. Trois expériences douces à tenter à deux, sans obligation de résultat.",
+        axes: [
+          { titre: "Le câlin de six secondes", texte: "Défi de la semaine : un vrai câlin par jour, d'au moins six secondes — assez long pour qu'on arrête de penser à la suite de la journée. Au moment des retrouvailles du soir, c'est le plus facile à installer. Bilan à sept jours : on garde, on adapte, ou on invente autre chose ?" },
+          { titre: "La carte des gestes", texte: "Un soir, chacun dit à l'autre : le geste que j'adore, le geste qui me laisse indifférent(e), le geste que j'aimerais recevoir plus souvent. Sans jugement et sans obligation — connaître la carte de l'autre évite de donner avec amour un geste qui ne lui fait rien, et révèle parfois des trésors simples." },
+          { titre: "Le geste au passage", texte: "Une semaine : chaque fois que vous croisez l'autre à la maison, un micro-geste — main sur l'épaule, caresse dans le dos, rien de plus. Trois secondes, zéro organisation. Ces micro-contacts sont exactement ce que la recherche décrit : de petits signaux répétés qui disent « je te vois, on est ensemble »." }
+        ],
+        objectif: "Défi de couple : deux semaines de câlin quotidien de six secondes et de gestes au passage — puis un mini-bilan à deux : qu'est-ce que ça a changé, qu'est-ce qu'on garde ? Refaites ensuite le quiz chacun de votre côté : ce sont vos deux ressentis qui diront si l'accordage est le bon, pas le score.",
+        ressources: [
+          "Jakubiak, B. K., & Feeney, B. C. (2017). Affectionate touch to promote relational, psychological, and physical well-being in adulthood: A theoretical model and review of the research. Personality and Social Psychology Review, 21(3), 228-252.",
+          "Jakubiak, B. K., & Feeney, B. C. (2019). Hand-in-hand combat: Affectionate touch promotes relational well-being and buffers stress during conflict. Personality and Social Psychology Bulletin, 45(3), 431-446.",
+          "Le quiz « Langages de l'amour » de cette app (rubrique Couple) — pour situer le toucher parmi vos autres façons de donner et recevoir de l'affection."
+        ]
+      }
+    }
+  },
+  source: {
+    instrument: "Quiz maison Iris — Tendresse au quotidien",
+    statut: "Quiz créé pour cette application, non validé scientifiquement — conçu comme un support de dialogue à deux, pas comme une mesure, et surtout pas comme une norme : le besoin de toucher varie légitimement d'une personne et d'un couple à l'autre. Le concept sous-jacent (le toucher affectif comme promoteur de bien-être relationnel, psychologique et physique, et comme tampon du stress) vient de la recherche citée.",
+    refs: [
+      "Jakubiak, B. K., & Feeney, B. C. (2017). Affectionate touch to promote relational, psychological, and physical well-being in adulthood: A theoretical model and review of the research. Personality and Social Psychology Review, 21(3), 228-252.",
+      "Jakubiak, B. K., & Feeney, B. C. (2019). Hand-in-hand combat: Affectionate touch promotes relational well-being and buffers stress during conflict. Personality and Social Psychology Bulletin, 45(3), 431-446."
+    ]
+  }
+},
+
+/* ---------------- NOUVEAUTÉ & AVENTURE ---------------- */
+{
+  id: "aventure2",
+  nom: "Nouveauté & aventure",
+  sigle: "Quiz duo · 11 items",
+  cat: "À deux",
+  duree: "2-3 min",
+  avertissement: "Étiquette honnête — ceci est un quiz maison créé pour cette application, pas un instrument validé scientifiquement. Prenez-le comme un jeu à deux, pas comme un verdict sur votre couple — aimer ses habitudes n'est pas un défaut. Le concept sous-jacent, lui, vient de la recherche : les activités nouvelles et stimulantes partagées améliorent la qualité ressentie de la relation, notamment en faisant reculer l'ennui (Aron et al., 2000 — la théorie de l'auto-expansion).",
+  intro: "Le samedi soir se ressemble ? C'est normal : les couples fabriquent des routines parce qu'elles sont confortables — et elles le sont. Mais la recherche a montré quelque chose de réjouissant : quand un couple fait ensemble des choses nouvelles et un peu stimulantes, même sept minutes d'activité inhabituelle en laboratoire, la qualité ressentie de la relation remonte — l'effet passe par le recul de l'ennui. Autrement dit : pas besoin de sauter en parachute, il suffit de sortir des rails de temps en temps, à deux. Ce quiz mesure votre dose actuelle de nouveauté partagée — et prépare le terrain pour la prochaine micro-aventure.",
+  consigne: "Pour chaque situation, indiquez sa fréquence réelle dans votre couple ces derniers mois. Répondez chacun votre tour (même téléphone) ou chacun sur son appareil, puis comparez — et terminez par le jeu : choisissez ensemble, séance tenante, votre prochaine micro-aventure (une vraie, avec une date).",
+  echelle: { labels: ["Jamais ou presque", "Rarement", "De temps en temps", "Souvent", "Très souvent"], valeurs: [1, 2, 3, 4, 5] },
+  items: [
+    { t: "Nous essayons ensemble une activité que nous n'avons jamais faite", d: "AVENT" },
+    { t: "Nous testons un restaurant, un plat ou une cuisine inconnus au lieu de nos valeurs sûres", d: "AVENT" },
+    { t: "Nos week-ends sortent du scénario habituel", d: "AVENT" },
+    { t: "L'un de nous surprend l'autre (sortie improvisée, plan inattendu, cadeau sans occasion)", d: "AVENT" },
+    { t: "Nous explorons un endroit où nous n'étions jamais allés — même à vingt minutes de chez nous", d: "AVENT" },
+    { t: "Nous apprenons quelque chose ensemble (jeu, danse, langue, recette au-dessus de notre niveau)", d: "AVENT" },
+    { t: "Nous dormons ailleurs que chez nous, juste pour changer d'air", d: "AVENT" },
+    { t: "Quand une occasion inattendue se présente, nous disons « allez, on y va » plutôt que « une autre fois »", d: "AVENT" },
+    { t: "Nous faisons des projets qui nous font un peu peur — du genre excitant", d: "AVENT" },
+    { t: "Nous cassons volontairement une petite routine (autre itinéraire, autre café, dîner par terre au salon)", d: "AVENT" },
+    { t: "Nous nous racontons « tu te souviens quand on a osé… » — et l'envie de recommencer nous prend", d: "AVENT" }
+  ],
+  scoringNote: "Moyenne de 1 à 5 sur les 11 situations. Aucune norme n'existe (quiz maison) : un couple casanier et heureux n'a rien à prouver. Le score sert surtout de point de départ à la vraie question : est-ce qu'on se manque un peu d'aventure — et laquelle on se programme, là, maintenant ?",
+  dims: {
+    AVENT: {
+      nom: "Nouveauté partagée", format: "moyenne", min: 1, max: 5, valence: true,
+      descriptif: "La dose de nouveauté que vous vivez à deux : activités jamais testées, lieux inconnus, surprises, routines volontairement bousculées. Selon la théorie de l'auto-expansion, ces expériences partagées élargissent chacun des deux — et le couple avec.",
+      bandes: [
+        { max: 2.5, label: "Confort bien installé", niveau: "attention", texte: "Belle marge de progression : la routine a pris ses aises — ce qu'elle fait chez tous les couples, parce qu'elle est confortable et efficace, et ce n'est pas une faute. La très bonne nouvelle : c'est le levier le plus facile et le plus amusant à actionner de toute cette app. La recherche montre qu'une seule activité nouvelle partagée fait déjà bouger le ressenti. Choisissez ensemble UNE micro-aventure (petite, ridicule, peu importe) et mettez une date dessus avant de fermer ce quiz." },
+        { max: 3.8, label: "Aventuriers du dimanche", niveau: "neutre", texte: "De la nouveauté de temps en temps, du confort le reste du temps — c'est le profil le plus courant, et un bon équilibre pour beaucoup de couples. Comparez vos réponses : l'un de vous a peut-être plus faim d'inédit que l'autre ne le pense. Repérez ensemble l'item le plus bas qui vous tente le plus tous les deux : c'est votre prochaine sortie de route — programmez-la avant que la semaine ne la mange." },
+        { max: 5, label: "Duo d'explorateurs", niveau: "ok", texte: "Vous cultivez la nouveauté à deux — exactement ce que la recherche associe à un couple qui continue de grandir et s'ennuie peu. Célébrez-le : racontez-vous votre meilleure aventure commune, celle que vous ressortez à chaque dîner. Puis visez un cran au-dessus, pour le sport : la chose que vous n'avez encore jamais osée ensemble — c'est quoi, et on la tente quand ?" }
+      ],
+      amelioration: {
+        intro: "La nouveauté à deux n'exige ni budget ni billet d'avion : elle exige juste de sortir des rails, un peu, ensemble. Trois défis joyeux pour la semaine — le ridicule est non seulement autorisé, il est recommandé.",
+        axes: [
+          { titre: "Le resto (ou le plat) au hasard", texte: "Cette semaine : un dîner choisi par le hasard — un restaurant jamais testé tiré au sort, ou une recette d'un pays dont vous ne savez rien, cuisinée à deux. La règle d'or de l'auto-expansion : c'est l'inédit qui compte, pas la réussite. Si c'est raté, c'est une anecdote — et les anecdotes sont le trésor de guerre des couples." },
+          { titre: "La micro-aventure à moins de 30 minutes", texte: "Ce week-end : un endroit où aucun de vous n'a jamais mis les pieds, à moins de 30 minutes de chez vous — village, sentier, quartier, musée bizarre. Interdiction de dire « on verra ». L'exotisme commence beaucoup plus près qu'on ne croit, et l'effet « on a exploré ensemble » marche même en covoiturage du dimanche." },
+          { titre: "La boîte à oser", texte: "Chacun écrit sur des papiers 3 choses jamais faites à deux qui le tentent (des minuscules et des folles). On plie, on mélange dans une boîte, et chaque mois on en tire une — qu'on fait vraiment. La boîte transforme « il faudrait qu'on… » en rendez-vous, et le tirage au sort évite de négocier pendant trois heures." }
+        ],
+        objectif: "Défi de couple : une nouveauté partagée par quinzaine pendant deux mois — de la taille que vous voulez, du moment qu'aucun de vous ne l'a jamais faite. Puis refaites le quiz et comparez avec aujourd'hui : le score aura peut-être bougé, mais surtout, vous aurez quatre nouvelles anecdotes à votre trésor de guerre.",
+        ressources: [
+          "Aron, A., Norman, C. C., Aron, E. N., McKenna, C., & Heyman, R. E. (2000). Couples' shared participation in novel and arousing activities and experienced relationship quality. Journal of Personality and Social Psychology, 78(2), 273-284.",
+          "Harasymchuk, C., Cloutier, A., Peetz, J., & Lebreton, J. (2017). Spicing up the relationship? The effects of relational boredom on shared activities. Journal of Social and Personal Relationships, 34(6), 833-854.",
+          "Greater Good in Action (Université de Berkeley) — fiche pratique « Exciting Activities for Couples », fondée sur les travaux d'Aron (ggia.berkeley.edu, en anglais)."
+        ]
+      }
+    }
+  },
+  source: {
+    instrument: "Quiz maison Iris — Nouveauté & aventure",
+    statut: "Quiz créé pour cette application, non validé scientifiquement — conçu comme un support de dialogue à deux, pas comme une mesure. Le concept sous-jacent (l'auto-expansion : les activités nouvelles et stimulantes partagées améliorent la qualité ressentie de la relation, en partie en faisant reculer l'ennui relationnel) vient de la recherche citée.",
+    refs: [
+      "Aron, A., Norman, C. C., Aron, E. N., McKenna, C., & Heyman, R. E. (2000). Couples' shared participation in novel and arousing activities and experienced relationship quality. Journal of Personality and Social Psychology, 78(2), 273-284.",
+      "Harasymchuk, C., Cloutier, A., Peetz, J., & Lebreton, J. (2017). Spicing up the relationship? The effects of relational boredom on shared activities. Journal of Social and Personal Relationships, 34(6), 833-854."
+    ]
+  }
+}
+
+];
+
+TESTS = TESTS.concat(TESTS_9);
+/* ============================================================
    NOYAU : stockage, scoring, graphiques SVG
    ============================================================ */
 "use strict";
@@ -2995,7 +3503,7 @@ function deltaHTML(dim, now, before){
 
 var $app = document.getElementById("app");
 var RUN = null;
-var CADENCE = { gad7:"2 semaines", phq9:"2 semaines", who5:"2 semaines", pss10:"2 à 3 semaines", cbi:"2 semaines", rosenberg:"4 à 6 semaines", erq:"6 semaines", ecr12:"6 à 8 semaines", ucla3:"4 semaines", bigfive:"3 à 6 mois", sd3:"3 à 6 mois", amour:"3 à 6 mois", pprs:"6 semaines", csi4:"4 à 6 semaines", conflits:"6 semaines", gmsex:"6 semaines", bigfive50:"3 à 6 mois", ecrr36:"6 à 8 semaines", csi32:"4 à 6 semaines", ucla20:"4 semaines", isi:"2 à 4 semaines", scssf:"6 semaines", brs:"2 à 3 mois", bas2:"6 semaines", swls:"2 à 3 mois", flourish:"2 à 3 mois", gq6:"6 semaines", auditc:"4 à 6 semaines", carte2:"2 à 3 mois", confiance2:"2 mois", rituels2:"6 semaines" };
+var CADENCE = { gad7:"2 semaines", phq9:"2 semaines", who5:"2 semaines", pss10:"2 à 3 semaines", cbi:"2 semaines", rosenberg:"4 à 6 semaines", erq:"6 semaines", ecr12:"6 à 8 semaines", ucla3:"4 semaines", bigfive:"3 à 6 mois", sd3:"3 à 6 mois", amour:"3 à 6 mois", pprs:"6 semaines", csi4:"4 à 6 semaines", conflits:"6 semaines", gmsex:"6 semaines", bigfive50:"3 à 6 mois", ecrr36:"6 à 8 semaines", csi32:"4 à 6 semaines", ucla20:"4 semaines", isi:"2 à 4 semaines", scssf:"6 semaines", brs:"2 à 3 mois", bas2:"6 semaines", swls:"2 à 3 mois", flourish:"2 à 3 mois", gq6:"6 semaines", auditc:"4 à 6 semaines", carte2:"2 à 3 mois", confiance2:"2 mois", rituels2:"6 semaines", souvenirs2:"3 mois", projets2:"3 mois", rires2:"2 mois", admiration2:"2 mois", curiosite2:"2 mois", equipe2:"2 mois", tendresse2:"6 semaines", aventure2:"2 mois" };
 var ORDRE_CATS = ["Clinique — repérage", "Stress & énergie", "Soi", "Émotions", "Couple", "À deux", "Relations", "Vie & sens", "Personnalité"];
 /* Sous-titres des rubriques sur l'accueil — le nom seul ne suffit pas pour s'orienter */
 var CAT_TAG = {
@@ -3010,7 +3518,7 @@ var CAT_TAG = {
   "Personnalité": "Vos traits stables — ni bons ni mauvais, juste vous."
 };
 /* Contenus non validés scientifiquement, assumés comme tels (étiquetés dans l'app) */
-var QUIZ_MAISON = ["amour", "carte2", "confiance2", "rituels2"];
+var QUIZ_MAISON = ["amour", "carte2", "confiance2", "rituels2", "souvenirs2", "projets2", "rires2", "admiration2", "curiosite2", "equipe2", "tendresse2", "aventure2"];
 
 function go(h){ location.hash = h; }
 function cardKey(ev){
