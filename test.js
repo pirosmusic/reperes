@@ -33,7 +33,7 @@ async function runQuiz(page, testId, optIndex, n){
   // ---- Accueil
   await page.goto(URL);
   await page.waitForTimeout(300);
-  check("Accueil affiche 24 tests", (await page.locator(".card.tap").count()) === 24);
+  check("Accueil affiche 31 tests", (await page.locator(".card.tap").count()) === 31);
   await page.screenshot({ path: OUT + "/01-accueil.png", fullPage: false });
 
   // ---- WHO-5 : tout "Tout le temps" => 100
@@ -173,6 +173,40 @@ async function runQuiz(page, testId, optIndex, n){
   await runQuiz(page, "bas2", 4, 10);
   body = await page.textContent("body");
   check("BAS-2 score 5/5 positive", /5\s*\/\s*5/.test(body.replace(/\s+/g, " ")) && body.includes("Image corporelle positive"));
+
+  // ---- Satisfaction de vie (SWLS) : tout "Tout à fait d'accord" (7) => 35
+  await runQuiz(page, "swls", 6, 5);
+  body = await page.textContent("body");
+  check("SWLS score 35/35", /35\s*\/\s*35/.test(body.replace(/\s+/g, " ")));
+
+  // ---- Épanouissement (Flourishing) : tout 7 => 56
+  await runQuiz(page, "flourish", 6, 8);
+  body = await page.textContent("body");
+  check("Flourishing score 56/56", /56\s*\/\s*56/.test(body.replace(/\s+/g, " ")));
+
+  // ---- Gratitude (GQ-6) : tout 7, items 3 et 6 inversés (7->1) => 4*7+2*1 = 30
+  await runQuiz(page, "gq6", 6, 6);
+  body = await page.textContent("body");
+  check("GQ-6 score 30/42 (items inversés)", /30\s*\/\s*42/.test(body.replace(/\s+/g, " ")));
+
+  // ---- Alcool (AUDIT-C) : tout au maximum => 12/12, bande alerte + ressource
+  await runQuiz(page, "auditc", 4, 3);
+  body = await page.textContent("body");
+  check("AUDIT-C score 12/12", /12\s*\/\s*12/.test(body.replace(/\s+/g, " ")));
+  check("AUDIT-C ressource Alcool info service", body.includes("Alcool info service"));
+
+  // ---- Page À deux : mode d'emploi + 3 quiz duo + renvoi Couple
+  await page.goto(URL + "#/duo"); await page.waitForTimeout(250);
+  body = await page.textContent("body");
+  check("À deux : page présente", body.includes("Comment ça marche ?"));
+  check("À deux : les 3 quiz duo listés", body.includes("partenaire") && body.includes("Confiance") && body.includes("rituels"));
+  await page.screenshot({ path: OUT + "/13-a-deux.png", fullPage: true });
+
+  // ---- Quiz duo carte2 : tout au max (idx4 = 5) => 5/5, jamais de niveau alerte
+  await runQuiz(page, "carte2", 4, 12);
+  body = await page.textContent("body");
+  check("Carte2 score 5/5", /5\s*\/\s*5/.test(body.replace(/\s+/g, " ")));
+  check("Carte2 étiquetage quiz maison présent", body.toLowerCase().includes("non validé"));
 
   // ---- passation UI screenshot
   await page.goto(URL + "#/test/sd3"); await page.waitForTimeout(150);

@@ -153,7 +153,13 @@ nav button.on{color:var(--accent)}
 nav svg{width:22px; height:22px}
 .foot{margin-top:26px; font-size:.78rem; color:var(--muted); text-align:center}
 .foot a{font-weight:600}
-.catlabel{font-size:.78rem; font-weight:700; text-transform:uppercase; letter-spacing:.06em; color:var(--muted); margin:18px 2px 6px}
+.catlabel{font-size:.78rem; font-weight:700; text-transform:uppercase; letter-spacing:.06em; color:var(--muted); margin:18px 2px 2px}
+.cattag{font-size:.82rem; color:var(--ink2); margin:0 2px 6px}
+.catnav{display:flex; gap:8px; overflow-x:auto; padding:6px 0 10px; -webkit-overflow-scrolling:touch; scrollbar-width:none}
+.catnav::-webkit-scrollbar{display:none}
+.catnav button{flex:0 0 auto; background:var(--surface); border:1px solid var(--line); border-radius:99px;
+  color:var(--ink2); font-size:.8rem; font-weight:600; padding:6px 13px; cursor:pointer; font-family:inherit}
+.catnav button:active{border-color:var(--accent); color:var(--accent)}
 .notice{font-size:.83rem; color:var(--ink2); background:var(--surface); border:1px dashed var(--line); border-radius:10px; padding:9px 12px; margin:10px 0}
 .prio{display:flex; gap:10px; align-items:flex-start; padding:10px 0; border-bottom:1px solid var(--grid)}
 .prio:last-child{border-bottom:none}
@@ -167,9 +173,11 @@ nav svg{width:22px; height:22px}
 <nav aria-label="Navigation principale">
   <button id="nav-home" onclick="location.hash='#/'">
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true" focusable="false"><path d="M4 6h16M4 12h10M4 18h7"/></svg>Tests</button>
+  <button id="nav-duo" onclick="location.hash='#/duo'">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M12 20.5C7 16.5 3.5 13.2 3.5 9.6 3.5 7 5.5 5 8 5c1.6 0 3.1.8 4 2.1C12.9 5.8 14.4 5 16 5c2.5 0 4.5 2 4.5 4.6 0 3.6-3.5 6.9-8.5 10.9Z"/></svg>À deux</button>
   <button id="nav-bord" onclick="location.hash='#/bord'">
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true" focusable="false"><path d="M4 19V10M10 19V5M16 19v-7M21 19H3"/></svg>Suivi</button>
   <button id="nav-meth" onclick="location.hash='#/methode'">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true" focusable="false"><path d="M12 3a9 9 0 1 0 0 18 9 9 0 0 0 0-18Z"/><path d="M12 16v-5M12 8h.01"/></svg>Méthode</button>
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true" focusable="false"><path d="M12 3a9 9 0 1 0 0 18 9 9 0 0 0 0-18Z"/><path d="M12 16v-5M12 8h.01"/></svg>Aide</button>
 </nav>
 <script>

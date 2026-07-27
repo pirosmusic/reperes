@@ -5,15 +5,29 @@
 
 var $app = document.getElementById("app");
 var RUN = null;
-var CADENCE = { gad7:"2 semaines", phq9:"2 semaines", who5:"2 semaines", pss10:"2 à 3 semaines", cbi:"2 semaines", rosenberg:"4 à 6 semaines", erq:"6 semaines", ecr12:"6 à 8 semaines", ucla3:"4 semaines", bigfive:"3 à 6 mois", sd3:"3 à 6 mois", amour:"3 à 6 mois", pprs:"6 semaines", csi4:"4 à 6 semaines", conflits:"6 semaines", gmsex:"6 semaines", bigfive50:"3 à 6 mois", ecrr36:"6 à 8 semaines", csi32:"4 à 6 semaines", ucla20:"4 semaines", isi:"2 à 4 semaines", scssf:"6 semaines", brs:"2 à 3 mois", bas2:"6 semaines" };
-var ORDRE_CATS = ["Clinique — repérage", "Stress & énergie", "Soi", "Émotions", "Couple", "Relations", "Personnalité"];
+var CADENCE = { gad7:"2 semaines", phq9:"2 semaines", who5:"2 semaines", pss10:"2 à 3 semaines", cbi:"2 semaines", rosenberg:"4 à 6 semaines", erq:"6 semaines", ecr12:"6 à 8 semaines", ucla3:"4 semaines", bigfive:"3 à 6 mois", sd3:"3 à 6 mois", amour:"3 à 6 mois", pprs:"6 semaines", csi4:"4 à 6 semaines", conflits:"6 semaines", gmsex:"6 semaines", bigfive50:"3 à 6 mois", ecrr36:"6 à 8 semaines", csi32:"4 à 6 semaines", ucla20:"4 semaines", isi:"2 à 4 semaines", scssf:"6 semaines", brs:"2 à 3 mois", bas2:"6 semaines", swls:"2 à 3 mois", flourish:"2 à 3 mois", gq6:"6 semaines", auditc:"4 à 6 semaines", carte2:"2 à 3 mois", confiance2:"2 mois", rituels2:"6 semaines" };
+var ORDRE_CATS = ["Clinique — repérage", "Stress & énergie", "Soi", "Émotions", "Couple", "À deux", "Relations", "Vie & sens", "Personnalité"];
+/* Sous-titres des rubriques sur l'accueil — le nom seul ne suffit pas pour s'orienter */
+var CAT_TAG = {
+  "Clinique — repérage": "Les vérifications de base — anxiété, moral, alcool — avec de vrais seuils cliniques.",
+  "Stress & énergie": "Stress, niveau de batterie, sommeil, capacité à encaisser les coups.",
+  "Soi": "Le regard que vous portez sur vous : estime, auto-compassion, image corporelle.",
+  "Émotions": "Comment vous gérez ce qui vous traverse.",
+  "Couple": "Faire le point sur votre relation — chacun répond de son côté.",
+  "À deux": "Des quiz à faire ensemble, pour discuter et vous rapprocher. Côté jeu assumé.",
+  "Relations": "Le lien aux autres, au-delà du couple.",
+  "Vie & sens": "Mesurer ce qui va bien : satisfaction, épanouissement, gratitude.",
+  "Personnalité": "Vos traits stables — ni bons ni mauvais, juste vous."
+};
+/* Contenus non validés scientifiquement, assumés comme tels (étiquetés dans l'app) */
+var QUIZ_MAISON = ["amour", "carte2", "confiance2", "rituels2"];
 
 function go(h){ location.hash = h; }
 function cardKey(ev){
   if (ev.key === "Enter" || ev.key === " "){ ev.preventDefault(); ev.currentTarget.click(); }
 }
 function setNav(which){
-  ["home","bord","meth"].forEach(function(k){
+  ["home","duo","bord","meth"].forEach(function(k){
     var b = document.getElementById("nav-" + k);
     if (!b) return;
     b.className = (k === which) ? "on" : "";
@@ -37,29 +51,67 @@ function footHTML(){
 }
 
 /* ---------------- ACCUEIL ---------------- */
+function testCardHTML(t){
+  var last = Store.latest(t.id);
+  var status = last ? '<span class="done">Fait le ' + esc(fmtDate(last.date)) + "</span>" : '<span class="muted small">Pas encore fait</span>';
+  return '<div class="card tap" onclick="go(\'#/test/' + t.id + '\')" onkeydown="cardKey(event)" role="button" tabindex="0">' +
+    "<b>" + esc(t.nom) + "</b>" +
+    '<div class="testmeta">' + esc(t.sigle) + " · " + esc(t.duree) + "</div>" +
+    '<div style="margin-top:4px">' + status + "</div></div>";
+}
+function scrollToCat(i){
+  var el = document.getElementById("cat-" + i);
+  if (el && el.scrollIntoView) el.scrollIntoView({ behavior: "smooth", block: "start" });
+}
 function vHome(){
   setNav("home");
   var cats = {};
   TESTS.forEach(function(t){ (cats[t.cat] = cats[t.cat] || []).push(t); });
-  var nSerieux = TESTS.filter(function(t){ return t.id !== "amour"; }).length;
+  var nSerieux = TESTS.filter(function(t){ return QUIZ_MAISON.indexOf(t.id) === -1; }).length;
+  var nMaison = TESTS.length - nSerieux;
   var html = persistBanner() +
-    '<div class="hdr"><div class="brand">Iris <small>· auto-évaluations sérieuses</small></div></div>' +
-    "<h1>Des questionnaires validés par la recherche, pas des quiz de réseaux sociaux.</h1>" +
-    '<p class="small ink2">' + nSerieux + ' instruments issus de la recherche publiée + 1 classique de la pop-psychologie clairement étiqueté comme tel, avec les vrais barèmes, des axes d\'amélioration fondés sur des preuves, et un suivi dans le temps. Vos réponses restent sur votre appareil. <a href="#/methode">Pourquoi cette application →</a></p>';
+    '<div class="hdr"><div class="brand">Iris <small>· prendre soin de soi, chiffres à l\'appui</small></div></div>' +
+    "<h1>Où en êtes-vous ? Faites le point, suivez vos progrès — et jouez à deux.</h1>" +
+    '<p class="small ink2">' + nSerieux + ' questionnaires validés par la recherche (avec les vrais barèmes et des pistes concrètes fondées sur des preuves) + ' + nMaison + ' quiz maison clairement étiquetés comme tels, pour ouvrir la discussion. Rien ne quitte votre appareil. <a href="#/methode">Comment ça marche →</a></p>';
   var nDone = TESTS.filter(function(t){ return Store.latest(t.id); }).length;
-  if (nDone) html += '<button class="btn" onclick="go(\'#/bord\')">Voir mon tableau de bord (' + nDone + " test" + (nDone>1?"s":"") + " fait" + (nDone>1?"s":"") + ")</button>";
-  ORDRE_CATS.forEach(function(cat){
-    if (!cats[cat]) return;
-    html += '<div class="catlabel">' + esc(cat) + "</div>";
-    cats[cat].forEach(function(t){
-      var last = Store.latest(t.id);
-      var status = last ? '<span class="done">Fait le ' + esc(fmtDate(last.date)) + "</span>" : '<span class="muted small">Pas encore fait</span>';
-      html += '<div class="card tap" onclick="go(\'#/test/' + t.id + '\')" onkeydown="cardKey(event)" role="button" tabindex="0">' +
-        "<b>" + esc(t.nom) + "</b>" +
-        '<div class="testmeta">' + esc(t.sigle) + " · " + esc(t.duree) + "</div>" +
-        '<div style="margin-top:4px">' + status + "</div></div>";
-    });
+  if (nDone){
+    html += '<button class="btn" onclick="go(\'#/bord\')">Voir mon tableau de bord (' + nDone + " test" + (nDone>1?"s":"") + " fait" + (nDone>1?"s":"") + ")</button>";
+  } else {
+    html += '<div class="card"><b>Par où commencer ?</b><p class="small ink2" style="margin:4px 0 8px">Trois classiques pour un premier état des lieux en 5 minutes — ou filez directement à la rubrique qui vous parle.</p>' +
+      '<button class="btn slim" onclick="go(\'#/test/who5\')">Bien-être (1 min)</button> ' +
+      '<button class="btn ghost slim" onclick="go(\'#/test/gad7\')">Anxiété (2 min)</button> ' +
+      '<button class="btn ghost slim" onclick="go(\'#/test/rosenberg\')">Estime de soi (2 min)</button></div>';
+  }
+  /* sommaire des rubriques */
+  var visibles = ORDRE_CATS.filter(function(c){ return cats[c]; });
+  html += '<div class="catnav" role="navigation" aria-label="Rubriques">' + visibles.map(function(cat, i){
+    return '<button onclick="scrollToCat(' + i + ')">' + esc(cat) + " · " + cats[cat].length + "</button>";
+  }).join("") + "</div>";
+  visibles.forEach(function(cat, i){
+    html += '<div class="catlabel" id="cat-' + i + '">' + esc(cat) + "</div>" +
+      (CAT_TAG[cat] ? '<p class="cattag">' + esc(CAT_TAG[cat]) + "</p>" : "");
+    cats[cat].forEach(function(t){ html += testCardHTML(t); });
   });
+  html += footHTML();
+  $app.innerHTML = html;
+  window.scrollTo(0, 0);
+}
+
+/* ---------------- À DEUX ---------------- */
+function vDuo(){
+  setNav("duo");
+  var duo = TESTS.filter(function(t){ return t.cat === "À deux"; });
+  var couple = TESTS.filter(function(t){ return t.cat === "Couple"; });
+  var html = persistBanner() +
+    "<h1>À deux : jouez, comparez, discutez.</h1>" +
+    '<p class="ink2">Des quiz pensés pour être faits <b>en couple</b> — pas pour se noter, pour se parler. Ce sont des quiz maison, assumés comme tels : le jeu est inventé ici, mais les idées derrière (connaissance de l\'autre, sécurité, rituels) viennent de la recherche sur les couples.</p>' +
+    '<div class="card"><b>Comment ça marche ?</b><p class="small ink2" style="margin:4px 0 0">1. L\'un de vous répond, puis passe le téléphone à l\'autre (ou chacun sur son appareil — les résultats restent séparés par appareil).<br>2. Comparez vos réponses <b>à voix haute</b> — c\'est là que ça devient intéressant.<br>3. Piochez un défi dans les pistes proposées et retentez le quiz dans quelques semaines.</p></div>';
+  duo.forEach(function(t){ html += testCardHTML(t); });
+  if (couple.length){
+    html += '<div class="catlabel">Envie d\'aller plus loin ?</div>' +
+      '<p class="cattag">Les questionnaires « Couple », validés par la recherche, se font chacun de son côté — puis on compare aussi, si on veut.</p>';
+    couple.forEach(function(t){ html += testCardHTML(t); });
+  }
   html += footHTML();
   $app.innerHTML = html;
   window.scrollTo(0, 0);
@@ -408,6 +460,7 @@ function render(){
   var h = location.hash || "#/";
   var m;
   if (h === "#/" || h === "") return vHome();
+  if (h === "#/duo") return vDuo();
   if (h === "#/bord") return vBord();
   if (h === "#/methode") return vMethode();
   if ((m = h.match(/^#\/test\/([a-z0-9]+)$/))) return vTestIntro(m[1]);

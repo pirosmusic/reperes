@@ -28,6 +28,8 @@ src/data2.js    → TESTS_2 : PSS-10, WHO-5, ECR-12, SD3 (triade sombre)
 src/data3.js    → TESTS_3 : ERQ, CBI, UCLA-3, Langages de l'amour (+ contenus transverses : URGENCES, METHODE) ; construit TESTS = concat(1,2,3)
 src/data4.js    → TESTS_4 : PPRS (réactivité perçue), CSI-4 (satisfaction couple), Conflits (IAI + exigence-retrait), GMSEX (satisfaction intime) ; réassigne TESTS = concat(1,2,3,4)
 src/data5.js    → TESTS_5 : versions longues en complément des courtes (Big Five IPIP-50, ECR-R 36 items, CSI-32, UCLA-20) + nouveaux thèmes (sommeil, auto-compassion, résilience, image corporelle) ; réassigne TESTS = TESTS.concat(TESTS_5)
+src/data6.js    → TESTS_6 : rubrique « Vie & sens » (SWLS satisfaction de vie, Flourishing Scale, GQ-6 gratitude) + AUDIT-C (alcool, Clinique — repérage) ; réassigne TESTS = TESTS.concat(TESTS_6)
+src/data7.js    → TESTS_7 : rubrique « À deux » (carte2, confiance2, rituels2) — quiz MAISON à faire en couple, non validés et étiquetés comme tels (même logique éditoriale que « amour »), ton ludique-bienveillant, jamais de niveau « alerte » ; réassigne TESTS = TESTS.concat(TESTS_7)
 src/core.js     → moteur : Store (localStorage), scoring, gaugeSVG, lineChartSVG, sparkSVG, ecrMapSVG, deltaHTML
 src/views.js    → toutes les vues (accueil, intro test, passation, résultats, historique, tableau de bord, méthode), routeur, handlers
 src/tail.html   → fermeture </script></body></html>
@@ -36,14 +38,14 @@ src/tail.html   → fermeture </script></body></html>
 **Commande de build** (aucun outil requis, juste `cat`) :
 
 ```bash
-cd src && cat head.html data1.js data2.js data3.js data4.js data5.js core.js views.js tail.html > ../index.html
+cd src && cat head.html data1.js data2.js data3.js data4.js data5.js data6.js data7.js core.js views.js tail.html > ../index.html
 ```
 
 (ou directement `bash build.sh` depuis la racine du dépôt, qui fait exactement ça.)
 
 Toujours vérifier la syntaxe JS avant de reconstruire :
 ```bash
-cat data1.js data2.js data3.js data4.js data5.js core.js views.js > /tmp/all.js && node --check /tmp/all.js
+cat data1.js data2.js data3.js data4.js data5.js data6.js data7.js core.js views.js > /tmp/all.js && node --check /tmp/all.js
 ```
 
 ## Modèle de données d'un test
@@ -81,7 +83,11 @@ Chaque test dans `TESTS` a la forme :
 
 Le moteur (`computeScores` dans `core.js`) gère automatiquement les items inversés et les échelles multiples par item. Rien à coder côté scoring pour ajouter un test standard — juste remplir cette structure.
 
-## Les 24 tests actuellement inclus
+## Navigation (juillet 2026)
+
+4 onglets : **Tests** (accueil : accroche, bloc « Par où commencer » tant que rien n'est fait, sommaire de rubriques cliquable `.catnav`, sections par catégorie avec sous-titre `CAT_TAG`), **À deux** (`#/duo` : mode d'emploi du jeu en couple + quiz maison cat « À deux » + renvoi vers les tests « Couple »), **Suivi** (`#/bord`), **Aide** (`#/methode`, ex-« Méthode »). La constante `QUIZ_MAISON` dans views.js liste les contenus non validés (amour, carte2, confiance2, rituels2) pour le compteur d'accueil — à maintenir si on en ajoute.
+
+## Les 31 tests actuellement inclus
 
 | id | Nom | Catégorie |
 |---|---|---|
@@ -109,6 +115,13 @@ Le moteur (`computeScores` dans `core.js`) gère automatiquement les items inver
 | scssf | Auto-compassion (SCS-SF) | Soi |
 | brs | Résilience (BRS) | Stress & énergie |
 | bas2 | Image corporelle (BAS-2) | Soi |
+| swls | Satisfaction de vie (SWLS) | Vie & sens |
+| flourish | Épanouissement (Flourishing Scale) | Vie & sens |
+| gq6 | Gratitude (GQ-6) | Vie & sens |
+| auditc | Consommation d'alcool (AUDIT-C) | Clinique — repérage |
+| carte2 | Connaissez-vous votre partenaire ? | À deux *(quiz maison, étiqueté)* |
+| confiance2 | Confiance & sécurité à deux | À deux *(quiz maison, étiqueté)* |
+| rituels2 | Vos rituels de connexion | À deux *(quiz maison, étiqueté)* |
 
 Tous les instruments sont libres de droits ou d'usage libre, **à une exception près et assumée** : l'ISI (sommeil) est protégé par le droit d'auteur (Morin / Mapi Research Trust) et utilisé ici dans un cadre strictement personnel non commercial — voir `source.statut` du test `isi` dans `data5.js`, et ne jamais présenter cet instrument comme « libre de droits » comme les autres. Les items français sont soit des traductions validées existantes (Rosenberg via Vallières & Vallerand, ERQ via Christophe et al.), soit des adaptations réalisées pour cette app à partir des items originaux publiés (référencées dans `source.refs` de chaque test).
 
