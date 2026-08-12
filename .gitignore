@@ -1,2 +1,6 @@
 node_modules/
 shots/
+
+# graphify : graphe régénérable (graphify update .)
+.graphify/
+graphify-out/

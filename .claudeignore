@@ -1,0 +1,59 @@
+# Dependances et sorties de build
+node_modules/
+.next/
+.astro/
+.output/
+.vercel/
+.wrangler/
+dist/
+build/
+coverage/
+.turbo/
+
+# Python
+.venv/
+.venv-*/
+venv/
+__pycache__/
+.pytest_cache/
+.ruff_cache/
+
+# Index de code et caches d'outils
+.graphify/
+graphify-out/
+cache/
+
+# Verrous
+package-lock.json
+pnpm-lock.yaml
+yarn.lock
+
+# Binaires et medias
+*.png
+*.jpg
+*.jpeg
+*.webp
+*.avif
+*.svg
+*.pdf
+*.mp4
+*.mov
+*.mp3
+*.wav
+*.zip
+*.docx
+*.xlsx
+*.pptx
+
+# Donnees et sauvegardes
+*.sqlite
+*.db
+*.dump
+*.sql
+backups/
+exports/
+
+# Divers
+.env*
+*.log
+.DS_Store
