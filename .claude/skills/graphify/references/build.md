@@ -443,7 +443,7 @@ graphify describe .
 # Only fill missing descriptions (idempotent):
 graphify describe . --fill-missing
 # Direct mode with API key:
-graphify describe . --description-mode direct --description-backend anthropic
+graphify describe . --description-mode direct --description-backend anthropic --description-model claude-haiku-5-5
 ```
 
 `graphify describe` loads the existing `graph.json`, runs the same description pipeline as `graphify update --description`, and writes back — without touching node IDs, edges, communities, or any other node attributes. Only `description` is added/updated. Use it when `graphify update` would re-extract and destroy a curated graph.
